@@ -1,0 +1,23 @@
+import React from "react";
+import fetch from "isomorphic-unfetch";
+
+const Home = ({ articles, partners }) => {
+  return (
+    <>
+      <h1>Welcome to the Association for the Visually Impaired</h1>
+      {/* Render articles and partners */}
+    </>
+  );
+};
+
+export async function getServerSideProps() {
+  const articlesRes = await fetch("http://localhost:3000/api/articles/view");
+  const articles = await articlesRes.json();
+
+  const partnersRes = await fetch("http://localhost:3000/api/partners/view");
+  const partners = await partnersRes.json();
+
+  return { props: { articles: articles.data, partners: partners.data } };
+}
+
+export default Home;
