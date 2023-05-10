@@ -3,10 +3,10 @@ import fetch from "isomorphic-unfetch";
 
 const Home = ({ articles, partners }) => {
   return (
-    <>
+    <React.Fragment>
       <h1>Welcome to the Association for the Visually Impaired</h1>
       {/* Render articles and partners */}
-    </>
+    </React.Fragment>
   );
 };
 
