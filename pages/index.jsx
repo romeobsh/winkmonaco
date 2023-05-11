@@ -11,10 +11,10 @@ const Home = ({ articles, partners }) => {
 };
 
 export async function getServerSideProps() {
-  const articlesRes = await fetch("http://localhost:3000/api/articles/view");
+  const articlesRes = await fetch(process.env.API_URL + "/api/articles/view");
   const articles = await articlesRes.json();
 
-  const partnersRes = await fetch("http://localhost:3000/api/partners/view");
+  const partnersRes = await fetch(process.env.API_URL + "/api/partners/view");
   const partners = await partnersRes.json();
 
   return { props: { articles: articles.data, partners: partners.data } };

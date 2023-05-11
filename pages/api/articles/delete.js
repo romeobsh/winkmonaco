@@ -7,10 +7,10 @@ const handler = nextConnect();
 handler.delete(async (req, res) => {
   await dbConnect();
 
-  const { id } = req.body;
+  const { id } = req.query;
 
   try {
-    await Article.findByIdAndDelete(id);
+    await Article.findByIdAndRemove(id);
     res.status(200).json({ success: true });
   } catch (error) {
     res.status(400).json({ success: false });
