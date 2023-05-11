@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const allowedAdminEmails = ["steven.lucas2201@gmail.com"]; // Allowed admin email addresses
+const allowedAdminEmails = ["steven.lucas2201@gmail.com", "winkmonaco@gmail.com"]; // Allowed admin email addresses
 
 export const authOptions = {
   // Configure one or more authentication providers
