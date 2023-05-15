@@ -7,7 +7,7 @@ const handler = nextConnect();
 handler.delete(async (req, res) => {
   await dbConnect();
 
-  const { id } = req.body;
+  const { id } = req.query;
 
   try {
     await Product.findByIdAndDelete(id);

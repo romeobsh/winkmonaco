@@ -1,8 +1,6 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut, providers } from "next-auth/client";
 
-const Login = () => {
-  const { data: session } = useSession();
-
+const Login = ({ providers }) => {
   if (session) {
     return (
       <div>
@@ -13,11 +11,25 @@ const Login = () => {
   } else {
     return (
       <div>
-        <p>You are not signed in</p>
-        <button onClick={() => signIn()}>Sign in</button>
+        {Object.values(providers).map((provider) => {
+          return (
+            <div key={provider.name}>
+              <button onClick={() => signIn(provider.id)}>Sign in with {provider.name}</button>
+            </div>
+          );
+        })}
       </div>
     );
   }
 };
 
 export default Login;
+
+export async function getServerSideProps(context) {
+  console.log(getProviders(context));
+  return {
+    props: {
+      providers: await getProviders(context),
+    },
+  };
+}

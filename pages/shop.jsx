@@ -9,7 +9,7 @@ const Shop = ({ products }) => {
 };
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/products/view");
+  const res = await fetch(process.env.API_URL + "/api/products/view");
   const products = await res.json();
 
   return { props: { products: products.data } };

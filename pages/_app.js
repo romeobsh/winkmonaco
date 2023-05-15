@@ -8,6 +8,7 @@ import withConditionalRedirect from "@/lib/withConditionalRedirect";
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const isAdminRoute = router.pathname.startsWith("/admin");
+  console.log(isAdminRoute);
 
   const WrappedComponent = withConditionalRedirect(Component);
 
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <WrappedComponent {...pageProps} />
       ) : (
         <Layout>
-          <WrappedComponent {...pageProps} />
+          <Component {...pageProps} />
         </Layout>
       )}
     </SessionProvider>
