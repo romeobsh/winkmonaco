@@ -1,6 +1,5 @@
 import React from "react";
 import { signOut } from "next-auth/react";
-import withConditionalRedirect from "@/lib/withConditionalRedirect";
 
 const Admin = () => {
   return (
@@ -11,4 +10,4 @@ const Admin = () => {
   );
 };
 
-export default withConditionalRedirect(Admin);
+export default Admin;

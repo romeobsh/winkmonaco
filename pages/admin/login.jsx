@@ -1,6 +1,8 @@
-import { signIn, signOut, providers } from "next-auth/client";
+import { signIn, signOut, getProviders, useSession } from "next-auth/react";
 
 const Login = ({ providers }) => {
+  const { data: session } = useSession();
+
   if (session) {
     return (
       <div>
