@@ -17,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const drawerWidth = 300;
 
@@ -84,7 +85,14 @@ function Navbar(props) {
               size='small'
               variant='standard'
               disableUnderline
-              sx={{ mr: 1, ".MuiOutlinedInput-notchedOutline": { border: 0 } }}
+              color='primary'
+              sx={{
+                mr: 1,
+                ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                ".MuiSvgIcon-root ": {
+                  fill: "#60C7FA !important",
+                },
+              }}
               onChange={handleChangeLanguage}
               value={language}
               displayEmpty
@@ -92,9 +100,9 @@ function Navbar(props) {
                 return (
                   <Box sx={{ display: "flex", gap: 1 }}>
                     {language === "FR" ? (
-                      <img src={"/images/france.png"} style={{ width: "30px", padding: "3px 0 0 5px" }} />
+                      <Image src={"/images/france.png"} width={30} height={30} alt='drapeau français' style={{ padding: "3px 0 0 5px" }} />
                     ) : (
-                      <img src={"/images/united-kingdom.png"} style={{ width: "30px", padding: "3px 0 0 5px" }} />
+                      <Image src={"/images/united-kingdom.png"} width={30} height={30} alt='drapeau uk' style={{ padding: "3px 0 0 5px" }} />
                     )}
                   </Box>
                 );
