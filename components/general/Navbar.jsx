@@ -1,23 +1,9 @@
 import React, { useState } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  MenuItem,
-  Select,
-  SwipeableDrawer,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, MenuItem, Select, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
 const drawerWidth = 300;
 
@@ -50,7 +36,7 @@ function Navbar(props) {
       <List>
         {tabs.map((tab) => (
           <ListItem key={tab.name + "drawer"} sx={{ justifyContent: "right" }}>
-            <Link href={tab.path}>
+            <Link href={tab.path} style={{ textDecoration: "none" }}>
               <ListItemButton selected={router.pathname === tab.path}>
                 <ListItemText primary={tab.name} />
                 <HorizontalRule color='primary' fontSize='large' sx={{ transform: "rotate(90deg)" }} />
@@ -69,7 +55,7 @@ function Navbar(props) {
       <AppBar position='fixed' elevation={mobileOpen ? 0 : 3} sx={{ background: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, borderBottom: 0 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Link href={"/"}>
-            <img src='/icons/ecritures.png' alt='Logo' style={{ objectFit: "contain", width: "70px" }} />
+            <Image src='/icons/ecritures.png' alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
           </Link>
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             {tabs.map((tab) => (
@@ -111,7 +97,7 @@ function Navbar(props) {
               <MenuItem value={"FR"}>Français</MenuItem>
               <MenuItem value={"EN"}>English</MenuItem>
             </Select>
-            <Button variant='contained' color='secondary' size='small' endIcon={<Favorite />}>
+            <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
               Faire un don
             </Button>
             <Button
