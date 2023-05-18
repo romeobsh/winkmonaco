@@ -1,11 +1,23 @@
-import { Handshake, Newspaper, Store, VolunteerActivism } from "@mui/icons-material";
-import { AppBar, Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { Handshake, Logout, Newspaper, Store, VolunteerActivism } from "@mui/icons-material";
+import { AppBar, Box, Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import * as React from "react";
 
-const drawerWidth = 220;
+const drawerWidth = 240;
 
-export default function AdminSidebar() {
+const adminTabs = [
+  { name: "Dons", icon: <VolunteerActivism />, path: "/admin/donate" },
+  { name: "Shop", icon: <Store />, path: "/admin/shop" },
+  { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
+  { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
+];
+
+export default function AdminSidebar(props) {
+  const router = useRouter();
+
   return (
     <React.Fragment>
       <Drawer
@@ -20,27 +32,36 @@ export default function AdminSidebar() {
         variant='permanent'
         anchor='left'>
         <Toolbar sx={{ justifyContent: "center" }}>
-          <Image alt='Logo' src='/icons/ecritures.png' width={100} height={50} style={{ objectFit: "contain" }} />
+          <Image alt='Logo' src='/icons/ecritures.png' width={85} height={51} />
         </Toolbar>
         <Divider />
         <List>
           {adminTabs.map((tab, index) => (
             <ListItem key={tab.name} disablePadding>
-              <ListItemButton>
-                <ListItemIcon color='#09003c'>{tab.icon}</ListItemIcon>
-                <ListItemText primary={tab.name} />
-              </ListItemButton>
+              <Link href={tab.path} style={{ textDecoration: "none" }}>
+                <ListItemButton selected={router.pathname === tab.path}>
+                  <ListItemIcon>{tab.icon}</ListItemIcon>
+                  <ListItemText primary={tab.name} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
+        <Box>
+          <Divider />
+          <List>
+            <ListItemButton onClick={() => signOut()}>
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText primary='Déconnexion' />
+            </ListItemButton>
+          </List>
+        </Box>
       </Drawer>
+      <Box component='main' sx={{ p: 2 }}>
+        {props.children}
+      </Box>
     </React.Fragment>
   );
 }
-
-const adminTabs = [
-  { name: "Dons", icon: <VolunteerActivism /> },
-  { name: "Shop", icon: <Store /> },
-  { name: "Articles", icon: <Newspaper /> },
-  { name: "Partenaires", icon: <Handshake /> },
-];

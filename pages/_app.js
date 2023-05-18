@@ -1,10 +1,10 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import AdminLayout from "@/components/general/AdminLayout";
 import { Box, CircularProgress, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
 import Navbar from "@/components/general/Navbar";
+import AdminSidebar from "@/components/general/AdminSidebar";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -18,9 +18,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         </Head>
         {isAdminPage ? (
           <Auth>
-            <AdminLayout>
+            <AdminSidebar>
               <Component {...pageProps} />
-            </AdminLayout>
+            </AdminSidebar>
           </Auth>
         ) : (
           <Navbar>

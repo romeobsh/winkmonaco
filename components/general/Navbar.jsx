@@ -97,9 +97,11 @@ function Navbar(props) {
               <MenuItem value={"FR"}>Français</MenuItem>
               <MenuItem value={"EN"}>English</MenuItem>
             </Select>
-            <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
-              Faire un don
-            </Button>
+            <Link href='/donate'>
+              <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
+                Faire un don
+              </Button>
+            </Link>
             <Button
               aria-label='open drawer'
               edge='start'
