@@ -20,47 +20,49 @@ export default function AdminSidebar(props) {
 
   return (
     <React.Fragment>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
+      <Box sx={{ display: "flex" }}>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant='permanent'
-        anchor='left'>
-        <Toolbar sx={{ justifyContent: "center" }}>
-          <Image alt='Logo' src='/icons/ecritures.png' width={85} height={51} />
-        </Toolbar>
-        <Divider />
-        <List>
-          {adminTabs.map((tab, index) => (
-            <ListItem key={tab.name} disablePadding>
-              <Link href={tab.path} style={{ textDecoration: "none" }}>
-                <ListItemButton selected={router.pathname === tab.path}>
-                  <ListItemIcon>{tab.icon}</ListItemIcon>
-                  <ListItemText primary={tab.name} />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-          ))}
-        </List>
-        <Box>
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant='permanent'
+          anchor='left'>
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <Image alt='Logo' src='/icons/ecritures.png' width={85} height={51} />
+          </Toolbar>
           <Divider />
           <List>
-            <ListItemButton onClick={() => signOut()}>
-              <ListItemIcon>
-                <Logout />
-              </ListItemIcon>
-              <ListItemText primary='Déconnexion' />
-            </ListItemButton>
+            {adminTabs.map((tab, index) => (
+              <ListItem key={tab.name} disablePadding>
+                <Link href={tab.path} style={{ textDecoration: "none" }}>
+                  <ListItemButton selected={router.pathname === tab.path}>
+                    <ListItemIcon>{tab.icon}</ListItemIcon>
+                    <ListItemText primary={tab.name} />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            ))}
           </List>
+          <Box>
+            <Divider />
+            <List>
+              <ListItemButton onClick={() => signOut()}>
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon>
+                <ListItemText primary='Déconnexion' />
+              </ListItemButton>
+            </List>
+          </Box>
+        </Drawer>
+        <Box component='main' sx={{ p: 2 }}>
+          {props.children}
         </Box>
-      </Drawer>
-      <Box component='main' sx={{ p: 2 }}>
-        {props.children}
       </Box>
     </React.Fragment>
   );

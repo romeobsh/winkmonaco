@@ -17,11 +17,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         </Head>
         {isAdminPage ? (
-          <Auth>
-            <AdminSidebar>
-              <Component {...pageProps} />
-            </AdminSidebar>
-          </Auth>
+          <AdminSidebar>
+            {/* <Auth> DOIT ETRE AVANT LA SIDEBAR */}
+            <Component {...pageProps} />
+            {/* </Auth> */}
+          </AdminSidebar>
         ) : (
           <Navbar>
             <Component {...pageProps} />

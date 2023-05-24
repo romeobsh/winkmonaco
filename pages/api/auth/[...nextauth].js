@@ -12,6 +12,18 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log(email);
+      return true;
+    },
+  },
+  theme: {
+    colorScheme: "light", // "auto" | "dark" | "light"
+    brandColor: "#60C7FA", // Hex color code
+    logo: "/icons/ecritures.png", // Absolute URL to image
+    buttonText: "", // Hex color code
+  },
   secret: process.env.JWT_SECRET,
 };
 
