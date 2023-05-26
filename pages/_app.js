@@ -1,7 +1,7 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Box, CircularProgress, ThemeProvider } from "@mui/material";
+import { Box, CircularProgress, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
 import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
@@ -16,6 +16,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         </Head>
+        <CssBaseline />
         {isAdminPage ? (
           <AdminSidebar>
             {/* <Auth> DOIT ETRE AVANT LA SIDEBAR */}

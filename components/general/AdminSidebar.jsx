@@ -28,6 +28,7 @@ export default function AdminSidebar(props) {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
+              borderBottom: 0,
             },
           }}
           variant='permanent'
