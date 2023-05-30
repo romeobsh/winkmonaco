@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { articlesColumns } from "@/lib/tableColumns/articles";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 import CustomDatagridToolbar from "@/components/datagrid/CustomDatagridToolbar";
 import axios from "axios";
 
@@ -33,7 +33,9 @@ export default function ArticleList() {
         pageSize={10}
         slots={{
           toolbar: CustomDatagridToolbar,
+          loadingOverlay: LinearProgress,
         }}
+        loading={loading}
       />
     </Box>
   );

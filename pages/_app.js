@@ -18,11 +18,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         </Head>
         <CssBaseline />
         {isAdminPage ? (
-          <AdminSidebar>
-            {/* <Auth> DOIT ETRE AVANT LA SIDEBAR */}
-            <Component {...pageProps} />
-            {/* </Auth> */}
-          </AdminSidebar>
+          <Auth>
+            <AdminSidebar>
+              <Component {...pageProps} />
+            </AdminSidebar>
+          </Auth>
         ) : (
           <Navbar>
             <Component {...pageProps} />
@@ -39,8 +39,11 @@ function Auth({ children }) {
 
   if (status === "loading") {
     return (
-      <Box sx={{ display: "flex", alignItems: "center", height: "100%", width: "100%" }}>
-        <CircularProgress size={100} />
+      <Box sx={{ display: "flex", height: "100%", width: "100%" }}>
+        <CircularProgress
+          size={100}
+          sx={{ position: "absolute", top: "45%", left: "50%", transform: "translate(-50%, -50%)", WebkitTransform: "translate(-50%, -50%)" }}
+        />
       </Box>
     );
   }

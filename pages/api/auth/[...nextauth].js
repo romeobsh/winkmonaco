@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const allowedAdminEmails = ["steven.lucas2201@gmail.com", "winkmonaco@gmail.com"]; // Allowed admin email addresses
+const allowedAdminEmails = ["steven.lucas2201@gmail.com", "winkmonaco@gmail.com", "thomas.rodier13@gmail.com"]; // Allowed admin email addresses
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -14,8 +14,10 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(email);
-      return true;
+      if (allowedAdminEmails.includes(user.email)) {
+        return true;
+      }
+      return false;
     },
   },
   theme: {
