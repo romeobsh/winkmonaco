@@ -1,6 +1,7 @@
 import Loading from "@/components/general/Loading";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -61,9 +62,39 @@ const Partners = () => {
               width={600}
               height={300}
             />
+            <Typography
+              variant='body1'
+              sx={{
+                marginTop: 4,
+              }}>
+              Vous souhaitez devenir partenaire ? Rendez-vous sur la page{" "}
+              <Link style={{ textDecoration: "none", color: "#22c6fe", fontWeight: 600 }} href='/contact'>
+                Contact
+              </Link>{" "}
+              !
+            </Typography>
           </React.Fragment>
         )}
-        {!loading && partners !== undefined && <Typography>{partners.firstText}</Typography>}
+        {!loading && partners !== undefined && (
+          <React.Fragment>
+            <Typography
+              variant='body1'
+              sx={{
+                marginTop: 4,
+              }}>
+              {partners.firstText}
+            </Typography>
+            {console.log(partners.imageUrl)}
+            <img src={partners.imageUrl} style={{ objectFit: "cover", marginTop: "40px", borderRadius: "10px", width: "600px" }} alt='Image partenaires' />
+            <Typography
+              variant='body1'
+              sx={{
+                marginTop: 4,
+              }}>
+              {partners.secondText}
+            </Typography>
+          </React.Fragment>
+        )}
       </Box>
     </React.Fragment>
   );
