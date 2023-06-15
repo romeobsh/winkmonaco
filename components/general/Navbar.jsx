@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
 import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, MenuItem, Select, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import { LanguageContext } from "./LanguageContext";
+import Translation from "./Translation";
 
+// Largeur de la sidebar mobile
 const drawerWidth = 300;
-
-const tabs = [
-  { name: "Donner", path: "/donate" },
-  { name: "Aider", path: "/help" },
-  { name: "Actualités", path: "/articles" },
-  { name: "Boutique", path: "/shop" },
-  { name: "Partenaires", path: "/partners" },
-  { name: "Contact", path: "/contact" },
-];
 
 function Navbar(props) {
   const router = useRouter();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [language, setLanguage] = useState("FR");
+  const { language, changeLanguage } = useContext(LanguageContext);
+
+  // Onglets
+  const tabs = [
+    { name: <Translation tKey='nav.donate' />, path: "/donate" },
+    { name: <Translation tKey='nav.help' />, path: "/help" },
+    { name: <Translation tKey='nav.articles' />, path: "/articles" },
+    { name: <Translation tKey='nav.shop' />, path: "/shop" },
+    { name: <Translation tKey='nav.partners' />, path: "/partners" },
+    { name: <Translation tKey='nav.contact' />, path: "/contact" },
+  ];
 
   const handleChangeLanguage = (event) => {
-    setLanguage(event.target.value);
+    changeLanguage(event.target.value);
   };
 
   const handleDrawerToggle = () => {
@@ -52,8 +56,12 @@ function Navbar(props) {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", height: "64px" }}>
-        <AppBar position='fixed' elevation={mobileOpen ? 0 : 3} sx={{ background: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, borderBottom: 0 }}>
+      <Box sx={{ display: "flex", height: "64px", maxWidth: "100vw" }}>
+        <AppBar
+          position='fixed'
+          component='nav'
+          elevation={mobileOpen ? 0 : 2}
+          sx={{ background: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, borderBottom: 0, maxWidth: "100vw" }}>
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Link href={"/"}>
               <Image src='/icons/ecritures.png' alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
@@ -86,7 +94,7 @@ function Navbar(props) {
                 renderValue={(value) => {
                   return (
                     <Box sx={{ display: "flex", gap: 1 }}>
-                      {language === "FR" ? (
+                      {language === "fr" ? (
                         <Image src={"/images/france.png"} width={30} height={30} alt='drapeau français' style={{ padding: "3px 0 0 5px" }} />
                       ) : (
                         <Image src={"/images/united-kingdom.png"} width={30} height={30} alt='drapeau uk' style={{ padding: "3px 0 0 5px" }} />
@@ -95,12 +103,12 @@ function Navbar(props) {
                   );
                 }}>
                 {" "}
-                <MenuItem value={"FR"}>Français</MenuItem>
-                <MenuItem value={"EN"}>English</MenuItem>
+                <MenuItem value={"fr"}>Français</MenuItem>
+                <MenuItem value={"en"}>English</MenuItem>
               </Select>
               <Link href='/donate'>
                 <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
-                  Faire un don
+                  <Translation tKey='nav.donate' />{" "}
                 </Button>
               </Link>
               <Button
@@ -145,7 +153,7 @@ function Navbar(props) {
           {drawer}
         </SwipeableDrawer>
       </Box>
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+      <Box component='main' sx={{ flexGrow: 1, p: 3, maxWidth: "100vw", overflow: "hidden" }}>
         {props.children}
       </Box>
     </React.Fragment>

@@ -5,12 +5,21 @@ const partnerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  enFirstText: {
+    type: String,
+    required: true,
+  },
   imageUrl: {
     type: String,
     required: true,
   },
   secondText: {
     type: String,
+    required: true,
+  },
+  enSecondText: {
+    type: String,
+    required: true,
   },
 });
 

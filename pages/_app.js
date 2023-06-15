@@ -1,10 +1,12 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Box, CircularProgress, CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
 import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
+import { LanguageProvider } from "@/components/general/LanguageContext";
+import Loading from "@/components/general/Loading";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -13,21 +15,23 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   return (
     <SessionProvider session={session}>
       <ThemeProvider theme={theme}>
-        <Head>
-          <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-        </Head>
-        <CssBaseline />
-        {isAdminPage ? (
-          <Auth>
-            <AdminSidebar>
+        <LanguageProvider>
+          <Head>
+            <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+          </Head>
+          <CssBaseline />
+          {isAdminPage ? (
+            <Auth>
+              <AdminSidebar>
+                <Component {...pageProps} />
+              </AdminSidebar>
+            </Auth>
+          ) : (
+            <Navbar>
               <Component {...pageProps} />
-            </AdminSidebar>
-          </Auth>
-        ) : (
-          <Navbar>
-            <Component {...pageProps} />
-          </Navbar>
-        )}
+            </Navbar>
+          )}
+        </LanguageProvider>
       </ThemeProvider>
     </SessionProvider>
   );
@@ -38,14 +42,7 @@ function Auth({ children }) {
   const { status } = useSession({ required: true });
 
   if (status === "loading") {
-    return (
-      <Box sx={{ display: "flex", height: "100%", width: "100%" }}>
-        <CircularProgress
-          size={100}
-          sx={{ position: "absolute", top: "45%", left: "50%", transform: "translate(-50%, -50%)", WebkitTransform: "translate(-50%, -50%)" }}
-        />
-      </Box>
-    );
+    return <Loading />;
   }
 
   return children;

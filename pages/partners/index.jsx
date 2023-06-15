@@ -1,14 +1,17 @@
+import { LanguageContext } from "@/components/general/LanguageContext";
 import Loading from "@/components/general/Loading";
+import Translation from "@/components/general/Translation";
+import { PartnersContent } from "@/components/partners/PartnersContent";
+import PartnersDefault from "@/components/partners/PartnersDefault";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
 const Partners = () => {
   const [loading, setLoading] = useState(true);
   const [partners, setPartners] = useState({});
+  const { language, changeLanguage } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchPartners = async () => {
@@ -22,8 +25,10 @@ const Partners = () => {
           // Set the initial values based on the fetched data
           setPartners({
             firstText: data.firstText ?? "",
+            enFirstText: data.enFirstText ?? "",
             imageUrl: data.imageUrl ?? "",
             secondText: data.secondText ?? "",
+            enSecondText: data.enSecondText ?? "",
           });
         } else {
           setPartners(undefined);
@@ -42,59 +47,12 @@ const Partners = () => {
   return (
     <React.Fragment>
       {loading && <Loading />}
-      <Box sx={{ maxWidth: "800px", margin: "1.8rem auto", justifyContent: "center", textAlign: "center" }}>
-        <Typography variant='h2'>Partenaires</Typography>
-        {!loading && partners === undefined && (
-          <React.Fragment>
-            <Typography
-              variant='body1'
-              sx={{
-                marginTop: 4,
-              }}>
-              {`Nous n'avons aucun partenaire pour le moment.`}
-              <br />
-              {`Les partenaires nous aident à donner de la visibilité à l'association.`}
-            </Typography>
-            <Image
-              src='/images/partnersDefault.webp'
-              style={{ objectFit: "cover", marginTop: "50px", borderRadius: "10px" }}
-              alt='Image partenaires'
-              width={600}
-              height={300}
-            />
-            <Typography
-              variant='body1'
-              sx={{
-                marginTop: 4,
-              }}>
-              Vous souhaitez devenir partenaire ? Rendez-vous sur la page{" "}
-              <Link style={{ textDecoration: "none", color: "#22c6fe", fontWeight: 600 }} href='/contact'>
-                Contact
-              </Link>{" "}
-              !
-            </Typography>
-          </React.Fragment>
-        )}
-        {!loading && partners !== undefined && (
-          <React.Fragment>
-            <Typography
-              variant='body1'
-              sx={{
-                marginTop: 4,
-              }}>
-              {partners.firstText}
-            </Typography>
-            {console.log(partners.imageUrl)}
-            <img src={partners.imageUrl} style={{ objectFit: "cover", marginTop: "40px", borderRadius: "10px", width: "600px" }} alt='Image partenaires' />
-            <Typography
-              variant='body1'
-              sx={{
-                marginTop: 4,
-              }}>
-              {partners.secondText}
-            </Typography>
-          </React.Fragment>
-        )}
+      <Box sx={{ maxWidth: "800px", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
+        <Typography variant='h2'>
+          <Translation tKey='partners.title' />
+        </Typography>
+        {!loading && partners === undefined && <PartnersDefault />}
+        {!loading && partners !== undefined && <PartnersContent partners={partners} language={language} />}
       </Box>
     </React.Fragment>
   );
