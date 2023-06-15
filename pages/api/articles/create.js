@@ -7,9 +7,9 @@ const handler = nextConnect();
 handler.post(async (req, res) => {
   await dbConnect();
 
-  const { title, content, imageUrl } = req.body;
+  const { title, content, imageUrl, priority } = req.body;
 
-  const article = new Article({ title, content, imageUrl });
+  const article = new Article({ title, content, imageUrl, priority });
 
   try {
     await article.save();

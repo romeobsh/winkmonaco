@@ -16,6 +16,10 @@ const articleSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  priority: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.models.Article || mongoose.model("Article", articleSchema);

@@ -7,10 +7,10 @@ const handler = nextConnect();
 handler.put(async (req, res) => {
   await dbConnect();
 
-  const { id, name, logoUrl, websiteUrl } = req.body;
+  const { id, firstText, imageUrl, secondText } = req.body;
 
   try {
-    const partner = await Partner.findByIdAndUpdate(id, { name, logoUrl, websiteUrl }, { new: true });
+    const partner = await Partner.findOneAndUpdate(id, { firstText, imageUrl, secondText }, { upsert: true, new: true });
 
     res.status(200).json({ success: true, data: partner });
   } catch (error) {

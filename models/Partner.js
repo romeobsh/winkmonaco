@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
 
 const partnerSchema = new mongoose.Schema({
-  name: {
+  firstText: {
     type: String,
     required: true,
   },
-  logoUrl: {
+  imageUrl: {
     type: String,
     required: true,
   },
-  websiteUrl: {
+  secondText: {
     type: String,
-    required: true,
   },
 });
 

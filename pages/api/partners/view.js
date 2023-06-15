@@ -9,6 +9,8 @@ handler.get(async (req, res) => {
 
   try {
     const partners = await Partner.find();
+    // Set cache control header to indicate caching strategy
+
     res.status(200).json({ success: true, data: partners });
   } catch (error) {
     res.status(400).json({ success: false });
