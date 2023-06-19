@@ -177,7 +177,14 @@ const EditArticleForm = () => {
             disabled // Disable editing for the creation date field
           />
           <FormGroup>
-            <FormControlLabel control={<Checkbox />} value={values.priority} label='Montrer en priorité' name='priority' onChange={handleChange} />
+            <FormControlLabel
+              checked={values.priority}
+              control={<Checkbox />}
+              value={values.priority}
+              label='Montrer en priorité'
+              name='priority'
+              onChange={handleChange}
+            />
           </FormGroup>
           <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
             Enregistrer{" "}

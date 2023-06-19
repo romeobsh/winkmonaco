@@ -1,4 +1,4 @@
-import { Handshake, Logout, Newspaper, Store, VolunteerActivism } from "@mui/icons-material";
+import { Handshake, Logout, Newspaper, Store, VolunteerActivism, Recommend } from "@mui/icons-material";
 import { AppBar, Box, Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -13,6 +13,7 @@ const adminTabs = [
   { name: "Shop", icon: <Store />, path: "/admin/shop" },
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
+  { name: "Aider autrement", icon: <Recommend />, path: "/admin/help" },
 ];
 
 export default function AdminSidebar(props) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { articlesColumns } from "@/lib/tableColumns/articles";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 import CustomDatagridToolbar from "@/components/datagrid/CustomDatagridToolbar";
 import axios from "axios";
 
@@ -26,6 +26,7 @@ export default function ArticleList() {
 
   return (
     <Box style={{ height: "100%", minHeight: "20rem", width: "100%", minWidth: "calc(100vw - 18rem)" }}>
+      <Typography variant='h2'>Articles</Typography>
       <DataGrid
         getRowId={(row) => row._id}
         rows={articles}

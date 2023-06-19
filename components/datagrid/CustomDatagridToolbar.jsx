@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import Link from "next/link";
 
-export default function CustomDatagridToolbar() {
+export default function CustomDatagridToolbar(props) {
   return (
     <GridToolbarContainer sx={{ justifyContent: "space-between", mb: 2 }}>
       <div>
@@ -15,7 +15,7 @@ export default function CustomDatagridToolbar() {
       <div>
         <Link href={location.href + "/create"}>
           <Button size='small' color='primary' variant='contained' startIcon={<Add />}>
-            Ajouter un article
+            Ajouter
           </Button>
         </Link>
       </div>

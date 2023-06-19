@@ -1,55 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { bool, object, string } from "yup";
 import { useFormik } from "formik";
-import { TextField, Button, InputAdornment } from "@mui/material";
-import { object, string } from "yup";
-import Loading from "@/components/general/Loading";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 import { Translate } from "@mui/icons-material";
+import Loading from "../general/Loading";
 
 // Validation schema using Yup
 const validationSchema = object({
   firstText: string().required("Le premier texte est requis"),
   enFirstText: string().required("Le premier texte en anglais est requis"),
-  imageUrl: string().url("URL invalide").required("Image requise"),
+  isActiveKit: bool().required("Le kit doit être défini comme actif ou non"),
+  kitContent: string().required("Le contenu du kit doit être renseigné"),
+  enKitContent: string().required("Le contenu du kit en anglais doit être renseigné"),
+  imageUrl: string().url("URL invalide").required("Image 1 requise"),
+  imageUrl2: string().url("URL invalide").required("Image 2 requise"),
+  imageUrl3: string().url("URL invalide").required("Image 3 requise"),
   secondText: string().required("Le second texte est requis"),
   enSecondText: string().required("Le second texte en anglais est requis"),
 });
 
-const AdminPartners = () => {
-  const [loading, setLoading] = useState(true);
+const AdminHelpContentForm = () => {
+  const [loadingContent, setLoading] = useState(true);
   const [initialValues, setInitialValues] = useState({
     id: "",
     firstText: "",
     enFirstText: "",
+    isActiveKit: false,
+    kitContent: "",
+    enKitContent: "",
     imageUrl: "",
+    imageUrl2: "",
+    imageUrl3: "",
     secondText: "",
     enSecondText: "",
   });
 
   useEffect(() => {
-    const fetchPartners = async () => {
+    const fetchHelpTexts = async () => {
       try {
-        // Make the API call to fetch the article data based on the ID
-        const response = await fetch(`/api/partners/view`);
+        const response = await fetch(`/api/helpTexts/view`);
         let data = await response.json();
-        data = data.data[0] ?? "";
+
+        data = data.helpContent.length > 0 ? data.helpContent[0] : "";
         // Set the initial values based on the fetched data
         setInitialValues({
-          id: data._id ?? "",
-          firstText: data.firstText ?? "",
-          enFirstText: data.enFirstText ?? "",
-          imageUrl: data.imageUrl ?? "",
-          secondText: data.secondText ?? "",
-          enSecondText: data.enSecondText ?? "",
+          id: data._id,
+          firstText: data.firstText,
+          enFirstText: data.enFirstText,
+          isActiveKit: data.isActiveKit,
+          kitContent: data.kitContent,
+          enKitContent: data.enKitContent,
+          imageUrl: data.imageUrl,
+          imageUrl2: data.imageUrl2,
+          imageUrl3: data.imageUrl3,
+          secondText: data.secondText,
+          enSecondText: data.enSecondText,
         });
-
         setLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
 
-    // Call the fetchPartners function
-    fetchPartners();
+    // Call the fetchHelpTexts function
+    fetchHelpTexts();
   }, []);
 
   const formik = useFormik({
@@ -60,7 +76,7 @@ const AdminPartners = () => {
       setLoading(true);
       try {
         // Make the API call to update the article
-        const response = await fetch(`/api/partners/update`, {
+        const response = await fetch(`/api/helpTexts/update`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +85,6 @@ const AdminPartners = () => {
         });
 
         if (response.ok) {
-          // Redirect to the article details page after successful update
           alert("Modifications enregistrées");
           setLoading(false);
         } else {
@@ -87,8 +102,9 @@ const AdminPartners = () => {
 
   return (
     <React.Fragment>
-      {loading && <Loading />}
-      {!loading && (
+      <Typography variant='h2' sx={{ mb: 3 }}>{`Modifications de la page "Aider autrement"`}</Typography>
+      {loadingContent && <Loading />}
+      {!loadingContent && (
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -118,7 +134,42 @@ const AdminPartners = () => {
             error={touched.enFirstText && !!errors.enFirstText}
             helperText={touched.enFirstText && errors.enFirstText}
           />
+          <FormGroup sx={{ mt: 3 }}>
+            <FormControlLabel
+              checked={values.isActiveKit}
+              control={<Checkbox />}
+              value={values.isActiveKit}
+              label='Faire apparaître le kit'
+              name='isActiveKit'
+              onChange={handleChange}
+            />
+          </FormGroup>
           <TextField
+            fullWidth
+            margin='normal'
+            label={"Contenu du kit - Séparer les éléments par un point-virgule"}
+            name='kitContent'
+            value={values.kitContent}
+            onChange={handleChange}
+            error={touched.kitContent && !!errors.kitContent}
+            helperText={touched.kitContent && errors.kitContent}
+          />
+          <TextField
+            fullWidth
+            margin='normal'
+            label={
+              <React.Fragment>
+                <Translate sx={{ color: "black" }} /> Contenu du kit - Anglais - Séparer les éléments par un point-virgule
+              </React.Fragment>
+            }
+            name='enKitContent'
+            value={values.enKitContent}
+            onChange={handleChange}
+            error={touched.enKitContent && !!errors.enKitContent}
+            helperText={touched.enKitContent && errors.enKitContent}
+          />
+          <TextField
+            sx={{ mt: 5 }}
             fullWidth
             margin='normal'
             label="URL de l'image"
@@ -129,6 +180,27 @@ const AdminPartners = () => {
             helperText={touched.imageUrl && errors.imageUrl}
           />
           <TextField
+            fullWidth
+            margin='normal'
+            label="URL de l'image 2"
+            name='imageUrl2'
+            value={values.imageUrl2}
+            onChange={handleChange}
+            error={touched.imageUrl2 && !!errors.imageUrl2}
+            helperText={touched.imageUrl2 && errors.imageUrl2}
+          />
+          <TextField
+            fullWidth
+            margin='normal'
+            label="URL de l'image 3"
+            name='imageUrl3'
+            value={values.imageUrl3}
+            onChange={handleChange}
+            error={touched.imageUrl3 && !!errors.imageUrl3}
+            helperText={touched.imageUrl3 && errors.imageUrl3}
+          />
+          <TextField
+            sx={{ mt: 5 }}
             fullWidth
             margin='normal'
             label='Text 2 - Français'
@@ -165,4 +237,4 @@ const AdminPartners = () => {
   );
 };
 
-export default AdminPartners;
+export default AdminHelpContentForm;

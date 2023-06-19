@@ -7,7 +7,6 @@ const handler = nextConnect();
 handler.delete(async (req, res) => {
   await dbConnect();
 
-  console.log(req.query);
   const { id } = req.query;
 
   try {
