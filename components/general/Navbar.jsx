@@ -39,11 +39,11 @@ function Navbar(props) {
       <Toolbar sx={{ borderBottom: 0 }} />
       <List>
         {tabs.map((tab) => (
-          <ListItem key={tab.name + "drawer"} sx={{ justifyContent: "right" }}>
-            <Link href={tab.path} style={{ textDecoration: "none" }}>
-              <ListItemButton selected={router.pathname === tab.path}>
-                <ListItemText primary={tab.name} />
-                <HorizontalRule color='primary' fontSize='large' sx={{ transform: "rotate(90deg)" }} />
+          <ListItem key={Math.random()} sx={{ justifyContent: "right" }}>
+            <Link key={Math.random()} href={tab.path} style={{ textDecoration: "none" }}>
+              <ListItemButton key={Math.random()} selected={router.pathname.includes(tab.path)}>
+                <ListItemText key={Math.random()} primary={tab.name} />
+                <HorizontalRule key={Math.random()} color='primary' fontSize='large' sx={{ transform: "rotate(90deg)" }} />
               </ListItemButton>
             </Link>
           </ListItem>
@@ -68,8 +68,11 @@ function Navbar(props) {
             </Link>
             <Box sx={{ display: { xs: "none", md: "block" } }}>
               {tabs.map((tab) => (
-                <Link key={tab.name + "bar"} href={tab.path}>
-                  <Button size='medium' sx={{ color: () => (router.pathname === tab.path ? "primary" : "#1C4057"), mr: 1, fontWeight: 600 }}>
+                <Link key={Math.random()} href={tab.path}>
+                  <Button
+                    key={Math.random()}
+                    size='medium'
+                    sx={{ color: () => (router.pathname === tab.path ? "primary" : "#1C4057"), mr: 1, fontWeight: 600 }}>
                     {tab.name}
                   </Button>
                 </Link>

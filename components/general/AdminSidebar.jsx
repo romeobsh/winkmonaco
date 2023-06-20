@@ -1,5 +1,5 @@
-import { Handshake, Logout, Newspaper, Store, VolunteerActivism, Recommend } from "@mui/icons-material";
-import { AppBar, Box, Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { Handshake, Logout, Newspaper, Store, VolunteerActivism, Recommend, ContactPage } from "@mui/icons-material";
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,7 @@ const adminTabs = [
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
   { name: "Aider autrement", icon: <Recommend />, path: "/admin/help" },
+  { name: "Infos contact", icon: <ContactPage />, path: "/admin/contact" },
 ];
 
 export default function AdminSidebar(props) {
@@ -40,11 +41,11 @@ export default function AdminSidebar(props) {
           <Divider />
           <List>
             {adminTabs.map((tab, index) => (
-              <ListItem key={tab.name} disablePadding>
-                <Link href={tab.path} style={{ textDecoration: "none" }}>
-                  <ListItemButton selected={router.pathname === tab.path}>
-                    <ListItemIcon>{tab.icon}</ListItemIcon>
-                    <ListItemText primary={tab.name} />
+              <ListItem key={Math.random()} disablePadding>
+                <Link key={Math.random()} href={tab.path} style={{ textDecoration: "none" }}>
+                  <ListItemButton key={Math.random()} selected={router.pathname.includes(tab.path)}>
+                    <ListItemIcon key={Math.random()}>{tab.icon}</ListItemIcon>
+                    <ListItemText key={Math.random()} primary={tab.name} />
                   </ListItemButton>
                 </Link>
               </ListItem>
