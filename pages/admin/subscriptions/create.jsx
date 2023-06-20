@@ -3,16 +3,23 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { TextField, Button, Grid, MenuItem } from "@mui/material";
 import { date, number, object, string } from "yup";
-import { typeOptions } from "@/lib/selectOptions/typeOptions";
+import { statusOptions } from "@/lib/selectOptions/statusOptions";
 
 // Validation schema using Yup
 const validationSchema = object({
   fullName: string().required("Nom complet requis (mettre anonyme si besoin)"),
   email: string().email("Email invalide"),
+  telephone: string().required("Téléphone requis"),
+  iban: string().required("IBAN requis"),
+  address: string().required("Adresse requise"),
+  additional: string(),
+  zipCode: string().required("Code postal requis"),
+  city: string().required("Ville requise"),
   amount: number()
     .required("Le montant est requis")
     .test("decimal-places", "Au maximum deux décimales autorisées", (value) => /^[0-9]+(\.[0-9]{1,2})?$/.test(value)),
-  type: string().required("Le type est requis"),
+  status: string().required("Le statut est requis"),
+  comment: string(),
   createdAt: date().required("La date est requise"),
 });
 
@@ -22,8 +29,15 @@ const CreateDonation = () => {
   const [initialValues, setInitialValues] = useState({
     fullName: "",
     email: "",
+    telephone: "",
+    iban: "",
+    address: "",
+    additional: "",
+    zipCode: "",
+    city: "",
     amount: 0,
-    type: "virement",
+    status: "demande",
+    comment: "",
     createdAt: new Date(),
   });
 
@@ -33,7 +47,7 @@ const CreateDonation = () => {
     onSubmit: async (values) => {
       try {
         // Make the API call to update the article
-        const response = await fetch(`/api/donations/create`, {
+        const response = await fetch(`/api/subscriptions/create`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +57,7 @@ const CreateDonation = () => {
 
         if (response.ok) {
           // Redirect to the article details page after successful update
-          router.replace(`/admin/donations`);
+          router.replace(`/admin/subscriptions`);
         } else {
           // Handle the case when the update fails
           alert("Une erreur est survenue.");
@@ -59,7 +73,7 @@ const CreateDonation = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} sx={{ paddingRight: "1.5rem !important" }}>
+      <Grid container spacing={2} sx={{ paddingRight: "1.5rem !important", maxWidth: "1200px" }}>
         <Grid item sm={12} md={6}>
           <TextField
             fullWidth
@@ -82,6 +96,78 @@ const CreateDonation = () => {
             onChange={handleChange}
             error={touched.email && !!errors.email}
             helperText={touched.email && errors.email}
+          />
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='Téléphone'
+            name='telephone'
+            value={values.telephone}
+            onChange={handleChange}
+            error={touched.telephone && !!errors.telephone}
+            helperText={touched.telephone && errors.telephone}
+          />
+        </Grid>
+        <Grid item sm={12} md={12}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='IBAN'
+            name='iban'
+            value={values.iban}
+            onChange={handleChange}
+            error={touched.iban && !!errors.iban}
+            helperText={touched.iban && errors.iban}
+          />
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='Adresse'
+            name='address'
+            value={values.address}
+            onChange={handleChange}
+            error={touched.address && !!errors.address}
+            helperText={touched.address && errors.address}
+          />
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label="Complément d'adresse"
+            name='additional'
+            value={values.additional}
+            onChange={handleChange}
+            error={touched.additional && !!errors.additional}
+            helperText={touched.additional && errors.additional}
+          />
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='Code postal'
+            name='zipCode'
+            value={values.zipCode}
+            onChange={handleChange}
+            error={touched.zipCode && !!errors.zipCode}
+            helperText={touched.zipCode && errors.zipCode}
+          />
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='Ville'
+            name='city'
+            value={values.city}
+            onChange={handleChange}
+            error={touched.city && !!errors.city}
+            helperText={touched.city && errors.city}
           />
         </Grid>
         <Grid item sm={12} md={6}>
@@ -115,18 +201,30 @@ const CreateDonation = () => {
             select
             fullWidth
             margin='normal'
-            label='Type'
-            name='type'
-            value={values.type}
+            label='Statut'
+            name='status'
+            value={values.status}
             onChange={handleChange}
-            error={touched.type && !!errors.type}
-            helperText={touched.type && errors.type}>
-            {typeOptions.map((option) => (
+            error={touched.status && !!errors.status}
+            helperText={touched.status && errors.status}>
+            {statusOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <TextField
+            fullWidth
+            margin='normal'
+            label='Commentaire'
+            name='comment'
+            value={values.comment}
+            onChange={handleChange}
+            error={touched.comment && !!errors.comment}
+            helperText={touched.comment && errors.comment}
+          />
         </Grid>
         <Grid item sm={12} md={12}>
           <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
