@@ -1,4 +1,4 @@
-import { Handshake, Logout, Newspaper, Store, VolunteerActivism, Recommend, ContactPage } from "@mui/icons-material";
+import { Handshake, Logout, Newspaper, Store, VolunteerActivism, Recommend, ContactPage, Loyalty } from "@mui/icons-material";
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -9,7 +9,8 @@ import * as React from "react";
 const drawerWidth = 240;
 
 const adminTabs = [
-  { name: "Dons", icon: <VolunteerActivism />, path: "/admin/donate" },
+  { name: "Dons", icon: <VolunteerActivism />, path: "/admin/donations" },
+  { name: "Abonnements", icon: <Loyalty />, path: "/admin/subscriptions" },
   { name: "Shop", icon: <Store />, path: "/admin/shop" },
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },

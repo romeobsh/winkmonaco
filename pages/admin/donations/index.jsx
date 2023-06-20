@@ -29,7 +29,7 @@ export default function AdminDonate() {
   return (
     <React.Fragment>
       <Box style={{ height: "25rem", minHeight: "20rem", width: "100%", minWidth: "calc(100vw - 18rem)" }}>
-        <Typography variant='h2'>Dons ponctuels</Typography>
+        <Typography variant='h2'>Dons</Typography>
         <DataGrid
           getRowId={(row) => row._id}
           rows={donations}

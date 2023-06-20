@@ -1,23 +1,23 @@
 import { dbConnect } from "../../../lib/dbConnect";
-import Article from "../../../models/Article";
+import Donation from "../../../models/Donation";
 
 export default async function handler(req, res) {
-  const { articleId } = req.query;
+  const { donationId } = req.query;
 
   if (req.method === "GET") {
     try {
       await dbConnect();
 
-      // Find the article by its ID in the MongoDB collection
-      const article = await Article.findById(articleId);
+      // Find the donation by its ID in the MongoDB collection
+      const donation = await Donation.findById(donationId);
 
-      if (!article) {
-        // Return a not found response if the article is not found
-        return res.status(404).json({ message: "Article not found" });
+      if (!donation) {
+        // Return a not found response if the donation is not found
+        return res.status(404).json({ message: "Donation not found" });
       }
 
-      // Return the article data as the response
-      res.status(200).json({ article });
+      // Return the donation data as the response
+      res.status(200).json({ donation });
     } catch (error) {
       // Handle any errors that occurred during the database operation
       console.error("An error occurred:", error);

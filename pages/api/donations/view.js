@@ -1,17 +1,15 @@
 import nextConnect from "next-connect";
 import { dbConnect, dbDisconnect } from "../../../lib/dbConnect";
-import Article from "../../../models/Article";
+import Donation from "../../../models/Donation";
 
 const handler = nextConnect();
 
-handler.delete(async (req, res) => {
+handler.get(async (req, res) => {
   await dbConnect();
 
-  const { id } = req.query;
-
   try {
-    await Article.findByIdAndRemove(id);
-    res.status(200).json({ success: true });
+    const donations = await Donation.find();
+    res.status(200).json({ success: true, data: donations });
   } catch (error) {
     res.status(400).json({ success: false });
   }

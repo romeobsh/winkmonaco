@@ -1,18 +1,18 @@
 import nextConnect from "next-connect";
 import { dbConnect, dbDisconnect } from "../../../lib/dbConnect";
-import Article from "../../../models/Article";
+import Donation from "../../../models/Donation";
 
 const handler = nextConnect();
 
 handler.put(async (req, res) => {
   await dbConnect();
 
-  const { id, title, content, imageUrl, priority } = req.body;
+  const { id, fullName, email, amount, type, createdAt } = req.body;
 
   try {
-    const article = await Article.findByIdAndUpdate(id, { title, content, imageUrl, priority }, { new: true });
+    const donation = await Donation.findByIdAndUpdate(id, { fullName, email, amount, type, createdAt }, { new: true });
 
-    res.status(200).json({ success: true, data: article });
+    res.status(200).json({ success: true, donation: donation });
   } catch (error) {
     res.status(400).json({ success: false });
   }

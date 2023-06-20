@@ -18,6 +18,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <LanguageProvider>
           <Head>
             <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+            <title>Wink Monaco</title>
           </Head>
           <CssBaseline />
           {isAdminPage ? (
