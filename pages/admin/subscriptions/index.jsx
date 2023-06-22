@@ -53,9 +53,7 @@ export default function AdminDonate() {
           }}
         />
         <Box>
-          <Typography variant='h2' sx={{ mt: 5 }}>
-            Stats générales
-          </Typography>
+          <Typography variant='h2' sx={{ mt: 5 }}></Typography>
         </Box>
       </Box>
     </React.Fragment>

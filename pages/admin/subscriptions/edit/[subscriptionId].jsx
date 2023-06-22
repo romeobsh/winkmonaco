@@ -16,7 +16,7 @@ const validationSchema = object({
     .required("Le montant est requis")
     .test("decimal-places", "Au maximum deux décimales autorisées", (value) => /^[0-9]+(\.[0-9]{1,2})?$/.test(value)),
   email: string().email("Invalid email createdAt"),
-  type: string().required("Le type de dons est requis"),
+  status: string().required("Le type de dons est requis"),
   createdAt: date().required("La date du don est requise"),
 });
 
