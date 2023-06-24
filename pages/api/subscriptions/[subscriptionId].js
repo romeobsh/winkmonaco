@@ -1,5 +1,5 @@
 import { dbConnect } from "../../../lib/dbConnect";
-import Subscription from "../../../models/Subscription";
+import Subscription from "../../../schemas/Subscription";
 
 export default async function handler(req, res) {
   const { subscriptionId } = req.query;

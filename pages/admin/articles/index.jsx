@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { articlesColumns } from "@/lib/tableColumns/articles";
+import { articlesColumns } from "@/schemas/article";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import CustomDatagridToolbar from "@/components/datagrid/CustomDatagridToolbar";
@@ -13,7 +13,7 @@ export default function ArticleList() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("/api/articles/view");
+        const res = await axios.get("/api/articles");
         setArticles(res.data.data);
       } catch (err) {
         console.log(err.message);

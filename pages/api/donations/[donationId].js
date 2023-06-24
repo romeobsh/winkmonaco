@@ -1,5 +1,5 @@
 import { dbConnect } from "../../../lib/dbConnect";
-import Donation from "../../../models/Donation";
+import Donation from "../../../schemas/Donation";
 
 export default async function handler(req, res) {
   const { donationId } = req.query;

@@ -1,5 +1,5 @@
 import { dbConnect } from "../../../lib/dbConnect";
-import Volunteer from "../../../models/Volunteer";
+import Volunteer from "../../../schemas/Volunteer";
 
 export default async function handler(req, res) {
   const { volunteerId } = req.query;

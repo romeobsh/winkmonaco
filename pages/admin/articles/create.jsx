@@ -2,97 +2,79 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
-import { bool, object, string } from "yup";
-
-// Validation schema using Yup
-const validationSchema = object({
-  title: string().required("Title is required"),
-  content: string().required("Content is required"),
-  imageUrl: string().url("Invalid URL").required("Image URL is required"),
-  priority: bool().required("Priority is required"),
-});
+import { bool, date, object, string } from "yup";
+import { ArticleFormik, articleValidationSchema } from "@/schemas/article";
+import axios from "axios";
 
 const CreateArticle = () => {
   const router = useRouter();
 
-  const [initialValues, setInitialValues] = useState({
+  const initialValues = {
     title: "",
     content: "",
     imageUrl: "",
     priority: false,
-  });
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        // Make the API call to update the article
-        const response = await fetch(`/api/articles/create`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        });
-
-        if (response.ok) {
-          // Redirect to the article details page after successful update
-          router.replace(`/admin/articles`);
-        } else {
-          // Handle the case when the update fails
-          console.error("Failed to create article");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  });
-
-  const { values, errors, touched, handleChange, handleSubmit } = formik;
+    createdAt: new Date(),
+  };
 
   return (
     <React.Fragment>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          margin='normal'
-          label='Title'
-          name='title'
-          value={values.title}
-          onChange={handleChange}
-          error={touched.title && !!errors.title}
-          helperText={touched.title && errors.title}
-        />
-        <TextField
-          fullWidth
-          margin='normal'
-          label='Content'
-          name='content'
-          multiline
-          minRows={4}
-          value={values.content}
-          onChange={handleChange}
-          error={touched.content && !!errors.content}
-          helperText={touched.content && errors.content}
-        />
-        <TextField
-          fullWidth
-          margin='normal'
-          label='Image URL'
-          name='imageUrl'
-          value={values.imageUrl}
-          onChange={handleChange}
-          error={touched.imageUrl && !!errors.imageUrl}
-          helperText={touched.imageUrl && errors.imageUrl}
-        />
-        <FormGroup>
-          <FormControlLabel control={<Checkbox />} value={values.priority} label='Montrer en priorité' name='priority' onChange={handleChange} />
-        </FormGroup>
-        <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
-          Créer{" "}
-        </Button>
-      </form>
+      <ArticleFormik>
+        {(formik) => (
+          <>
+            <TextField
+              fullWidth
+              label='Title'
+              name='title'
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              error={formik.touched.title && !!formik.errors.title}
+              helperText={formik.touched.title && formik.errors.title}
+            />
+            <TextField
+              fullWidth
+              label='Content'
+              name='content'
+              multiline
+              minRows={4}
+              value={formik.values.content}
+              onChange={formik.handleChange}
+              error={formik.touched.content && !!formik.errors.content}
+              helperText={formik.touched.content && formik.errors.content}
+            />
+            <TextField
+              fullWidth
+              label='Image URL'
+              name='imageUrl'
+              value={formik.values.imageUrl}
+              onChange={formik.handleChange}
+              error={formik.touched.imageUrl && !!formik.errors.imageUrl}
+              helperText={formik.touched.imageUrl && formik.errors.imageUrl}
+            />
+            <TextField
+              label='Créé le'
+              name='createdAt'
+              value={formik.values.createdAt.toLocaleDateString()}
+              onChange={formik.handleChange}
+              error={formik.touched.createdAt && !!formik.errors.createdAt}
+              helperText={formik.touched.createdAt && formik.errors.createdAt}
+              disabled // Disable editing for the creation date field
+            />
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox />}
+                value={formik.values.priority}
+                label='Montrer en priorité'
+                name='priority'
+                onChange={formik.handleChange}
+              />
+            </FormGroup>
+            <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
+              Créer
+            </Button>
+          </>
+        )}
+      </ArticleFormik>
     </React.Fragment>
   );
 };

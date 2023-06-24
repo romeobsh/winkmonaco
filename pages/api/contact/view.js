@@ -1,6 +1,6 @@
 import nextConnect from "next-connect";
 import { dbConnect, dbDisconnect } from "../../../lib/dbConnect";
-import Contact from "../../../models/Contact";
+import Contact from "../../../schemas/Contact";
 
 const handler = nextConnect();
 

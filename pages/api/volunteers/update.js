@@ -1,6 +1,6 @@
 import nextConnect from "next-connect";
 import { dbConnect, dbDisconnect } from "../../../lib/dbConnect";
-import Volunteer from "../../../models/Volunteer";
+import Volunteer from "../../../schemas/Volunteer";
 
 const handler = nextConnect();
 

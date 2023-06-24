@@ -1,6 +1,6 @@
 import nextConnect from "next-connect";
 import { dbConnect, dbDisconnect } from "../../../../lib/dbConnect";
-import PaymentInfo from "../../../../models/PaymentInfo";
+import PaymentInfo from "../../../../schemas/PaymentInfo";
 
 const handler = nextConnect();
 
