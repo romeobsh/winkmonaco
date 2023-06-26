@@ -1,12 +1,11 @@
-import { generateYupSchema } from "@/lib/generators/generateYupSchema";
 import { generateMongooseModel } from "@/lib/generators/generateMongooseModel";
 import { generateColumns } from "@/lib/generators/generateColumns";
-import { generateInitialValues } from "@/lib/generators/generateInitialValues";
 import { generateCollectionApiHandler } from "@/lib/generators/generateCollectionApiHandler";
 import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import { bool, date, string } from "yup";
 import { generateFormik } from "@/lib/generators/generateFormik";
+import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
 
 //* General model definition
 export const articleSchema = [
@@ -70,8 +69,8 @@ export const articleSchema = [
   },
   {
     name: "priority",
-    placeholder: "Mise en avant de l'article",
     type: "checkbox",
+    label: "Mise en avant de l'article",
     initialValue: false,
     muiHeaderName: "En priorité",
     muiType: "boolean",
@@ -108,3 +107,9 @@ export const ArticleFormik = ({ id, title, children }) => generateFormik(article
 
 export const articlesAPIHandler = generateCollectionApiHandler(Article);
 export const articleAPIHandler = generateElementApiHandler(Article);
+
+//* --------
+//* Datagrid
+//* --------
+
+export const ArticlesDatagrid = () => <CustomDatagrid schema={articleSchema} title='Articles' endpoint='articles' />;

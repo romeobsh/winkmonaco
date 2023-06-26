@@ -35,11 +35,11 @@ const ConfirmationModal = (props) => {
           <Typography id='transition-modal-description' sx={{ mt: 2 }}>
             {props.text}
           </Typography>
-          <Button variant='contained' onClick={props.handleDelete} color='error' sx={{ mt: 2 }}>
+          <Button variant='contained' onClick={props.onConfirm} color='error' sx={{ mt: 2 }}>
             {props.cancelModal ? "Oui, annuler" : "Supprimer"}
           </Button>
           <Button variant='text' color='primary' sx={{ ml: 3, mt: 2 }} onClick={props.handleClose}>
-            {props.cancelModal ? "Revenir en arrière" : "Annuler"}
+            {props.cancelModal ? "Non, continuer" : "Annuler"}
           </Button>
         </Box>
       </Fade>

@@ -15,7 +15,7 @@ const adminTabs = [
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
   { name: "Aider autrement", icon: <Recommend />, path: "/admin/help" },
-  { name: "Infos contact", icon: <ContactPage />, path: "/admin/contact" },
+  { name: "Infos contact", icon: <ContactPage />, path: "/admin/contacts" },
 ];
 
 export default function AdminSidebar(props) {
@@ -64,7 +64,9 @@ export default function AdminSidebar(props) {
             </List>
           </Box>
         </Drawer>
-        <Box component='main' sx={{ p: 2 }}>
+        <Box
+          component='main'
+          sx={{ p: 3, height: "100vh", maxHeight: "calc(100vh - 32px)", width: "100%", minWidth: "calc(100vw - " + drawerWidth + 16 + "px)" }}>
           {props.children}
         </Box>
       </Box>
