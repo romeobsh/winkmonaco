@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { TextField, Button, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { TextField, Button, FormGroup, FormControlLabel, Checkbox, Grid } from "@mui/material";
 import { bool, date, object, string } from "yup";
 import { ArticleFormik, articleValidationSchema } from "@/schemas/article";
 import axios from "axios";
@@ -21,7 +21,7 @@ const CreateArticle = () => {
     <React.Fragment>
       <ArticleFormik>
         {(formik) => (
-          <>
+          <Grid container spacing={2}>
             <TextField
               fullWidth
               label='Title'
@@ -33,7 +33,7 @@ const CreateArticle = () => {
             />
             <TextField
               fullWidth
-              label='Content'
+              label='Contenu'
               name='content'
               multiline
               minRows={4}
@@ -72,7 +72,7 @@ const CreateArticle = () => {
             <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
               Créer
             </Button>
-          </>
+          </Grid>
         )}
       </ArticleFormik>
     </React.Fragment>

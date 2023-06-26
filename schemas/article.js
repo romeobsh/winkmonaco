@@ -60,6 +60,7 @@ export const articleSchema = [
     type: "date",
     disabled: true,
     initialValue: new Date(),
+    fullWidth: false,
     muiHeaderName: "Date de création",
     muiType: "date",
     muiFlex: 2,
@@ -93,16 +94,13 @@ export const Article = generateMongooseModel("Article", articleSchema);
 //* MUI DataGrid column definition
 //* ------------------------------
 
-export const articlesColumns = generateColumns(articleSchema);
+export const articlesColumns = (handleDelete) => generateColumns(articleSchema, handleDelete);
 
-//* ---------------
-//* Formik creation
-//* ---------------
+//* ----------------------
+//* Formik & Form creation
+//* ----------------------
 
-const articleValidationSchema = generateYupSchema(articleSchema);
-export const articleInitialValues = generateInitialValues(articleSchema);
-export const ArticleFormik = ({ id, initialValues, children }) =>
-  generateFormik(initialValues ?? articleInitialValues, articleValidationSchema, "articles", id)({ children });
+export const ArticleFormik = ({ id, title, children }) => generateFormik(articleSchema, "articles", title, id)({ children });
 
 //* ------------
 //* API Handlers
