@@ -7,7 +7,7 @@ import { bool, date, string } from "yup";
 import { generateFormik } from "@/lib/generators/generateFormik";
 import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
 
-//* General model definition
+//* General schema definition
 export const articleSchema = [
   {
     name: "title",
@@ -16,13 +16,29 @@ export const articleSchema = [
     initialValue: "",
     muiHeaderName: "Titre",
     muiType: "string",
-    muiFlex: 4,
+    muiFlex: 3,
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string()
       .required("Le titre de l'article est requis")
       .min(3, "Le titre ne peut pas faire moins de 3 caractères")
       .max(64, "Le titre ne peut pas faire plus de 64 caractères"),
+  },
+  {
+    name: "enTitle",
+    placeholder: "Titre de l'article (anglais)",
+    type: "text",
+    translation: true,
+    initialValue: "",
+    muiHeaderName: "Titre (EN)",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le titre de l'article en anglais est requis")
+      .min(3, "Le titre en anglais ne peut pas faire moins de 3 caractères")
+      .max(64, "Le titre en anglais ne peut pas faire plus de 64 caractères"),
   },
   {
     name: "content",
@@ -40,6 +56,23 @@ export const articleSchema = [
       .required("Le contenu est requis")
       .min(120, "Le contenu ne peut pas faire moins de 120 caractères")
       .max(3000, "Le contenu ne peut pas faire plus de 3000 caractères"),
+  },
+  {
+    name: "enContent",
+    placeholder: "Contenu de l'article (anglais)",
+    type: "text",
+    multiline: true,
+    minRows: 4,
+    initialValue: "",
+    muiHeaderName: "Contenu (EN)",
+    muiType: "string",
+    muiFlex: 4,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le contenu en anglais est requis")
+      .min(120, "Le contenu en anglais ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le contenu en anglais ne peut pas faire plus de 3000 caractères"),
   },
   {
     name: "imageUrl",

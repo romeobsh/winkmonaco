@@ -1,56 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { donationsColumns } from "@/lib/tableColumns/donations";
-import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, LinearProgress, Typography } from "@mui/material";
-import CustomDatagridToolbar from "@/components/datagrid/CustomDatagridToolbar";
-import axios from "axios";
+import { DonationsDatagrid } from "@/schemas/donation";
 import { Launch } from "@mui/icons-material";
+import { Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";
+import React from "react";
 
-export default function AdminDonate() {
-  const [donations, setdonations] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get("/api/donations/view");
-        setdonations(res.data.data);
-      } catch (err) {
-        console.log(err.message);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
+export default function AdminDonations() {
   return (
     <React.Fragment>
-      <Box style={{ height: "30rem", minHeight: "20rem", width: "100%", minWidth: "calc(100vw - 18rem)" }}>
-        <Typography variant='h2'>Dons</Typography>
-        <DataGrid
-          getRowId={(row) => row._id}
-          rows={donations}
-          columns={donationsColumns}
-          pageSize={10}
-          slots={{
-            toolbar: CustomDatagridToolbar,
-            loadingOverlay: LinearProgress,
-          }}
-          loading={loading}
-        />
-        <Box>
-          <Typography variant='h2' sx={{ mt: 5 }}>
-            Modifier les informations de paiement
+      <DonationsDatagrid />
+      <Grid container sx={{ paddingBottom: 3 }}>
+        <Grid item xs={12}>
+          <Typography variant='h3' mb={3}>
+            Informations actuelles
           </Typography>
-          <Typography>{`En cas de changement d'IBAN, d'adresse, ...`}</Typography>
-          <Link href='/admin/donations/paymentInfo'>
+        </Grid>
+        <Grid item xs={12} lg={6} mb={3}>
+          <Typography color='' variant='h4' mb={3}>
+            Version française
+          </Typography>
+          blabla
+        </Grid>
+        <Grid item xs={12} lg={6} mb={3}>
+          <Typography color='' variant='h4' mb={3}>
+            Version anglaise
+          </Typography>
+          blabla
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant='h3' mt={5}>
+            Modifications
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Link href='/admin/donations/edit'>
             <Button variant='contained' startIcon={<Launch />} sx={{ mt: 2 }}>{`Modifier les informations de paiement`}</Button>
           </Link>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

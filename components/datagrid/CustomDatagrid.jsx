@@ -52,7 +52,7 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
         title='Suppression'
         text='Êtes-vous sur de vouloir supprimer cet élément de la base de données?'
       />
-      <Typography variant='h2'>{title}</Typography>
+      <Typography variant='h3'>{title}</Typography>
       <Box sx={{ minHeight: "30rem", height: "40rem", maxHeight: "calc(100vh - 72px)" }}>
         <DataGrid
           getRowId={(row) => row._id}

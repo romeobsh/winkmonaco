@@ -1,26 +1,120 @@
-import mongoose from "mongoose";
+import { generateMongooseModel } from "@/lib/generators/generateMongooseModel";
+import { generateColumns } from "@/lib/generators/generateColumns";
+import { generateCollectionApiHandler } from "@/lib/generators/generateCollectionApiHandler";
+import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
+import { bool, string } from "yup";
+import { generateFormik } from "@/lib/generators/generateFormik";
+import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
 
-const partnerSchema = new mongoose.Schema({
-  firstText: {
-    type: String,
-    required: true,
+//* General schema definition
+export const partnerSchema = [
+  {
+    name: "firstText",
+    placeholder: "Premier texte",
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Premier texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le premier texte est requis")
+      .min(120, "Le premier texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le premier texte ne peut pas faire plus de 3000 caractères"),
   },
-  enFirstText: {
-    type: String,
-    required: true,
+  {
+    name: "enFirstText",
+    placeholder: "Premier texte (anglais)",
+    translation: true,
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Premier texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le premier texte est requis")
+      .min(120, "Le premier texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le premier texte ne peut pas faire plus de 3000 caractères"),
   },
-  imageUrl: {
-    type: String,
-    required: true,
+  {
+    name: "imageUrl",
+    placeholder: "URL de l'image 1",
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Image 1",
+    muiType: "string",
+    muiFlex: 2,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().required("L'URL de l'image 1 est requis").url("Entrez un URL valide"),
   },
-  secondText: {
-    type: String,
-    required: true,
+  {
+    name: "secondText",
+    placeholder: "Second texte",
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Second texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le second texte est requis")
+      .min(120, "Le second texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le second texte ne peut pas faire plus de 3000 caractères"),
   },
-  enSecondText: {
-    type: String,
-    required: true,
+  {
+    name: "enSecondText",
+    placeholder: "Second texte (anglais)",
+    translation: true,
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Second texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le second texte est requis")
+      .min(120, "Le second texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le second texte ne peut pas faire plus de 3000 caractères"),
   },
-});
+];
 
-export default mongoose.models.Partner || mongoose.model("Partner", partnerSchema);
+//* --------------------------
+//* Creation of Mongoose Model
+//* --------------------------
+
+export const Partner = generateMongooseModel("Partner", partnerSchema);
+
+//* ------------------------------
+//* MUI DataGrid column definition
+//* ------------------------------
+
+export const partnersColumns = (handleDelete) => generateColumns(partnerSchema, handleDelete);
+
+//* ----------------------
+//* Formik & Form creation
+//* ----------------------
+
+export const PartnerFormik = ({ id, title, children }) => generateFormik(partnerSchema, "partners", title, id)({ children });
+
+//* ------------
+//* API Handlers
+//* ------------
+
+export const partnersAPIHandler = generateCollectionApiHandler(Partner);
+export const partnerAPIHandler = generateElementApiHandler(Partner);
+
+//* --------
+//* Datagrid
+//* --------
+
+export const PartnersDatagrid = () => <CustomDatagrid schema={partnerSchema} title='Partners' endpoint='partners' />;

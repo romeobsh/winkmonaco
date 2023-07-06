@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const adminTabs = [
   { name: "Dons", icon: <VolunteerActivism />, path: "/admin/donations" },
@@ -52,7 +52,7 @@ export default function AdminSidebar(props) {
               </ListItem>
             ))}
           </List>
-          <Box>
+          <Box sx={{ bottom: 0 }}>
             <Divider />
             <List>
               <ListItemButton onClick={() => signOut()}>
@@ -66,7 +66,7 @@ export default function AdminSidebar(props) {
         </Drawer>
         <Box
           component='main'
-          sx={{ p: 3, height: "100vh", maxHeight: "calc(100vh - 32px)", width: "100%", minWidth: "calc(100vw - " + drawerWidth + 16 + "px)" }}>
+          sx={{ padding: "2rem 3rem", height: "100vh", maxHeight: "calc(100vh - 32px)", width: "100%", minWidth: "calc(100vw - " + drawerWidth + 48 + "px)" }}>
           {props.children}
         </Box>
       </Box>

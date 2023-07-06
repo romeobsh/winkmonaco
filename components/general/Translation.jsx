@@ -1,7 +1,7 @@
 // Translation.js
 import { translations } from "@/lib/translations/translations.js";
 import { useContext } from "react";
-import { LanguageContext } from "./LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const Translation = ({ tKey }) => {
   const { language } = useContext(LanguageContext);

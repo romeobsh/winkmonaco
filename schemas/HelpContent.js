@@ -1,46 +1,190 @@
-import mongoose from "mongoose";
+import { generateMongooseModel } from "@/lib/generators/generateMongooseModel";
+import { generateColumns } from "@/lib/generators/generateColumns";
+import { generateCollectionApiHandler } from "@/lib/generators/generateCollectionApiHandler";
+import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
+import { bool, string } from "yup";
+import { generateFormik } from "@/lib/generators/generateFormik";
+import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
+import { Cancel, CheckCircle } from "@mui/icons-material";
 
-const helpContentSchema = new mongoose.Schema({
-  firstText: {
-    type: String,
-    required: true,
+//* General schema definition
+export const helpContentSchema = [
+  {
+    name: "firstText",
+    placeholder: "Premier texte",
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Premier texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le premier texte est requis")
+      .min(120, "Le premier texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le premier texte ne peut pas faire plus de 3000 caractères"),
   },
-  enFirstText: {
-    type: String,
-    required: true,
+  {
+    name: "enFirstText",
+    placeholder: "Premier texte (anglais)",
+    translation: true,
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Premier texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le premier texte est requis")
+      .min(120, "Le premier texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le premier texte ne peut pas faire plus de 3000 caractères"),
   },
-  isActiveKit: {
-    type: Boolean,
-    required: true,
+  {
+    name: "isActiveKit",
+    type: "checkbox",
+    label: "Kit actif",
+    initialValue: true,
+    muiHeaderName: "Kit actif",
+    muiType: "boolean",
+    muiFlex: 1.5,
+    muiRenderCell: (params) =>
+      params.row.priority ? <CheckCircle sx={{ color: "green", fontSize: "2rem" }} /> : <Cancel sx={{ color: "red", fontSize: "2rem" }} />,
+    mongooseType: Boolean,
+    mongooseRequired: true,
+    yupValidations: bool().required("Le statut du kit est requis"),
   },
-  kitContent: {
-    type: String,
-    required: true,
+  {
+    name: "kitContent",
+    placeholder: `Contenu du kit - séparés par ";"`,
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Contenu",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le contenu du kit est requis")
+      .min(3, "Le contenu du kit ne peut pas faire moins de 3 caractères")
+      .max(128, "Le contenu du kit ne peut pas faire plus de 128 caractères"),
   },
-  enKitContent: {
-    type: String,
-    required: true,
+  {
+    name: "enKitContent",
+    placeholder: `Contenu du kit - séparés par ";" (anglais)`,
+    translation: true,
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Contenu (EN)",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le contenu du kit en anglais est requis")
+      .min(3, "Le contenu du kit en anglais ne peut pas faire moins de 3 caractères")
+      .max(128, "Le contenu du kit en anglais ne peut pas faire plus de 128 caractères"),
   },
-  imageUrl: {
-    type: String,
-    required: true,
+  {
+    name: "imageUrl",
+    placeholder: "URL de l'image 1",
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Image 1",
+    muiType: "string",
+    muiFlex: 2,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().required("L'URL de l'image 1 est requis").url("Entrez un URL valide"),
   },
-  imageUrl2: {
-    type: String,
-    required: true,
+  {
+    name: "imageUrl2",
+    placeholder: "URL de l'image 2",
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Image 2",
+    muiType: "string",
+    muiFlex: 2,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().required("L'URL de l'image 2 est requis").url("Entrez un URL valide"),
   },
-  imageUrl3: {
-    type: String,
-    required: true,
+  {
+    name: "imageUrl3",
+    placeholder: "URL de l'image 3",
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Image 3",
+    muiType: "string",
+    muiFlex: 2,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().required("L'URL de l'image 3 est requis").url("Entrez un URL valide"),
   },
-  secondText: {
-    type: String,
-    required: true,
+  {
+    name: "secondText",
+    placeholder: "Second texte",
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Second texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le second texte est requis")
+      .min(120, "Le second texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le second texte ne peut pas faire plus de 3000 caractères"),
   },
-  enSecondText: {
-    type: String,
-    required: true,
+  {
+    name: "enSecondText",
+    placeholder: "Second texte (anglais)",
+    translation: true,
+    type: "text",
+    multiline: true,
+    initialValue: "",
+    muiHeaderName: "Second texte",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le second texte est requis")
+      .min(120, "Le second texte ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le second texte ne peut pas faire plus de 3000 caractères"),
   },
-});
+];
 
-export default mongoose.models.HelpContent || mongoose.model("HelpContent", helpContentSchema);
+//* --------------------------
+//* Creation of Mongoose Model
+//* --------------------------
+
+export const HelpContent = generateMongooseModel("HelpContent", helpContentSchema);
+
+//* ------------------------------
+//* MUI DataGrid column definition
+//* ------------------------------
+
+export const helpContentsColumns = (handleDelete) => generateColumns(helpContentSchema, handleDelete);
+
+//* ----------------------
+//* Formik & Form creation
+//* ----------------------
+
+export const HelpContentFormik = ({ id, title, children }) => generateFormik(helpContentSchema, "helpContents", title, id)({ children });
+
+//* ------------
+//* API Handlers
+//* ------------
+
+export const helpContentsAPIHandler = generateCollectionApiHandler(HelpContent);
+export const helpContentAPIHandler = generateElementApiHandler(HelpContent);
+
+//* --------
+//* Datagrid
+//* --------
+
+export const HelpContentsDatagrid = () => <CustomDatagrid schema={helpContentSchema} title='HelpContents' endpoint='helpContents' />;

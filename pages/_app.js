@@ -1,11 +1,12 @@
 import { SessionProvider, useSession } from "next-auth/react";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import { SnackbarProvider } from "notistack";
+import Head from "next/head";
 import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
-import { LanguageProvider } from "@/components/general/LanguageContext";
 import Loading from "@/components/general/Loading";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
@@ -15,24 +16,33 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   return (
     <SessionProvider session={session}>
       <ThemeProvider theme={theme}>
-        <LanguageProvider>
-          <Head>
-            <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-            <title>Wink Monaco</title>
-          </Head>
-          <CssBaseline />
-          {isAdminPage ? (
-            <Auth>
-              <AdminSidebar>
+        <SnackbarProvider
+          maxSnack={3}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          autoHideDuration={5000}
+          style={{ fontSize: "1.2rem" }}>
+          <LanguageProvider>
+            <Head>
+              <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+              <title>Wink Monaco</title>
+            </Head>
+            <CssBaseline />
+            {isAdminPage ? (
+              <Auth>
+                <AdminSidebar>
+                  <Component {...pageProps} />
+                </AdminSidebar>
+              </Auth>
+            ) : (
+              <Navbar>
                 <Component {...pageProps} />
-              </AdminSidebar>
-            </Auth>
-          ) : (
-            <Navbar>
-              <Component {...pageProps} />
-            </Navbar>
-          )}
-        </LanguageProvider>
+              </Navbar>
+            )}
+          </LanguageProvider>
+        </SnackbarProvider>
       </ThemeProvider>
     </SessionProvider>
   );

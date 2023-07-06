@@ -28,6 +28,7 @@ export const contactSchema = [
     muiHeaderName: "Téléphone - Format français (06 01 02 03 04)",
     muiType: "string",
     muiFlex: 4,
+    muiMdSize: 6,
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string()
@@ -40,6 +41,7 @@ export const contactSchema = [
     type: "text",
     initialValue: "",
     translation: true,
+    muiMdSize: 6,
     muiHeaderName: "Téléphone - Format international (+33 6 01 02 03 04)",
     muiType: "string",
     muiFlex: 4,

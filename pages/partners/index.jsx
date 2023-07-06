@@ -1,4 +1,4 @@
-import { LanguageContext } from "@/components/general/LanguageContext";
+import { LanguageContext } from "@/contexts/LanguageContext";
 import Loading from "@/components/general/Loading";
 import Translation from "@/components/general/Translation";
 import { PartnersContent } from "@/components/partners/PartnersContent";

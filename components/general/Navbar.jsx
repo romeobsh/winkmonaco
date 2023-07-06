@@ -4,7 +4,7 @@ import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, Menu
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { LanguageContext } from "./LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 import Translation from "./Translation";
 
 // Largeur de la sidebar mobile
