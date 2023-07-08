@@ -1,10 +1,16 @@
-// Translation.js
 import { translations } from "@/lib/translations/translations.js";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
-const Translation = ({ tKey }) => {
-  const { language } = useContext(LanguageContext);
+const Translation = ({ tKey, lang, bold }) => {
+  const { language: contextLanguage } = useContext(LanguageContext);
+  const [language, setLanguage] = useState(contextLanguage);
+
+  useEffect(() => {
+    if (lang) {
+      setLanguage(lang);
+    }
+  }, [lang]);
 
   // Split the tKey string into nested keys
   const keys = tKey.split(".");
@@ -15,7 +21,7 @@ const Translation = ({ tKey }) => {
   // Traverse the translation object to access the final translation
   const translation = keys.reduce((obj, key) => obj?.[key], translationObject);
 
-  return <span>{translation}</span>;
+  return <span style={{ fontWeight: bold ? 700 : "" }}>{translation}</span>;
 };
 
 export default Translation;
