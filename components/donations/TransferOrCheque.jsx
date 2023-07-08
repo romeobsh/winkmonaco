@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Paper, Skeleton, Typography } from "@mui/material";
+import CopyToClipboardButton from "../ui/CopyToClipboardButton";
 
 const TransferOrCheque = ({ data, english, loading }) => {
   return (
@@ -12,24 +13,40 @@ const TransferOrCheque = ({ data, english, loading }) => {
           <Typography variant='h6' mb={0.5}>
             Nom du propriétaire
           </Typography>
-          <Typography variant='body1'>
-            {loading ? <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "14rem", margin: "auto" }} /> : data?.ownerName || "Nom à renseigner"}
+          <Typography variant='body1' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: "1.5rem" }}>
+            {loading ? (
+              <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "14rem", margin: "auto" }} />
+            ) : (
+              <React.Fragment>
+                {data?.ownerName || "Nom à renseigner"}
+                <CopyToClipboardButton text={data?.ownerName || "Nom à renseigner"} />
+              </React.Fragment>
+            )}
           </Typography>
           <Typography variant='h6' mt={2} mb={0.5}>
             IBAN{" "}
           </Typography>
-          <Typography variant='body1'>
+          <Typography variant='body1' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: "1.5rem" }}>
             {loading ? (
               <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "24rem", margin: "auto" }} />
             ) : (
-              data?.iban || "MCXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"
+              <React.Fragment>
+                {data?.iban || "MCXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"} <CopyToClipboardButton text={data?.iban || "MCXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"} />
+              </React.Fragment>
             )}
           </Typography>
           <Typography variant='h6' mt={2} mb={0.5}>
             BIC{" "}
           </Typography>
-          <Typography variant='body1'>
-            {loading ? <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "12rem", margin: "auto" }} /> : data?.bic || "XXXXXXXX"}
+          <Typography variant='body1 ' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: "1.5rem" }}>
+            {loading ? (
+              <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "12rem", margin: "auto" }} />
+            ) : (
+              <React.Fragment>
+                {data?.bic || "XXXXXXXX"}
+                <CopyToClipboardButton text={data?.bic || "XXXXXXXX"} />
+              </React.Fragment>
+            )}
           </Typography>
         </Paper>
       </Grid>
