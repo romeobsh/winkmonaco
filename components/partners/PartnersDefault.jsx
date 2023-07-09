@@ -2,14 +2,13 @@ import { Typography } from "@mui/material";
 import React from "react";
 import Translation from "../general/Translation";
 import Image from "next/image";
-import Link from "next/link";
 
-const PartnersDefault = () => (
+const PartnersDefault = ({ language }) => (
   <React.Fragment>
     <Typography variant='body1' sx={{ marginTop: 4 }}>
-      <Translation tKey='partners.defaultFirstLine' />
+      <Translation tKey='partners.defaultFirstLine' lang={language} />
       <br />
-      <Translation tKey='partners.defaultSecondLine' />
+      <Translation tKey='partners.defaultSecondLine' lang={language} />
     </Typography>
     <Image
       src='/images/partnersDefault.webp'
@@ -21,4 +20,4 @@ const PartnersDefault = () => (
   </React.Fragment>
 );
 
-export default PartnersDefault;
+export default React.memo(PartnersDefault);

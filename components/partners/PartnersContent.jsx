@@ -8,9 +8,10 @@ import { Typography } from "@mui/material";
 const PartnersContent = ({ partners, loading, language }) => (
   <React.Fragment>
     {loading && <PartnersLoading />}
-    {!loading && partners === undefined && <PartnersDefault />}
-    {!loading && partners !== undefined && (
+    {!loading && Object.keys(partners).length === 0 && <PartnersDefault language={language} />}
+    {!loading && Object.keys(partners).length > 0 && (
       <React.Fragment>
+        {console.log(partners)}
         <Typography variant='body1' sx={{ marginTop: 4 }}>
           {language === "fr" ? partners.firstText : partners.enFirstText}
         </Typography>
@@ -22,8 +23,8 @@ const PartnersContent = ({ partners, loading, language }) => (
           height={300}
           priority
         />
-        <Typography variant='body1' sx={{ marginTop: 4 }}>
-          {renderTextWithLineBreaks(language === "fr" ? partners.secondText : partners.enSecondText)}
+        <Typography variant='body1' sx={{ marginTop: 5 }}>
+          {renderTextWithLineBreaks(language === "fr" ? partners?.secondText || "" : partners?.enSecondText || "")}
         </Typography>
       </React.Fragment>
     )}

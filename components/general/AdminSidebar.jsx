@@ -14,7 +14,7 @@ const adminTabs = [
   { name: "Shop", icon: <Store />, path: "/admin/shop" },
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
-  { name: "Aider autrement", icon: <Recommend />, path: "/admin/help" },
+  { name: "Aider autrement", icon: <Recommend />, path: "/admin/volunteers" },
   { name: "Infos contact", icon: <ContactPage />, path: "/admin/contacts" },
 ];
 

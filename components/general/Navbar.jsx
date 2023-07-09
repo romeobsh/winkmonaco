@@ -20,7 +20,7 @@ function Navbar(props) {
   // Onglets
   const tabs = [
     { name: <Translation tKey='nav.donate' />, path: "/donate" },
-    { name: <Translation tKey='nav.help' />, path: "/help" },
+    { name: <Translation tKey='nav.help' />, path: "/volunteers" },
     { name: <Translation tKey='nav.articles' />, path: "/articles" },
     { name: <Translation tKey='nav.shop' />, path: "/shop" },
     { name: <Translation tKey='nav.partners' />, path: "/partners" },
