@@ -252,4 +252,4 @@ export const subscriptionAPIHandler = generateElementApiHandler(Subscription);
 //* Datagrid
 //* --------
 
-export const SubscriptionsDatagrid = () => <CustomDatagrid schema={subscriptionSchema} title='Subscriptions' endpoint='subscriptions' />;
+export const SubscriptionsDatagrid = () => <CustomDatagrid schema={subscriptionSchema} title='Abonnements' endpoint='subscriptions' />;
