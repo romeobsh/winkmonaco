@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TransferOrCheque from "@/components/donations/TransferOrCheque";
 import { DonationsDatagrid } from "@/schemas/donation";
 import { Launch } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";
-import { fetchData } from "@/lib/handlers/fetchData";
 
-export default function AdminDonations() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    fetchData("paymentInfos", setIsLoading, setData, "singleDocument");
-  }, []);
-
+export default function AdminDonations({ paymentInfos }) {
   return (
     <React.Fragment>
-      {/* <DonationsDatagrid /> */}
-      <Typography variant='h2' color='secondary'>
-        DATAGRID A REMETTRE (PB DOUBLE API CALL)
-      </Typography>
+      <DonationsDatagrid />
       <Grid container sx={{ paddingBottom: 3 }}>
         <Grid item xs={12}>
           <Typography variant='h3' mb={3}>
@@ -30,13 +19,13 @@ export default function AdminDonations() {
           <Typography color='' variant='h4' mb={3}>
             Version française
           </Typography>
-          <TransferOrCheque loading={isLoading} data={data} />
+          <TransferOrCheque loading={false} data={paymentInfos} />
         </Grid>
         <Grid item xs={12} mb={3}>
           <Typography color='' variant='h4' mb={3}>
             Version anglaise
           </Typography>
-          <TransferOrCheque loading={isLoading} data={data} english />
+          <TransferOrCheque loading={false} data={paymentInfos} english />
         </Grid>
         <Grid item xs={12}>
           <Typography variant='h3' mt={5}>
@@ -51,4 +40,24 @@ export default function AdminDonations() {
       </Grid>
     </React.Fragment>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const { data } = await (await fetch(`http://localhost:3003/api/paymentInfos`)).json();
+
+    console.log(data);
+    return {
+      props: {
+        paymentInfos: data[0] || {}, // Assuming data is an array and you need the first item
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        paymentInfos: {}, // Fallback empty object
+      },
+    };
+  }
 }

@@ -37,7 +37,7 @@ export const paymentInfoSchema = [
     mongooseRequired: true,
     yupValidations: string()
       .required("L'IBAN est requis")
-      .min(3, "L'IBAN ne peut pas faire moins de 3 caractères")
+      .min(12, "L'IBAN ne peut pas faire moins de 12 caractères")
       .max(64, "L'IBAN ne peut pas faire plus de 64 caractères"),
   },
   {

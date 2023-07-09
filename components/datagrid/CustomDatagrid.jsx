@@ -43,6 +43,19 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
     fetchData();
   }, [endpoint]);
 
+  const initialState = {
+    columns: {
+      columnVisibilityModel: {},
+    },
+  };
+
+  // Constructing the column visibility model based on the schema
+  schema.forEach((column) => {
+    if (column.muiHidden) {
+      initialState.columns.columnVisibilityModel[column.name] = false;
+    }
+  });
+
   return (
     <Box>
       <ConfirmationModal
@@ -64,6 +77,7 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
             loadingOverlay: LinearProgress,
           }}
           loading={isLoading}
+          initialState={initialState}
         />
       </Box>
     </Box>
