@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 const VolunteersContent = ({ data, loading, language }) => (
   <React.Fragment>
     {loading && <VolunteersLoading />}
-    {!loading && Object.keys(data).length === 0 && <VolunteersDefault />}
+    {!loading && Object.keys(data).length === 0 && <VolunteersDefault language={language} />}
     {!loading && Object.keys(data).length > 0 && (
       <React.Fragment>
         <Typography variant='body1' sx={{ marginTop: 4 }}>

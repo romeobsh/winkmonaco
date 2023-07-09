@@ -26,7 +26,7 @@ export default function AdminVolunteers({ data }) {
           <SelectLanguage />
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ maxWidth: "800px", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
+          <Box sx={{ maxWidth: { xs: "600px", lg: "1200px" }, margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
             <VolunteersContent data={data} language={language} loading={false} />
           </Box>
         </Grid>
