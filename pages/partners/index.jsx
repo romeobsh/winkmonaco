@@ -7,55 +7,19 @@ import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { fetchData } from "@/lib/handlers/fetchData";
+import { PartnersPage } from "@/components/partners/PartnersPage";
 
 const Partners = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [partners, setPartners] = useState({});
-  const { language, changeLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
 
   useEffect(() => {
-    const fetchPartners = async () => {
-      try {
-        // Make the API call to fetch the article data based on the ID
-        const response = await fetch(`/api/partners/view`);
-        let data = await response.json();
-
-        if (data.data.length > 0) {
-          data = data.data[0] ?? "";
-          // Set the initial values based on the fetched data
-          setPartners({
-            firstText: data.firstText ?? "",
-            enFirstText: data.enFirstText ?? "",
-            imageUrl: data.imageUrl ?? "",
-            secondText: data.secondText ?? "",
-            enSecondText: data.enSecondText ?? "",
-          });
-        } else {
-          setPartners(undefined);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    // Call the fetchPartners function
-    fetchPartners();
+    fetchData("partners", setIsLoading, setPartners, "singleDocument");
   }, []);
 
-  return (
-    <React.Fragment>
-      {loading && <Loading />}
-      <Box sx={{ maxWidth: "800px", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
-        <Typography variant='h2'>
-          <Translation tKey='partners.title' />
-        </Typography>
-        {!loading && partners === undefined && <PartnersDefault />}
-        {!loading && partners !== undefined && <PartnersContent partners={partners} language={language} />}
-      </Box>
-    </React.Fragment>
-  );
+  return <PartnersPage loading={isLoading} partners={partners} language={language} />;
 };
 
 export default Partners;

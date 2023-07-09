@@ -2,7 +2,7 @@ import { translations } from "@/lib/translations/translations.js";
 import { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
-const Translation = ({ tKey, lang, bold }) => {
+const Translation = ({ tKey, lang }) => {
   const { language: contextLanguage } = useContext(LanguageContext);
   const [language, setLanguage] = useState(contextLanguage);
 
@@ -21,7 +21,7 @@ const Translation = ({ tKey, lang, bold }) => {
   // Traverse the translation object to access the final translation
   const translation = keys.reduce((obj, key) => obj?.[key], translationObject);
 
-  return <span style={{ fontWeight: bold ? 700 : "" }}>{translation}</span>;
+  return <span>{translation}</span>;
 };
 
 export default Translation;

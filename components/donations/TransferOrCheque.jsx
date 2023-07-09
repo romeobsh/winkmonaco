@@ -8,7 +8,10 @@ const TransferOrCheque = ({ english, loading, data }) => {
     <Grid container sx={{ display: "flex", textAlign: "center", maxWidth: "1200px", margin: "auto" }}>
       <Grid item xs={12} xl={6}>
         <Typography variant='h6' mb={2}>
-          <Translation tKey='donate.paymentBy' lang={english ? "en" : "fr"} /> <Translation tKey='donate.bankTransfer' lang={english ? "en" : "fr"} bold />
+          <Translation tKey='donate.paymentBy' lang={english ? "en" : "fr"} />{" "}
+          <span style={{ fontWeight: 700 }}>
+            <Translation tKey='donate.bankTransfer' lang={english ? "en" : "fr"} />
+          </span>
         </Typography>
         <Paper
           sx={{
@@ -63,7 +66,10 @@ const TransferOrCheque = ({ english, loading, data }) => {
       </Grid>
       <Grid item xs={12} xl={6}>
         <Typography variant='h6' mb={2} mt={{ xl: 0, xs: 4 }}>
-          <Translation tKey='donate.paymentBy' lang={english ? "en" : "fr"} /> <Translation tKey='donate.cheque' lang={english ? "en" : "fr"} bold />
+          <Translation tKey='donate.paymentBy' lang={english ? "en" : "fr"} />{" "}
+          <span style={{ fontWeight: 700 }}>
+            <Translation tKey='donate.cheque' lang={english ? "en" : "fr"} />
+          </span>
         </Typography>
         <Paper
           sx={{

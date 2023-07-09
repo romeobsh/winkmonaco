@@ -18,13 +18,6 @@ const PartnersDefault = () => (
       width={600}
       height={300}
     />
-    <Typography variant='body1' sx={{ marginTop: 4 }}>
-      <Translation tKey='partners.defaultAd' />
-      <Link style={{ textDecoration: "none", color: "#22c6fe", fontWeight: 600 }} href='/contact'>
-        <Translation tKey='nav.contact' />
-      </Link>{" "}
-      !
-    </Typography>
   </React.Fragment>
 );
 
