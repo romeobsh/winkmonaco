@@ -44,7 +44,7 @@ export default function AdminDonations({ paymentInfos }) {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await (await fetch(`http://localhost:3003/api/paymentInfos`)).json();
+    const { data } = await (await fetch(process.env.NEXTAUTH_URL + `/api/paymentInfos`)).json();
 
     console.log(data);
     return {

@@ -75,7 +75,7 @@ export const volunteerSchema = [
     yupValidations: string()
       .required("L'adresse complète est requise")
       .min(12, "L'adresse complète ne peut pas faire moins de 12 caractères")
-      .max(64, "L'adresse complète ne peut pas faire plus de 256 caractères"),
+      .max(256, "L'adresse complète ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "job",
@@ -87,8 +87,11 @@ export const volunteerSchema = [
     muiFlex: 2,
     muiMdSize: 6,
     mongooseType: String,
-    mongooseRequired: false,
-    yupValidations: string(),
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("La profession est requise")
+      .min(12, "La profession ne peut pas faire moins de 12 caractères")
+      .max(64, "La profession ne peut pas faire plus de 64 caractères"),
   },
   {
     name: "comment",

@@ -1,7 +1,7 @@
 import { Box, Skeleton } from "@mui/material";
 import React from "react";
 
-const PartnersLoading = () => {
+const VolunteersLoading = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Skeleton animation='wave' variant='rectangular' sx={{ fontSize: "1rem", borderRadius: "10px", margin: "2rem 0 0.5rem" }} />
@@ -16,4 +16,4 @@ const PartnersLoading = () => {
   );
 };
 
-export default PartnersLoading;
+export default VolunteersLoading;

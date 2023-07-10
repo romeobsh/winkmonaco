@@ -160,6 +160,41 @@ export const helpContentSchema = [
       .min(120, "Le second texte ne peut pas faire moins de 120 caractères")
       .max(3000, "Le second texte ne peut pas faire plus de 3000 caractères"),
   },
+  {
+    name: "formText",
+    placeholder: "Texte du formulaire",
+    type: "text",
+    multiline: true,
+    minRows: 4,
+    initialValue: "",
+    muiHeaderName: "Texte du formulaire",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le texte du formulaire est requis")
+      .min(120, "Le texte du formulaire ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le texte du formulaire ne peut pas faire plus de 3000 caractères"),
+  },
+  {
+    name: "enFormText",
+    placeholder: "Texte du formulaire (anglais)",
+    translation: true,
+    type: "text",
+    multiline: true,
+    minRows: 4,
+    initialValue: "",
+    muiHeaderName: "Texte du formulaire (anglais)",
+    muiType: "string",
+    muiFlex: 3,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("Le texte du formulaire en anglais est requis")
+      .min(120, "Le texte du formulaire en anglais ne peut pas faire moins de 120 caractères")
+      .max(3000, "Le texte du formulaire en anglais ne peut pas faire plus de 3000 caractères"),
+  },
 ];
 
 //* --------------------------

@@ -16,7 +16,7 @@ const Volunteers = () => {
 
   return (
     <React.Fragment>
-      <VolunteersPage loading={isLoading} data={helpContents} language={language} />;
+      <VolunteersPage loading={isLoading} data={helpContents} language={language} />
     </React.Fragment>
   );
 };
