@@ -1,9 +1,4 @@
 import { LanguageContext } from "@/contexts/LanguageContext";
-import Loading from "@/components/general/Loading";
-import Translation from "@/components/general/Translation";
-import { PartnersContent } from "@/components/partners/PartnersContent";
-import PartnersDefault from "@/components/partners/PartnersDefault";
-import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";

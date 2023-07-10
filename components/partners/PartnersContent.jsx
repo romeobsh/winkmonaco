@@ -11,7 +11,6 @@ const PartnersContent = ({ partners, loading, language }) => (
     {!loading && Object.keys(partners).length === 0 && <PartnersDefault language={language} />}
     {!loading && Object.keys(partners).length > 0 && (
       <React.Fragment>
-        {console.log(partners)}
         <Typography variant='body1' sx={{ marginTop: 4 }}>
           {language === "fr" ? partners.firstText : partners.enFirstText}
         </Typography>

@@ -14,6 +14,7 @@ export const helpContentSchema = [
     placeholder: "Premier texte",
     type: "text",
     multiline: true,
+    minRows: 4,
     initialValue: "",
     muiHeaderName: "Premier texte",
     muiType: "string",
@@ -31,6 +32,7 @@ export const helpContentSchema = [
     translation: true,
     type: "text",
     multiline: true,
+    minRows: 4,
     initialValue: "",
     muiHeaderName: "Premier texte",
     muiType: "string",
@@ -61,7 +63,7 @@ export const helpContentSchema = [
     placeholder: `Contenu du kit - séparés par ";"`,
     type: "text",
     initialValue: "",
-    muiHeaderName: "Contenu",
+    muiHeaderName: `Contenu du kit - séparés par ";"`,
     muiType: "string",
     muiFlex: 3,
     mongooseType: String,
@@ -69,7 +71,7 @@ export const helpContentSchema = [
     yupValidations: string()
       .required("Le contenu du kit est requis")
       .min(3, "Le contenu du kit ne peut pas faire moins de 3 caractères")
-      .max(128, "Le contenu du kit ne peut pas faire plus de 128 caractères"),
+      .max(256, "Le contenu du kit ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "enKitContent",
@@ -77,7 +79,7 @@ export const helpContentSchema = [
     translation: true,
     type: "text",
     initialValue: "",
-    muiHeaderName: "Contenu (EN)",
+    muiHeaderName: `Contenu du kit - séparés par ";" (anglais)`,
     muiType: "string",
     muiFlex: 3,
     mongooseType: String,
@@ -85,7 +87,7 @@ export const helpContentSchema = [
     yupValidations: string()
       .required("Le contenu du kit en anglais est requis")
       .min(3, "Le contenu du kit en anglais ne peut pas faire moins de 3 caractères")
-      .max(128, "Le contenu du kit en anglais ne peut pas faire plus de 128 caractères"),
+      .max(256, "Le contenu du kit en anglais ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "imageUrl",
@@ -128,6 +130,7 @@ export const helpContentSchema = [
     placeholder: "Second texte",
     type: "text",
     multiline: true,
+    minRows: 4,
     initialValue: "",
     muiHeaderName: "Second texte",
     muiType: "string",
@@ -145,6 +148,7 @@ export const helpContentSchema = [
     translation: true,
     type: "text",
     multiline: true,
+    minRows: 4,
     initialValue: "",
     muiHeaderName: "Second texte",
     muiType: "string",
@@ -174,7 +178,7 @@ export const helpContentsColumns = (handleDelete) => generateColumns(helpContent
 //* Formik & Form creation
 //* ----------------------
 
-export const HelpContentFormik = ({ id, title, children }) => generateFormik(helpContentSchema, "helpContents", title, id)({ children });
+export const HelpContentFormik = ({ id, title, children }) => generateFormik(helpContentSchema, "helpContents", title, id, "volunteers")({ children });
 
 //* ------------
 //* API Handlers

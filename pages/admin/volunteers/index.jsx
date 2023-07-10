@@ -19,14 +19,14 @@ export default function AdminVolunteers({ data }) {
             Informations actuelles
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex" }}>
+        <Grid item xs={12} sx={{ display: "flex" }} mb={2}>
           <Typography color='' variant='h4' mr={2}>
             Version française
           </Typography>
           <SelectLanguage />
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ maxWidth: { xs: "600px", lg: "1200px" }, margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
+          <Box sx={{ maxWidth: { xs: "600px", lg: "1000px" }, margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
             <VolunteersContent data={data} language={language} loading={false} />
           </Box>
         </Grid>
