@@ -4,7 +4,7 @@ import { generateCollectionApiHandler } from "@/lib/generators/generateCollectio
 import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
 import { generateFormik } from "@/lib/generators/generateFormik";
 import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
-import { string, date } from "yup";
+import { string } from "yup";
 
 //* General model definition
 export const volunteerSchema = [
@@ -58,7 +58,9 @@ export const volunteerSchema = [
     muiMdSize: 6,
     mongooseType: String,
     mongooseRequired: false,
-    yupValidations: string(),
+    yupValidations: string()
+      .required("Téléphone requis")
+      .matches(/^(\+[0-9]{1,3}\s?)?(\([0-9]{1,}\)\s?)?([0-9]|-|\s){5,}$/, "Numéro de téléphone invalide"),
   },
   {
     name: "address",
@@ -87,11 +89,8 @@ export const volunteerSchema = [
     muiFlex: 2,
     muiMdSize: 6,
     mongooseType: String,
-    mongooseRequired: true,
-    yupValidations: string()
-      .required("La profession est requise")
-      .min(12, "La profession ne peut pas faire moins de 12 caractères")
-      .max(64, "La profession ne peut pas faire plus de 64 caractères"),
+    mongooseRequired: false,
+    yupValidations: string().max(64, "La profession ne peut pas faire plus de 64 caractères"),
   },
   {
     name: "comment",

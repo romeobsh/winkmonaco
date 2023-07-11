@@ -21,6 +21,7 @@
     "eslint-config-next": "13.3.0",
     "formik": "^2.4.1",
     "isomorphic-unfetch": "^4.0.2",
+    "material-ui-phone-number": "^3.0.0",
     "mongoose": "^7.0.4",
     "next": "13.3.0",
     "next-auth": "^4.22.1",

@@ -53,12 +53,20 @@ function Navbar(props) {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", height: "64px", maxWidth: "100vw" }}>
+      <Box sx={{ display: "flex", height: "64px", maxWidth: "100vw", backgroundFilter: "blur(50px)" }}>
         <AppBar
           position='fixed'
           component='nav'
           elevation={mobileOpen ? 0 : 2}
-          sx={{ background: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, borderBottom: 0, maxWidth: "100vw" }}>
+          color='transparent'
+          sx={{
+            // background: "rgba(255,255,255,0.75)",
+            backdropFilter: "blur(20px)",
+            boxShadow: "0px 0px 50px 0px #0000001A",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            borderBottom: 0,
+            maxWidth: "100vw",
+          }}>
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Link href={"/"}>
               <Image src='/icons/ecritures.png' alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
