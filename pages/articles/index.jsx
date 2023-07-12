@@ -1,9 +1,22 @@
-import React from "react";
+import { LanguageContext } from "@/contexts/LanguageContext";
+import React, { useContext } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { fetchData } from "@/lib/handlers/fetchData";
+import { ArticlesPage } from "@/components/articles/ArticlesPage";
 
 const Articles = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [articles, setArticles] = useState([]);
+  const { language } = useContext(LanguageContext);
+
+  useEffect(() => {
+    fetchData("articles", setIsLoading, setArticles);
+  }, []);
+
   return (
     <React.Fragment>
-      <h1>Articles</h1>
+      <ArticlesPage loading={isLoading} data={articles} language={language} />
     </React.Fragment>
   );
 };

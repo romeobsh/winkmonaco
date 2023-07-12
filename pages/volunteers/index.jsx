@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchData } from "@/lib/handlers/fetchData";
-import { VolunteersPage } from "@/components/volunteers/VolunteersPage";
+import VolunteersPage from "@/components/volunteers/VolunteersPage";
 
 const Volunteers = () => {
   const [isLoading, setIsLoading] = useState(true);

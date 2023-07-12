@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
-import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, MenuItem, Select, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Translation from "./Translation";
 import SelectLanguage from "./SelectLanguage";
-import { LanguageContext } from "@/contexts/LanguageContext";
 
 // Largeur de la sidebar mobile
 const drawerWidth = 300;
@@ -15,7 +14,6 @@ function Navbar(props) {
   const router = useRouter();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { language } = useContext(LanguageContext);
 
   // Onglets
   const tabs = [
@@ -32,7 +30,7 @@ function Navbar(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ margin: "auto 0" }}>
+    <Box onClick={handleDrawerToggle} sx={{ margin: "auto 0", zIndex: "999" }}>
       <Toolbar sx={{ borderBottom: 0 }} />
       <List>
         {tabs.map((tab) => (
@@ -58,11 +56,11 @@ function Navbar(props) {
           position='fixed'
           component='nav'
           elevation={mobileOpen ? 0 : 2}
-          color='transparent'
           sx={{
-            // background: "rgba(255,255,255,0.75)",
+            background: mobileOpen ? "white" : "rgba(255,255,255,0.6)",
+            transition: "all 0.3s ease-in-out",
             backdropFilter: "blur(20px)",
-            boxShadow: "0px 0px 50px 0px #0000001A",
+            boxShadow: mobileOpen ? "unset" : "0px 0px 50px 0px #0000001A",
             zIndex: (theme) => theme.zIndex.drawer + 1,
             borderBottom: 0,
             maxWidth: "100vw",
@@ -71,7 +69,7 @@ function Navbar(props) {
             <Link href={"/"}>
               <Image src='/icons/ecritures.png' alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
             </Link>
-            <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <Box sx={{ display: { xs: "none", lg: "block" } }}>
               {tabs.map((tab) => (
                 <Link key={Math.random()} href={tab.path}>
                   <Button
@@ -94,7 +92,7 @@ function Navbar(props) {
                 aria-label='open drawer'
                 edge='start'
                 onClick={handleDrawerToggle}
-                sx={{ ml: 1.5, display: { xs: "flex", md: "none" }, flexDirection: "column" }}>
+                sx={{ ml: 1.5, display: { xs: "flex", lg: "none" }, flexDirection: "column", width: "50px" }}>
                 {mobileOpen ? (
                   <React.Fragment>
                     <Close color='primary' />
@@ -125,7 +123,7 @@ function Navbar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", md: "none" },
+            display: { xs: "block", lg: "none" },
             zIndex: (theme) => theme.zIndex.appBar - 1,
             "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
           }}>
