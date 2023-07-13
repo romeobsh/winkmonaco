@@ -26,6 +26,7 @@ const SelectLanguage = () => {
       onChange={handleChangeLanguage}
       value={language}
       displayEmpty
+      MenuProps={{ disableScrollLock: true }}
       renderValue={(value) => {
         return (
           <Box sx={{ display: "flex", gap: 1 }}>

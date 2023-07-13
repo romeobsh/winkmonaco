@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
 import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Translation from "./Translation";
 import SelectLanguage from "./SelectLanguage";
+import { LanguageContext } from "@/contexts/LanguageContext";
 
 // Largeur de la sidebar mobile
 const drawerWidth = 300;
@@ -14,6 +15,7 @@ function Navbar(props) {
   const router = useRouter();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { language } = useContext(LanguageContext);
 
   // Onglets
   const tabs = [
@@ -58,7 +60,6 @@ function Navbar(props) {
           elevation={mobileOpen ? 0 : 2}
           sx={{
             background: mobileOpen ? "white" : "rgba(255,255,255,0.6)",
-            transition: "all 0.3s ease-in-out",
             backdropFilter: "blur(20px)",
             boxShadow: mobileOpen ? "unset" : "0px 0px 50px 0px #0000001A",
             zIndex: (theme) => theme.zIndex.drawer + 1,
@@ -67,7 +68,7 @@ function Navbar(props) {
           }}>
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Link href={"/"}>
-              <Image src='/icons/ecritures.png' alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
+              <Image src='/icons/ecritures.png' priority alt='Logo' width={70} height={42} style={{ marginRight: "10px" }} />
             </Link>
             <Box sx={{ display: { xs: "none", lg: "block" } }}>
               {tabs.map((tab) => (
@@ -85,7 +86,7 @@ function Navbar(props) {
               <SelectLanguage />
               <Link href='/donate'>
                 <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
-                  <Translation tKey='nav.donate' />{" "}
+                  <Translation tKey='nav.donate' lang={language} />{" "}
                 </Button>
               </Link>
               <Button
@@ -97,7 +98,7 @@ function Navbar(props) {
                   <React.Fragment>
                     <Close color='primary' />
                     <Typography color='primary' variant='body2' sx={{ lineHeight: 1, fontSize: "0.8rem" }}>
-                      Fermer
+                      <Translation tKey='general.close' lang={language} />
                     </Typography>
                   </React.Fragment>
                 ) : (
@@ -122,6 +123,7 @@ function Navbar(props) {
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
+          disableScrollLock
           sx={{
             display: { xs: "block", lg: "none" },
             zIndex: (theme) => theme.zIndex.appBar - 1,
