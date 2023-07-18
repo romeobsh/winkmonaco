@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { fetchData } from "@/lib/handlers/fetchData";
 import { Box, Typography } from "@mui/material";
 import ArticleLoading from "./ArticleLoading";
-import Translation from "../general/Translation";
 import { LanguageContext } from "@/contexts/LanguageContext";
 import Image from "next/image";
 import { renderTextWithLineBreaks } from "@/lib/renderTextWithLineBreaks";

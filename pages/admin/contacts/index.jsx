@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ContactCard from "@/components/general/ContactCard";
+import ContactCard from "@/components/contact/ContactCard";
 import { Button, Grid, Typography } from "@mui/material";
 import { Launch } from "@mui/icons-material";
 import Link from "next/link";
