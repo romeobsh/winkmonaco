@@ -15,7 +15,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                 variant='h5'
                 component='div'
                 sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 600, textAlign: "left" }}>
-                {article.title}
+                {language === "en" ? article.enTitle : article.title}
               </Typography>
               <Typography mt={1} ml={0.5} variant='body2'>
                 {new Date(article.createdAt).toLocaleDateString()}
@@ -34,7 +34,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                 WebkitBoxOrient: "vertical",
                 lineHeight: 1.6,
               }}>
-              {article.content}
+              {language === "en" ? article.enContent : article.content}
             </Typography>
           </CardContent>
           <Box sx={{ height: "14rem", paddingTop: "1rem", position: "relative" }}>
