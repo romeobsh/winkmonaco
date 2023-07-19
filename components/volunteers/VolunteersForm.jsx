@@ -12,6 +12,7 @@ import { LoadingButton } from "@mui/lab";
 import SuccessModal from "../ui/SuccessModal";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
+import Translation from "../general/Translation";
 
 const VolunteersForm = ({ loading, data, language, onClick }) => {
   const [isSending, setIsSending] = useState(false);
@@ -61,7 +62,7 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
     <Box>
       <Box sx={{ marginTop: "-1rem", textAlign: "left" }}>
         <Button startIcon={<ArrowBack />} onClick={onClick}>
-          Retour
+          <Translation tKey='general.back' lang={language} />
         </Button>
       </Box>
       {loading && <VolunteersLoading />}

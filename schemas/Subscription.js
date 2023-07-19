@@ -140,7 +140,7 @@ export const subscriptionSchema = [
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string()
-      .required("Le pays est requise")
+      .required("Le pays est requis")
       .min(2, "Le pays ne peut pas faire moins de 2 caractères")
       .max(64, "Le pays ne peut pas faire plus de 64 caractères"),
   },
@@ -155,7 +155,7 @@ export const subscriptionSchema = [
     muiMdSize: 6,
     mongooseType: Number,
     mongooseRequired: false,
-    yupValidations: number().positive("Le montant ne peut pas être négatif"),
+    yupValidations: number(),
   },
   {
     name: "status",
