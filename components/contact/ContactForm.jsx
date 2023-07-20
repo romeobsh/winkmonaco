@@ -1,5 +1,22 @@
-import { ArrowBack, Cancel, Check } from "@mui/icons-material";
-import { Box, Button, CircularProgress, Collapse, Grid, Paper, Slide, TextField, Typography } from "@mui/material";
+import { ArrowBack, Cancel, Check, Euro, Info, Send } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  Collapse,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Paper,
+  Radio,
+  RadioGroup,
+  Slide,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -8,17 +25,33 @@ import { debounce } from "lodash";
 import IBAN from "iban";
 import { TransitionGroup } from "react-transition-group";
 import Loading from "../general/Loading";
+import ModifyRecurringDonation from "./ModifyRecurringDonation";
+import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
+import SearchStatus from "./SearchStatus";
 
 const ContactForm = ({ language, isLoading, onClick }) => {
   const [iban, setIban] = useState("");
   const [subscription, setSubscription] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
-  const [isSending, setIsSending] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
 
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+
+  const [tab, setTab] = useState("0");
+
+  const handleChangeTab = (event, newTab) => {
+    setTab(newTab);
+  };
+
+  const [selectedOption, setSelectedOption] = useState("amount");
+  const [customAmount, setCustomAmount] = useState("");
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleChange = (event) => {
     let newIban = event.target.value
@@ -36,20 +69,21 @@ const ContactForm = ({ language, isLoading, onClick }) => {
     if (IBAN.isValid(iban)) {
       try {
         setNotFound(false);
-        setIsSending(true);
+        setIsSearching(true);
         const response = await fetch(`/api/subscriptions/ibans/${iban}`);
         const data = await response.json();
         if (data.message) {
           setNotFound(true);
-          setIsSending(false);
+          setIsSearching(false);
         } else {
           setNotFound(false);
           setSubscription(data.subscription);
-          setIsSending(false);
+          console.log(subscription);
+          setIsSearching(false);
         }
       } catch (error) {
         enqueueSnackbar("Une erreur est survenue, réessayez plus tard", { variant: "error" });
-        setIsSending(false);
+        setIsSearching(false);
         return null;
       }
     } else {
@@ -67,34 +101,110 @@ const ContactForm = ({ language, isLoading, onClick }) => {
           <Translation tKey='general.back' lang={language} />
         </Button>
       </Box>
-      <Paper sx={{ backgroundColor: "#fafafa", borderRadius: "1rem", padding: { xs: "1rem", md: "2rem" } }}>
+      <Paper sx={{ backgroundColor: "#f0f0f0", borderRadius: "1rem", padding: { xs: "1rem", md: "2rem" } }}>
         <Typography mb={3}>{`Pour retrouver vos informations, veuillez entrer l'IBAN associé à votre don récurrent:`}</Typography>
         <Grid container>
           <Grid item xs={12}>
             <Grid item xs={12} md={6} sx={{ margin: "auto" }}>
-              <TextField label='IBAN' value={iban} onChange={handleChange} fullWidth disabled={isSending} />
+              <TextField label='IBAN' value={iban} onChange={handleChange} fullWidth disabled={isSearching} />
+            </Grid>
+            <SearchStatus isSearching={isSearching} subscription={subscription} notFound={notFound} />
+            <Grid item xs={12} mt={3}>
+              <Typography variant='h6' mb={2}>
+                Je souhaite...
+              </Typography>
+              <TabContext value={tab}>
+                <TabList onChange={handleChangeTab} TabIndicatorProps={{ style: { backgroundColor: "transparent" } }} centered>
+                  <Tab
+                    sx={{
+                      backgroundColor: tab === "0" ? "white" : "transparent",
+                      marginRight: { xs: "0.5rem", md: "2rem" },
+                      color: "text.main",
+                      borderRadius: "1rem",
+                      overflow: "clip",
+                      fontWeight: 600,
+                      transition: "all 0.5s ease-in-out",
+                      "&.Mui-selected": { color: "text.main" },
+                    }}
+                    label={"Modifier mon don"}
+                    disabled={subscription === null}
+                    value='0'
+                  />
+                  <Tab
+                    sx={{
+                      backgroundColor: tab === "1" ? "white" : "transparent",
+                      marginLeft: { xs: "0.5rem", md: "2rem" },
+                      color: "error.main",
+                      borderRadius: "1rem",
+                      fontWeight: 600,
+                      transition: "all 0.5s ease-in-out",
+                      "&.Mui-selected": { color: "error.main" },
+                    }}
+                    label='Arrêter mon don'
+                    disabled={subscription === null}
+                    value='1'
+                  />
+                </TabList>
+                <Collapse in={subscription !== null}>
+                  <TabPanel value='0'>
+                    <FormControl sx={{ flexDirection: "row", gap: "1rem" }}>
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label={
+                          <Typography variant='h6' sx={{ display: "flex", alignItems: "center" }}>
+                            10
+                            <Euro fontSize='small' />
+                          </Typography>
+                        }
+                        value={"half"}
+                        sx={{ backgroundColor: "white", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0 }}
+                      />
+                      <FormControlLabel
+                        sx={{ backgroundColor: "white", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0 }}
+                        control={<Checkbox />}
+                        label={
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <TextField
+                              type='number'
+                              variant='standard'
+                              sx={{ width: "60px" }}
+                              InputProps={{
+                                sx: {
+                                  fontSize: "1.2rem",
+                                  fontWeight: 600,
+                                  "& input[type=number]": {
+                                    "-moz-appearance": "textfield",
+                                  },
+                                  "& input[type=number]::-webkit-outer-spin-button": {
+                                    "-webkit-appearance": "none",
+                                    margin: 0,
+                                  },
+                                  "& input[type=number]::-webkit-inner-spin-button": {
+                                    "-webkit-appearance": "none",
+                                    margin: 0,
+                                  },
+                                },
+                              }}
+                            />
+                            <Euro fontSize='small' />
+                          </Box>
+                        }
+                        value={"custom"}
+                      />
+                    </FormControl>
+                  </TabPanel>
+                  <TabPanel value='1'>
+                    <Typography>{`Cliquez sur le bouton ci-dessous pour envoyer votre demande.`}</Typography>
+                    <Typography>{`Elle sera prise en charge dans les plus brefs délais.`}</Typography>
+                    <Typography mt={1}>{`Merci pour le soutien que vous nous avez donné.`}</Typography>
+                  </TabPanel>
+                </Collapse>
+              </TabContext>
             </Grid>
             <Grid item xs={12} mt={2}>
-              {isSending && (
-                <Collapse in={isSending}>
-                  <CircularProgress size={50} />
-                  <Typography>Searching...</Typography>
-                </Collapse>
-              )}
-              {notFound && (
-                <Collapse in={notFound}>
-                  <Cancel sx={{ fontSize: 50 }} color='error' />
-                  <Typography>Aucun don récurrent associé à cet IBAN</Typography>
-                </Collapse>
-              )}
-              <Collapse in={subscription !== null}>
-                {" "}
-                <Check sx={{ fontSize: 50 }} color='success' />
-                <Typography>Don récurrent associé à cet IBAN trouvé</Typography>
-              </Collapse>
-            </Grid>
-            <Grid item xs={12} mt={3}>
-              <Typography variant='h6'>Je souhaite...</Typography>
+              <LoadingButton variant='contained' endIcon={<Send />} disabled={subscription === null}>
+                Soumettre
+              </LoadingButton>
             </Grid>
           </Grid>
         </Grid>
