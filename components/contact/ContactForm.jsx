@@ -1,33 +1,14 @@
-import { ArrowBack, Cancel, Check, Euro, Info, Send } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Checkbox,
-  CircularProgress,
-  Collapse,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Paper,
-  Radio,
-  RadioGroup,
-  Slide,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { ArrowBack, Euro, Send } from "@mui/icons-material";
+import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import Translation from "../general/Translation";
 import { debounce } from "lodash";
 import IBAN from "iban";
-import { TransitionGroup } from "react-transition-group";
-import Loading from "../general/Loading";
-import ModifyRecurringDonation from "./ModifyRecurringDonation";
 import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import SearchStatus from "./SearchStatus";
+import { translate } from "@/lib/translations/translate";
 
 const ContactForm = ({ language, isLoading, onClick }) => {
   const [iban, setIban] = useState("");
@@ -44,13 +25,6 @@ const ContactForm = ({ language, isLoading, onClick }) => {
 
   const handleChangeTab = (event, newTab) => {
     setTab(newTab);
-  };
-
-  const [selectedOption, setSelectedOption] = useState("amount");
-  const [customAmount, setCustomAmount] = useState("");
-
-  const handleRadioChange = (event) => {
-    setSelectedOption(event.target.value);
   };
 
   const handleChange = (event) => {
@@ -89,7 +63,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
     } else {
       setSubscription(null);
     }
-  }, 2000); // Debounce time: 1000ms (1 second)
+  }, 2000); // Debounce time: 2000ms (2 seconds)
 
   return (
     <Box>
@@ -102,16 +76,16 @@ const ContactForm = ({ language, isLoading, onClick }) => {
         </Button>
       </Box>
       <Paper sx={{ backgroundColor: "#f0f0f0", borderRadius: "1rem", padding: { xs: "1rem", md: "2rem" } }}>
-        <Typography mb={3}>{`Pour retrouver vos informations, veuillez entrer l'IBAN associé à votre don récurrent:`}</Typography>
+        <Typography mb={3}>{translate({ tKey: "contact.firstLine", lang: language })}</Typography>
         <Grid container>
           <Grid item xs={12}>
             <Grid item xs={12} md={6} sx={{ margin: "auto" }}>
               <TextField label='IBAN' value={iban} onChange={handleChange} fullWidth disabled={isSearching} />
             </Grid>
-            <SearchStatus isSearching={isSearching} subscription={subscription} notFound={notFound} />
+            <SearchStatus isSearching={isSearching} subscription={subscription} language={language} notFound={notFound} />
             <Grid item xs={12} mt={3}>
               <Typography variant='h6' mb={2}>
-                Je souhaite...
+                {translate({ tKey: "contact.iWant", lang: language })}
               </Typography>
               <TabContext value={tab}>
                 <TabList onChange={handleChangeTab} TabIndicatorProps={{ style: { backgroundColor: "transparent" } }} centered>
@@ -126,7 +100,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                       transition: "all 0.5s ease-in-out",
                       "&.Mui-selected": { color: "text.main" },
                     }}
-                    label={"Modifier mon don"}
+                    label={translate({ tKey: "contact.editDonation", lang: language })}
                     disabled={subscription === null}
                     value='0'
                   />
@@ -140,7 +114,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                       transition: "all 0.5s ease-in-out",
                       "&.Mui-selected": { color: "error.main" },
                     }}
-                    label='Arrêter mon don'
+                    label={translate({ tKey: "contact.stopDonation", lang: language })}
                     disabled={subscription === null}
                     value='1'
                   />
@@ -152,7 +126,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                         control={<Checkbox />}
                         label={
                           <Typography variant='h6' sx={{ display: "flex", alignItems: "center" }}>
-                            10
+                            {Math.round(subscription?.amount / 2)}
                             <Euro fontSize='small' />
                           </Typography>
                         }
@@ -194,16 +168,15 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                     </FormControl>
                   </TabPanel>
                   <TabPanel value='1'>
-                    <Typography>{`Cliquez sur le bouton ci-dessous pour envoyer votre demande.`}</Typography>
-                    <Typography>{`Elle sera prise en charge dans les plus brefs délais.`}</Typography>
-                    <Typography mt={1}>{`Merci pour le soutien que vous nous avez donné.`}</Typography>
+                    <Typography>{translate({ tKey: "contact.stopFirstLine", lang: language })}</Typography>
+                    <Typography>{translate({ tKey: "contact.stopSecondLine", lang: language })}</Typography>
                   </TabPanel>
                 </Collapse>
               </TabContext>
             </Grid>
             <Grid item xs={12} mt={2}>
               <LoadingButton variant='contained' endIcon={<Send />} disabled={subscription === null}>
-                Soumettre
+                {translate({ tKey: "general.send", lang: language })}
               </LoadingButton>
             </Grid>
           </Grid>
