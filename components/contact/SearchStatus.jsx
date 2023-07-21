@@ -54,10 +54,14 @@ const SearchStatus = ({ subscription, notFound, isSearching, language }) => {
           <React.Fragment>
             <Check sx={{ fontSize: 50 }} color='success' />
             <Typography>{translate({ tKey: "contact.cancelled", lang: language })}</Typography>
-            <Typography variant='success.main'>{translate({ tKey: "contact.cancelledAdditionalInfo", lang: language })}</Typography>
+            <Typography color='success.main'>{translate({ tKey: "contact.cancelledAdditionalInfo", lang: language })}</Typography>
             <Typography mt={1} sx={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
               {translate({ tKey: "contact.secondaryCancelled", lang: language })}
-              <Favorite sx={{ marginLeft: 1 }} fontSize='x-small' color='secondary' />
+              <Favorite sx={{ marginLeft: 1, display: { xs: "none", md: "flex" } }} fontSize='x-small' color='secondary' />
+            </Typography>
+            <Typography mt={1}>
+              {" "}
+              {translate({ tKey: "contact.oldAmount", lang: language })} <b>{subscription?.amount}€</b>
             </Typography>
           </React.Fragment>
         )}

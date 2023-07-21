@@ -1,5 +1,5 @@
 import { ArrowBack, Euro, Send } from "@mui/icons-material";
-import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography } from "@mui/material";
+import { Badge, Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -16,7 +16,14 @@ const ContactForm = ({ language, isLoading, onClick }) => {
   const [notFound, setNotFound] = useState(false);
 
   const [isSearching, setIsSearching] = useState(false);
+  const [customAmount, setCustomAmount] = useState(0);
   const [isOpened, setIsOpened] = useState(false);
+
+  const [selectedOption, setSelectedOption] = useState("half");
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
@@ -35,6 +42,28 @@ const ContactForm = ({ language, isLoading, onClick }) => {
 
     setIban(newIban);
     searchSubscriptionByIban(newIban);
+  };
+
+  const handleSubmit = async () => {
+    const amountToSend = selectedOption === "half" ? Math.round(subscription?.amount / 2) : customAmount;
+    console.log(iban.replace(/\s/g, ""));
+    console.log(tab === "0" ? amountToSend : undefined);
+    try {
+      const response = await fetch(`/api/subscriptions/ibans/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          iban: iban.replace(/\s/g, ""),
+          amount: tab === "0" ? amountToSend : undefined,
+        }),
+      });
+      const data = await response.json();
+      // Handle the response as needed...
+    } catch (error) {
+      // Handle error
+    }
   };
 
   const searchSubscriptionByIban = debounce(async (iban) => {
@@ -121,40 +150,67 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                 </TabList>
                 <Collapse in={subscription !== null}>
                   <TabPanel value='0'>
-                    <FormControl sx={{ flexDirection: "row", gap: "1rem" }}>
+                    <FormControl sx={{ flexDirection: "row", gap: "2rem" }}>
+                      <Badge
+                        badgeContent={"50%"}
+                        sx={{
+                          display: subscription?.status !== "cancelled" ? "flex" : "hidden",
+                          "& .MuiBadge-badge": {
+                            color: "white",
+                            backgroundColor: "primary.main",
+                          },
+                        }}>
+                        <FormControlLabel
+                          control={<Checkbox checked={selectedOption === "half"} onChange={handleRadioChange} value='half' />}
+                          label={
+                            <Typography variant='h6' sx={{ display: "flex", alignItems: "center" }}>
+                              {subscription?.amount
+                                ? Math.round(subscription?.amount / 2)
+                                : subscription?.amountAsked
+                                ? Math.round(subscription?.amountAsked / 2)
+                                : 10}
+                              <Euro fontSize='small' />
+                            </Typography>
+                          }
+                          value={
+                            subscription?.amount
+                              ? Math.round(subscription?.amount / 2)
+                              : subscription?.amountAsked
+                              ? Math.round(subscription?.amountAsked / 2)
+                              : 10
+                          }
+                          sx={{
+                            backgroundColor: "white",
+                            borderRadius: "1rem",
+                            padding: "0.4rem 2rem 0.4rem 1.4rem",
+                            width: "fit-content",
+                            margin: 0,
+                          }}
+                        />
+                      </Badge>
                       <FormControlLabel
-                        control={<Checkbox />}
-                        label={
-                          <Typography variant='h6' sx={{ display: "flex", alignItems: "center" }}>
-                            {Math.round(subscription?.amount / 2)}
-                            <Euro fontSize='small' />
-                          </Typography>
-                        }
-                        value={"half"}
                         sx={{ backgroundColor: "white", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0 }}
-                      />
-                      <FormControlLabel
-                        sx={{ backgroundColor: "white", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0 }}
-                        control={<Checkbox />}
+                        control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
                         label={
                           <Box sx={{ display: "flex", alignItems: "center" }}>
                             <TextField
                               type='number'
                               variant='standard'
                               sx={{ width: "60px" }}
+                              onChange={(e) => setCustomAmount(e.target.value)}
                               InputProps={{
                                 sx: {
                                   fontSize: "1.2rem",
                                   fontWeight: 600,
                                   "& input[type=number]": {
-                                    "-moz-appearance": "textfield",
+                                    MozAppearance: "textfield",
                                   },
                                   "& input[type=number]::-webkit-outer-spin-button": {
-                                    "-webkit-appearance": "none",
+                                    WebkitAppearance: "none",
                                     margin: 0,
                                   },
                                   "& input[type=number]::-webkit-inner-spin-button": {
-                                    "-webkit-appearance": "none",
+                                    WebkitAppearance: "none",
                                     margin: 0,
                                   },
                                 },
@@ -163,7 +219,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                             <Euro fontSize='small' />
                           </Box>
                         }
-                        value={"custom"}
+                        value={customAmount}
                       />
                     </FormControl>
                   </TabPanel>
@@ -175,7 +231,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
               </TabContext>
             </Grid>
             <Grid item xs={12} mt={2}>
-              <LoadingButton variant='contained' endIcon={<Send />} disabled={subscription === null}>
+              <LoadingButton variant='contained' endIcon={<Send />} disabled={subscription === null} onClick={handleSubmit}>
                 {translate({ tKey: "general.send", lang: language })}
               </LoadingButton>
             </Grid>

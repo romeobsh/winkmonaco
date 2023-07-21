@@ -9,30 +9,20 @@ import { string } from "yup";
 //* General model definition
 export const volunteerSchema = [
   {
-    name: "firstName",
-    placeholder: "Prénom",
+    name: "fullName",
+    placeholder: "Nom complet",
     type: "text",
     initialValue: "",
-    muiHeaderName: "Prénom",
+    muiHeaderName: "Nom complet",
     muiType: "string",
     muiFlex: 2,
     muiMdSize: 6,
     mongooseType: String,
     mongooseRequired: true,
-    yupValidations: string().required("Le prénom est requis"),
-  },
-  {
-    name: "lastName",
-    placeholder: "Nom",
-    type: "text",
-    initialValue: "",
-    muiHeaderName: "Nom",
-    muiType: "string",
-    muiFlex: 2,
-    muiMdSize: 6,
-    mongooseType: String,
-    mongooseRequired: true,
-    yupValidations: string().required("Le nom est requis"),
+    yupValidations: string()
+      .required("Le nom complet est requis")
+      .min(4, "Le nom complet ne peut pas faire moins de 12 caractères")
+      .max(128, "Le nom complet ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "email",

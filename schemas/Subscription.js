@@ -4,7 +4,7 @@ import { generateCollectionApiHandler } from "@/lib/generators/generateCollectio
 import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
 import { generateFormik } from "@/lib/generators/generateFormik";
 import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
-import { string, number, date } from "yup";
+import { string, number, date, nullable } from "yup";
 
 //* General model definition
 export const subscriptionSchema = [
@@ -155,7 +155,7 @@ export const subscriptionSchema = [
     muiMdSize: 6,
     mongooseType: Number,
     mongooseRequired: false,
-    yupValidations: number(),
+    yupValidations: number().nullable(true),
   },
   {
     name: "status",
@@ -189,9 +189,9 @@ export const subscriptionSchema = [
     muiType: "number",
     muiFlex: 2,
     muiMdSize: 6,
-    mongooseType: String,
+    mongooseType: Number,
     mongooseRequired: false,
-    yupValidations: string(),
+    yupValidations: number().nullable(true),
   },
   {
     name: "createdAt",

@@ -27,7 +27,7 @@ const VolunteersPage = ({ data, loading, language }) => {
           <Box>
             <VolunteersContent data={data} loading={loading} language={language} />
             <Button variant='contained' color='success' endIcon={<Favorite />} sx={{ marginTop: 4 }} onClick={handleClick}>
-              <Translation tKey='volunteers.button' />
+              <Translation tKey='volunteers.button' lang={language} />
             </Button>
           </Box>
         </Slide>
