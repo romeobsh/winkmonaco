@@ -102,6 +102,8 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
         setIsSending(false);
       }
     } catch (err) {
+      enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
+      setIsSending(false);
       console.error(err);
     }
   };
