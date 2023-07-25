@@ -1,11 +1,12 @@
+import Donate from "@/components/donations/Donate";
 import React from "react";
 
-const Donate = () => {
+const DonatePage = () => {
   return (
     <React.Fragment>
-      <h1>Donate</h1>
+      <Donate />
     </React.Fragment>
   );
 };
 
-export default Donate;
+export default DonatePage;

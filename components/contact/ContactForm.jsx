@@ -1,4 +1,4 @@
-import { ArrowBack, Euro, Send } from "@mui/icons-material";
+import { ArrowBack, Edit, Euro, Send } from "@mui/icons-material";
 import { Badge, Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -236,7 +236,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                                     },
                                   }}
                                 />
-                                <Euro fontSize='small' />
+                                {customAmount === 0 || customAmount === "" ? <Edit fontSize='small' /> : <Euro fontSize='small' />}
                               </Box>
                             }
                             value={customAmount}

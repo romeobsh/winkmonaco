@@ -156,7 +156,9 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
                     onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                     name={"tel"}
                     value={formik.values.tel}
-                    onChange={(val) => (formik.values.tel = val)}
+                    onChange={(val) => {
+                      formik.values.tel = val;
+                    }}
                     error={formik.touched.tel && !!formik.errors.tel}
                     helperText={formik.touched.tel && formik.errors.tel}
                     disabled={isSending || false}

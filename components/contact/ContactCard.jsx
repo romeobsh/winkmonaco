@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import ContactLoading from "../loading/ContactLoading";
 import { Person } from "@mui/icons-material";
+import { fetchData } from "@/lib/handlers/fetchData";
 
-const ContactCard = ({ data, english, loading }) => {
+const ContactCard = ({ language }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    fetchData("contacts", setIsLoading, setData, "singleDocument");
+  }, []);
+
   return (
     <Box sx={{ display: "flex", gap: "1rem" }}>
-      {loading && <ContactLoading />}
-      {!loading && (
+      {isLoading && <ContactLoading />}
+      {!isLoading && (
         <React.Fragment>
           {data?.profilePic && <Image priority alt='Photo de profil' width={120} height={120} style={{ borderRadius: "50%" }} src={data.profilePic} />}
           {!data?.profilePic && (
@@ -19,8 +27,10 @@ const ContactCard = ({ data, english, loading }) => {
           )}
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "18rem", padding: "5px 0" }}>
             <Typography variant='body1'>{data?.fullName || "Prénom Nom"}</Typography>
-            <Link style={{ textDecoration: "none" }} href={`tel:${english ? data?.internationalTel.replace(/\s/g, "") : data?.frTel.replace(/\s/g, "")}`}>
-              <Typography variant='body1'>{english ? data?.internationalTel || "Phone number" : data?.frTel || "Numéro tél"}</Typography>
+            <Link
+              style={{ textDecoration: "none" }}
+              href={`tel:${language === "en" ? data?.internationalTel.replace(/\s/g, "") : data?.frTel.replace(/\s/g, "")}`}>
+              <Typography variant='body1'>{language === "en" ? data?.internationalTel || "Phone number" : data?.frTel || "Numéro tél"}</Typography>
             </Link>
             <Link style={{ textDecoration: "none" }} href={`mailto:${data?.email.trim()}`}>
               <Typography variant='body1'>{data?.email || "email@a-renseigner.com"}</Typography>
