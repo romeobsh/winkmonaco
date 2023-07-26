@@ -23,7 +23,7 @@ const Donate = () => {
     <React.Fragment>
       <Box
         sx={{
-          maxWidth: { xs: "600px", md: "800px" },
+          maxWidth: { xs: "600px", md: "850px" },
           width: "100%",
           margin: "1.2rem auto",
           justifyContent: "center",

@@ -4,7 +4,7 @@ import { generateCollectionApiHandler } from "@/lib/generators/generateCollectio
 import { generateElementApiHandler } from "@/lib/generators/generateElementApiHandler";
 import { generateFormik } from "@/lib/generators/generateFormik";
 import CustomDatagrid from "@/components/datagrid/CustomDatagrid";
-import { string, number, date, nullable } from "yup";
+import { string, number, date } from "yup";
 
 //* General model definition
 export const subscriptionSchema = [
@@ -65,84 +65,19 @@ export const subscriptionSchema = [
   },
   {
     name: "address",
-    placeholder: "Adresse",
+    placeholder: "Adresse complète",
     type: "text",
     initialValue: "",
-    muiHeaderName: "Adresse",
+    muiHeaderName: "Adresse complète",
     muiType: "string",
     muiFlex: 3,
     muiHidden: true,
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string()
-      .required("L'adresse est requise")
-      .min(3, "L'adresse ne peut pas faire moins de 3 caractères")
-      .max(128, "L'adresse ne peut pas faire plus de 64 caractères"),
-  },
-  {
-    name: "addressDetails",
-    placeholder: "Complément d'adresse",
-    type: "text",
-    initialValue: "",
-    muiHeaderName: "Complément",
-    muiType: "string",
-    muiFlex: 3,
-    muiMdSize: 6,
-    muiHidden: true,
-    mongooseType: String,
-    mongooseRequired: false,
-    yupValidations: string(),
-  },
-  {
-    name: "zipCode",
-    placeholder: "Code postal",
-    type: "text",
-    initialValue: "",
-    muiHeaderName: "Code postal",
-    muiType: "string",
-    muiFlex: 3,
-    muiMdSize: 6,
-    muiHidden: true,
-    mongooseType: String,
-    mongooseRequired: true,
-    yupValidations: string()
-      .required("Le code postal est requis")
-      .min(2, "Le code postal ne peut pas faire moins de 2 caractères")
-      .max(10, "Le code postal ne peut pas faire plus de 10 caractères"),
-  },
-  {
-    name: "city",
-    placeholder: "Ville",
-    type: "text",
-    initialValue: "",
-    muiHeaderName: "Ville",
-    muiType: "string",
-    muiFlex: 3,
-    muiMdSize: 6,
-    muiHidden: true,
-    mongooseType: String,
-    mongooseRequired: true,
-    yupValidations: string()
-      .required("La ville est requise")
-      .min(2, "La ville ne peut pas faire moins de 2 caractères")
-      .max(64, "La ville ne peut pas faire plus de 64 caractères"),
-  },
-  {
-    name: "country",
-    placeholder: "Pays",
-    type: "text",
-    initialValue: "",
-    muiHeaderName: "Pays",
-    muiType: "string",
-    muiFlex: 3,
-    muiMdSize: 6,
-    muiHidden: true,
-    mongooseType: String,
-    mongooseRequired: true,
-    yupValidations: string()
-      .required("Le pays est requis")
-      .min(2, "Le pays ne peut pas faire moins de 2 caractères")
-      .max(64, "Le pays ne peut pas faire plus de 64 caractères"),
+      .required("L'adresse complète est requise")
+      .min(12, "L'adresse complète ne peut pas faire moins de 12 caractères")
+      .max(256, "L'adresse complète ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "amount",
