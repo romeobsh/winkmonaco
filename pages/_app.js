@@ -8,6 +8,7 @@ import Head from "next/head";
 import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
 import Loading from "@/components/general/Loading";
+import Footer from "@/components/general/Footer";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -41,6 +42,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                 <Component {...pageProps} />
               </Navbar>
             )}
+            <Footer />
           </LanguageProvider>
         </SnackbarProvider>
       </ThemeProvider>

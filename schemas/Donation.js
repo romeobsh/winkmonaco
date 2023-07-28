@@ -26,6 +26,7 @@ export const donationSchema = [
   {
     name: "email",
     placeholder: "Email",
+    muiMdSize: 6,
     type: "text",
     initialValue: "",
     muiHeaderName: "Email",
@@ -51,7 +52,7 @@ export const donationSchema = [
     name: "type",
     placeholder: "Type",
     type: "text",
-    initialValue: "virement",
+    initialValue: "cb",
     muiHeaderName: "Type",
     muiType: "singleSelect",
     muiMdSize: 6,
@@ -69,6 +70,22 @@ export const donationSchema = [
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string().required("Type requis"),
+  },
+  {
+    name: "address",
+    placeholder: "Adresse complète",
+    type: "text",
+    initialValue: "",
+    muiHeaderName: "Adresse complète",
+    muiType: "string",
+    muiFlex: 3,
+    muiHidden: true,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string()
+      .required("L'adresse complète est requise")
+      .min(12, "L'adresse complète ne peut pas faire moins de 12 caractères")
+      .max(256, "L'adresse complète ne peut pas faire plus de 256 caractères"),
   },
   {
     name: "createdAt",

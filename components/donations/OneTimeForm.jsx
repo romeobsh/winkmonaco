@@ -1,9 +1,18 @@
 import { translate } from "@/lib/translations/translate";
-import { ArrowBack, AttachEmail, CalendarMonth, CreditCard, Edit, Euro, LooksOne } from "@mui/icons-material";
-import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
+import { ArrowBack, AttachEmail, CalendarMonth, CreditCard, Edit, Euro, LooksOne, VolunteerActivism } from "@mui/icons-material";
+import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import TransferOrCheque from "./TransferOrCheque";
 import { renderTextWithLineBreaks } from "@/lib/renderTextWithLineBreaks";
+import { object, string } from "yup";
+import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
+import { LoadingButton } from "@mui/lab";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { useFormik } from "formik";
+import { generateInitialValues } from "@/lib/generators/generateInitialValues";
+import { donationSchema } from "@/schemas/donation";
+import SuccessModal from "../ui/SuccessModal";
 
 export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   const [isSending, setIsSending] = useState(false);
@@ -17,8 +26,100 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
     setSelectedOption(event.target.value);
   };
 
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const validationSchema = object().shape({
+    fullName: string()
+      .required(translate({ tKey: "helperTexts.requiredFullName", lang: language }))
+      .min(
+        4,
+        translate({ tKey: "helperTexts.fullName", lang: language }) +
+          " " +
+          translate({ tKey: "helperTexts.cannotBeLess", lang: language }) +
+          " 4 " +
+          translate({ tKey: "helperTexts.characters", lang: language })
+      )
+      .max(
+        128,
+        translate({ tKey: "helperTexts.fullName", lang: language }) +
+          " " +
+          translate({ tKey: "helperTexts.cannotExceed", lang: language }) +
+          " 128 " +
+          translate({ tKey: "helperTexts.characters", lang: language })
+      ),
+    email: string()
+      .required(translate({ tKey: "helperTexts.email", lang: language }))
+      .email(translate({ tKey: "helperTexts.invalidEmail", lang: language })),
+    address: string()
+      .required(translate({ tKey: "helperTexts.requiredAddress", lang: language }))
+      .min(
+        12,
+        translate({ tKey: "helperTexts.address", lang: language }) +
+          " " +
+          translate({ tKey: "helperTexts.cannotBeLess", lang: language }) +
+          " 12 " +
+          translate({ tKey: "helperTexts.characters", lang: language })
+      )
+      .max(
+        256,
+        translate({ tKey: "helperTexts.address", lang: language }) +
+          " " +
+          translate({ tKey: "helperTexts.cannotExceed", lang: language }) +
+          " 256 " +
+          translate({ tKey: "helperTexts.characters", lang: language })
+      ),
+  });
+
+  const initialValues = generateInitialValues(donationSchema);
+
+  const handleSubmit = async (values) => {
+    values.amount = selectedOption === "custom" ? parseInt(customAmount) : parseInt(selectedOption);
+
+    setIsSending(true);
+    if (values.amount < 1 || isNaN(values.amount)) {
+      enqueueSnackbar(translate({ tKey: "donate.donationTooSmall2", lang: language }), { variant: "error" });
+      setIsSending(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/donations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        setIsOpened(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 5000);
+      } else {
+        enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
+        setIsSending(false);
+      }
+    } catch (err) {
+      enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
+      setIsSending(false);
+      console.error(err);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleSubmit,
+  });
+
   return (
     <Box>
+      <SuccessModal
+        opened={isOpened}
+        title={translate({ tKey: "donate.thankYou", lang: language }) + "!"}
+        text={translate({ tKey: "donate.modalText", lang: language }) + "!"}
+      />
       <Box sx={{ marginTop: "-1rem", textAlign: "left" }}>
         <Button startIcon={<ArrowBack />} onClick={() => handleClick("main")}>
           {translate({ tKey: "general.back", lang: language })}
@@ -167,6 +268,64 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
               </Grid>
             </Grid>
           </FormControl>
+          <Typography>{translate({ tKey: "donate.myInfo", lang: language })}</Typography>
+          <Paper
+            sx={{
+              backgroundColor: "#f0f0f0",
+              padding: { md: "2rem 3rem 1.5rem 1rem", xs: "2rem 2rem 1.5rem 0rem" },
+              maxWidth: "800px",
+              margin: "2rem auto",
+              borderRadius: "1rem",
+            }}>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: "general.fullName", lang: language })}
+                    name={"fullName"}
+                    value={formik.values.fullName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.fullName && !!formik.errors.fullName}
+                    helperText={formik.touched.fullName && formik.errors.fullName}
+                    disabled={isSending || false}
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: "general.email", lang: language })}
+                    name={"email"}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    error={formik.touched.email && !!formik.errors.email}
+                    helperText={formik.touched.email && formik.errors.email}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={2}
+                    label={translate({ tKey: "general.address", lang: language })}
+                    name={"address"}
+                    value={formik.values.address}
+                    onChange={formik.handleChange}
+                    error={formik.touched.address && !!formik.errors.address}
+                    helperText={formik.touched.address && formik.errors.address}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item xs={12} mt={1}>
+                  <LoadingButton loadingPosition='end' loading={isSending} type='sumbit' variant='contained' color='secondary' endIcon={<VolunteerActivism />}>
+                    {translate({ tKey: "donate.monthlyButton", lang: language })}
+                  </LoadingButton>
+                </Grid>
+              </Grid>
+            </form>
+          </Paper>
         </Box>
       </Collapse>
       <Collapse in={method === "transferOrCheque"}>
