@@ -10,7 +10,6 @@ import { LoadingButton } from "@mui/lab";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
-import SuccessModal from "../ui/SuccessModal";
 import RecurringDonationSuccessModal from "./RecurringDonationSuccessModal";
 
 const RecurringForm = ({ language, handleClick }) => {
@@ -104,12 +103,18 @@ const RecurringForm = ({ language, handleClick }) => {
         },
         body: JSON.stringify(values),
       });
-      if (response.ok) {
-        console.log(values);
-        // setIsOpened(true);
-        // setTimeout(() => {
-        //   router.push("/");
-        // }, 5000);
+      console.log(values);
+      if (response) {
+        const data = await response.json();
+        if (data.message === "alreadyExist") {
+          enqueueSnackbar(translate({ tKey: "donate.alreadyExist", lang: language }), { variant: "info" });
+          setIsSending(false);
+        } else {
+          setIsOpened(true);
+          setTimeout(() => {
+            router.push("/");
+          }, 5000);
+        }
       } else {
         enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
         setIsSending(false);

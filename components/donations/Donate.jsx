@@ -6,8 +6,9 @@ import React, { useContext, useState } from "react";
 import ContactCard from "../contact/ContactCard";
 import { CalendarMonth, LooksOne } from "@mui/icons-material";
 import RecurringForm from "./RecurringForm";
+import OneTimeForm from "./OneTimeForm";
 
-const Donate = () => {
+const Donate = ({ paymentInfos }) => {
   const [currentPage, setCurrentPage] = useState("main");
   const { language } = useContext(LanguageContext);
 
@@ -23,7 +24,7 @@ const Donate = () => {
     <React.Fragment>
       <Box
         sx={{
-          maxWidth: { xs: "600px", md: "850px" },
+          maxWidth: { xs: "600px", md: "1050px" },
           width: "100%",
           margin: "1.2rem auto",
           justifyContent: "center",
@@ -36,7 +37,9 @@ const Donate = () => {
           <Box>
             <Slide direction={"right"} in={currentPage === "main"} appear={false} unmountOnExit mountOnEnter timeout={600}>
               <Box>
-                <Typography mb={3}>{renderTextWithLineBreaks(translate({ tKey: "donate.mainText", lang: language }))}</Typography>
+                <Typography sx={{ maxWidth: "850px", margin: "auto auto 1.5rem" }}>
+                  {renderTextWithLineBreaks(translate({ tKey: "donate.mainText", lang: language }))}
+                </Typography>
                 <Typography variant='h6' mb={2}>
                   {translate({ tKey: "donate.iMakeA", lang: language })}
                 </Typography>
@@ -70,7 +73,9 @@ const Donate = () => {
               </Box>
             </Slide>
             <Slide direction={"left"} in={currentPage === "oneTime"} mountOnEnter unmountOnExit timeout={600}>
-              <Box>OneTime</Box>
+              <Box>
+                <OneTimeForm language={language} handleClick={handleClick} paymentInfos={paymentInfos} />
+              </Box>
             </Slide>
           </Box>
         </Fade>

@@ -46,7 +46,6 @@ export async function getServerSideProps() {
   try {
     const { data } = await (await fetch(process.env.NEXTAUTH_URL + `/api/paymentInfos`)).json();
 
-    console.log(data);
     return {
       props: {
         paymentInfos: data[0] || {}, // Assuming data is an array and you need the first item

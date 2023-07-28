@@ -52,7 +52,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
     const amountToSend = selectedOption === "half" ? Math.round(subscription?.amount / 2) : customAmount;
     try {
       const response = await fetch(`/api/subscriptions/ibans/`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },

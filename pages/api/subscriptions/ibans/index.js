@@ -3,6 +3,43 @@ import { dbConnect, dbDisconnect } from "../../../../lib/dbConnect";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    const { address, amountAsked, createdAt, email, fullName, iban, status, tel } = req.body;
+
+    await dbConnect();
+
+    try {
+      // Check if there is an existing subscription with the provided IBAN
+      const existingSubscription = await Subscription.findOne({ iban });
+
+      if (existingSubscription) {
+        // If an existing subscription is found, return an error message
+        await dbDisconnect();
+        return res.status(409).json({ message: "alreadyExist" });
+      }
+
+      // If no existing subscription is found, create a new subscription
+      const newSubscription = new Subscription({
+        address,
+        amountAsked,
+        createdAt,
+        email,
+        fullName,
+        iban,
+        status,
+        tel,
+      });
+
+      // Save the new subscription in the database
+      await newSubscription.save();
+      await dbDisconnect();
+
+      return res.status(201).json({ message: "success", subscription: newSubscription });
+    } catch (error) {
+      await dbDisconnect();
+      console.error("Error creating subscription:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  } else if (req.method === "PATCH") {
     const { iban, amount } = req.body;
 
     await dbConnect();
@@ -43,7 +80,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      // Assuming you have an async function to fetch subscription data from the database
       const updatedSubscription = await updateSubscriptionStatus(iban, amount);
 
       return res.status(200).json({ updatedSubscription });
