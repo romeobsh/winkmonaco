@@ -4,7 +4,7 @@ import Translation from "../general/Translation";
 import ArticlesLoading from "./ArticlesLoading";
 import { useRouter } from "next/router";
 import { DateFilter } from "./DateFilter";
-import { ArticleCard } from "./ArticlesCard";
+import { ArticleCard } from "./ArticleCard";
 import { filterByDate } from "@/lib/handlers/filterByDate";
 import NoResults from "./NoResults";
 import dayjs from "dayjs";

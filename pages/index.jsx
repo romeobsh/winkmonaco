@@ -1,10 +1,13 @@
+import React, { useContext } from "react";
+import { LanguageContext } from "@/contexts/LanguageContext";
+import { Box } from "@mui/material";
 import HeroContent from "@/components/Home/HeroContent";
 import HowToHelp from "@/components/Home/HowToHelp";
 import LatestNews from "@/components/Home/LatestNews";
-import { Box } from "@mui/material";
-import React from "react";
 
 const Home = ({ articles }) => {
+  const { language } = useContext(LanguageContext);
+
   return (
     <Box
       sx={{
@@ -14,9 +17,9 @@ const Home = ({ articles }) => {
         justifyContent: "center",
         textAlign: "center",
       }}>
-      <HeroContent />
-      {articles.length > 0 && <LatestNews articles={articles} />}
-      <HowToHelp />
+      <HeroContent language={language} />
+      {articles.length > 0 && <LatestNews language={language} articles={articles} />}
+      <HowToHelp language={language} />
     </Box>
   );
 };
@@ -28,14 +31,14 @@ export async function getServerSideProps() {
     const { data } = await (await fetch(process.env.NEXTAUTH_URL + `/api/articles/latest`)).json();
     return {
       props: {
-        articles: data || [], // Assuming data is an array and you need the first item
+        articles: data || [],
       },
     };
   } catch (error) {
     console.error(error);
     return {
       props: {
-        articles: [], // Fallback empty object
+        articles: [], // Fallback empty array
       },
     };
   }

@@ -1,4 +1,4 @@
-import { dbConnect } from "@/lib/dbConnect";
+import { dbConnect, dbDisconnect } from "@/lib/dbConnect";
 import { Article } from "@/schemas/article";
 
 export default async function handler(req, res) {
@@ -20,6 +20,6 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Error fetching articles" });
   } finally {
     // Disconnect from the database after the API response is sent
-    mongoose.connection.close();
+    await dbDisconnect();
   }
 }
