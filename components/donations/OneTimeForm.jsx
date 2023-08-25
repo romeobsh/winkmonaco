@@ -1,5 +1,5 @@
 import { translate } from "@/lib/translations/translate";
-import { ArrowBack, AttachEmail, CalendarMonth, CreditCard, Edit, Euro, LooksOne, VolunteerActivism } from "@mui/icons-material";
+import { ArrowBack, AttachEmail, CreditCard, Edit, Euro, VolunteerActivism } from "@mui/icons-material";
 import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import TransferOrCheque from "./TransferOrCheque";
@@ -8,10 +8,9 @@ import { object, string } from "yup";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import { LoadingButton } from "@mui/lab";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { useFormik } from "formik";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
-import { donationSchema } from "@/schemas/donation";
+import { donationSchema } from "../../schemas/donation";
 import SuccessModal from "../ui/SuccessModal";
 
 export default function OneTimeForm({ language, handleClick, paymentInfos }) {
