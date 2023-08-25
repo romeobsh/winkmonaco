@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Admin = () => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", margin: "8rem auto", width: "calc(100vw - 18rem)", justifyContent: "center", alignItems: "center" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", margin: "8rem auto", width: "calc(100vw - 20rem)", justifyContent: "center", alignItems: "center" }}>
       <Typography variant='h2' align='center'>
         Tableau de bord
       </Typography>

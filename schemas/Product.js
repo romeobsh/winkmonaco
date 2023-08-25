@@ -26,10 +26,24 @@ export const productSchema = [
       .max(64, "Le nom du produit ne peut pas faire plus de 64 caractères"),
   },
   {
+    name: "price",
+    placeholder: "Prix",
+    type: "number",
+    initialValue: 0,
+    muiHeaderName: "Prix",
+    muiType: "number",
+    muiFlex: 1,
+    muiMdSize: 6,
+    mongooseType: Number,
+    mongooseRequired: true,
+    yupValidations: number().required("Prix du produit requis").positive("Le prix ne peut pas être négatif"),
+  },
+  {
     name: "description",
     placeholder: "Description",
     type: "text",
     multiline: true,
+    minRows: 3,
     initialValue: "",
     muiHeaderName: "Description",
     muiType: "string",
@@ -38,21 +52,8 @@ export const productSchema = [
     mongooseRequired: true,
     yupValidations: string()
       .required("La description est requise")
-      .min(32, "La description ne peut pas faire moins de 120 caractères")
-      .max(256, "La description ne peut pas faire plus de 3000 caractères"),
-  },
-  {
-    name: "price",
-    placeholder: "Price",
-    type: "number",
-    initialValue: 0,
-    muiHeaderName: "Price",
-    muiType: "number",
-    muiFlex: 1,
-    muiMdSize: 6,
-    mongooseType: Number,
-    mongooseRequired: true,
-    yupValidations: number().required("Prix du produit requis").positive("Le prix ne peut pas être négatif"),
+      .min(64, "La description ne peut pas faire moins de 64 caractères")
+      .max(3000, "La description ne peut pas faire plus de 3000 caractères"),
   },
   {
     name: "sizes",
@@ -62,6 +63,7 @@ export const productSchema = [
     muiHeaderName: "Tailles",
     muiType: "string",
     muiFlex: 2,
+    muiMdSize: 6,
     mongooseType: String,
     mongooseRequired: false,
     yupValidations: string(),
@@ -74,8 +76,9 @@ export const productSchema = [
     muiHeaderName: "Actif",
     muiType: "boolean",
     muiFlex: 1.5,
+    muiMdSize: 12,
     muiRenderCell: (params) =>
-      params.row.priority ? <CheckCircle sx={{ color: "green", fontSize: "2rem" }} /> : <Cancel sx={{ color: "red", fontSize: "2rem" }} />,
+      params.row.isActive ? <CheckCircle sx={{ color: "green", fontSize: "2rem" }} /> : <Cancel sx={{ color: "red", fontSize: "2rem" }} />,
     mongooseType: Boolean,
     mongooseRequired: true,
     yupValidations: bool().required("Le statut du produit est requis"),

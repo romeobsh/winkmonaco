@@ -11,7 +11,7 @@ const drawerWidth = 260;
 const adminTabs = [
   { name: "Dons", icon: <VolunteerActivism />, path: "/admin/donations" },
   { name: "Abonnements", icon: <Loyalty />, path: "/admin/subscriptions" },
-  { name: "Shop", icon: <Store />, path: "/admin/shop" },
+  { name: "Shop", icon: <Store />, path: "/admin/products" },
   { name: "Articles", icon: <Newspaper />, path: "/admin/articles" },
   { name: "Partenaires", icon: <Handshake />, path: "/admin/partners" },
   { name: "Aider autrement", icon: <Recommend />, path: "/admin/volunteers" },

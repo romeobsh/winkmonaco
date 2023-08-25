@@ -38,11 +38,13 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                 </AdminSidebar>
               </Auth>
             ) : (
-              <Navbar>
-                <Component {...pageProps} />
-              </Navbar>
+              <>
+                <Navbar>
+                  <Component {...pageProps} />
+                </Navbar>
+                <Footer />
+              </>
             )}
-            <Footer />
           </LanguageProvider>
         </SnackbarProvider>
       </ThemeProvider>

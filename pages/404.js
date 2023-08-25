@@ -8,11 +8,7 @@ const Custom404 = () => {
   return (
     <Box
       sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
+        margin: "6rem auto 4rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
