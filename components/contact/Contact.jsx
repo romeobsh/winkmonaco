@@ -1,6 +1,5 @@
 import { LanguageContext } from "@/contexts/LanguageContext";
-import React, { useContext, useEffect, useState } from "react";
-import { fetchData } from "@/lib/handlers/fetchData";
+import React, { useContext, useState } from "react";
 import { Box, Button, Fade, Slide } from "@mui/material";
 import Translation from "../general/Translation";
 import ContactContent from "./ContactContent";
