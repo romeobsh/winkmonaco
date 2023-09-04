@@ -81,7 +81,7 @@ export const contactSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Contact = generateMongooseModel("Contact", contactSchema);
+export const ContactModel = generateMongooseModel("Contact", contactSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -99,8 +99,8 @@ export const ContactFormik = ({ id, title, children }) => generateFormik(contact
 //* API Handlers
 //* ------------
 
-export const contactsAPIHandler = generateCollectionApiHandler(Contact);
-export const contactAPIHandler = generateElementApiHandler(Contact);
+export const contactsAPIHandler = generateCollectionApiHandler(ContactModel);
+export const contactAPIHandler = generateElementApiHandler(ContactModel);
 
 //* --------
 //* Datagrid

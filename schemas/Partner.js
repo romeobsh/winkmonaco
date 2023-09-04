@@ -96,7 +96,7 @@ export const partnerSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Partner = generateMongooseModel("Partner", partnerSchema);
+export const PartnerModel = generateMongooseModel("Partner", partnerSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -114,8 +114,8 @@ export const PartnerFormik = ({ id, title, children }) => generateFormik(partner
 //* API Handlers
 //* ------------
 
-export const partnersAPIHandler = generateCollectionApiHandler(Partner);
-export const partnerAPIHandler = generateElementApiHandler(Partner);
+export const partnersAPIHandler = generateCollectionApiHandler(PartnerModel);
+export const partnerAPIHandler = generateElementApiHandler(PartnerModel);
 
 //* --------
 //* Datagrid

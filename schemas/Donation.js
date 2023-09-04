@@ -107,7 +107,7 @@ export const donationSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Donation = generateMongooseModel("Donation", donationSchema);
+export const DonationModel = generateMongooseModel("Donation", donationSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -125,8 +125,8 @@ export const DonationFormik = ({ id, title, children }) => generateFormik(donati
 //* API Handlers
 //* ------------
 
-export const donationsAPIHandler = generateCollectionApiHandler(Donation);
-export const donationAPIHandler = generateElementApiHandler(Donation);
+export const donationsAPIHandler = generateCollectionApiHandler(DonationModel);
+export const donationAPIHandler = generateElementApiHandler(DonationModel);
 
 //* --------
 //* Datagrid

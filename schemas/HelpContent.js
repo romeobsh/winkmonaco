@@ -205,7 +205,7 @@ export const helpContentSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const HelpContent = generateMongooseModel("HelpContent", helpContentSchema);
+export const HelpContentModel = generateMongooseModel("HelpContent", helpContentSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -223,8 +223,8 @@ export const HelpContentFormik = ({ id, title, children }) => generateFormik(hel
 //* API Handlers
 //* ------------
 
-export const helpContentsAPIHandler = generateCollectionApiHandler(HelpContent);
-export const helpContentAPIHandler = generateElementApiHandler(HelpContent);
+export const helpContentsAPIHandler = generateCollectionApiHandler(HelpContentModel);
+export const helpContentAPIHandler = generateElementApiHandler(HelpContentModel);
 
 //* --------
 //* Datagrid

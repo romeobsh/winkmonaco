@@ -1,4 +1,4 @@
-import { Subscription } from "@/schemas/subscription";
+import { SubscriptionModel } from "@/schemas/subscription";
 import { dbConnect, dbDisconnect } from "../../../../lib/dbConnect";
 
 export default async function handler(req, res) {
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         await dbConnect();
 
         // Find the subscription with the matching IBAN
-        const subscription = await Subscription.findOne({ iban });
+        const subscription = await SubscriptionModel.findOne({ iban });
         await dbDisconnect();
 
         // Return the found subscription or null if not found

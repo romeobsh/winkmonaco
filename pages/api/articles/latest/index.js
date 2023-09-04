@@ -1,5 +1,5 @@
 import { dbConnect, dbDisconnect } from "@/lib/dbConnect";
-import { Article } from "@/schemas/article";
+import { ArticleModel } from "@/schemas/article";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   try {
     // Query the database to retrieve the two articles based on priority and date criteria
-    const articles = await Article.find({})
+    const articles = await ArticleModel.find({})
       .sort({ priority: -1, date: -1 }) // Sorting by priority (true first) and then by date (descendant)
       .limit(2); // Limit the results to two articles
 

@@ -102,7 +102,7 @@ export const volunteerSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Volunteer = generateMongooseModel("Volunteer", volunteerSchema);
+export const VolunteerModel = generateMongooseModel("Volunteer", volunteerSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -120,8 +120,8 @@ export const VolunteerFormik = ({ id, title, children }) => generateFormik(volun
 //* API Handlers
 //* ------------
 
-export const volunteersAPIHandler = generateCollectionApiHandler(Volunteer);
-export const volunteerAPIHandler = generateElementApiHandler(Volunteer);
+export const volunteersAPIHandler = generateCollectionApiHandler(VolunteerModel);
+export const volunteerAPIHandler = generateElementApiHandler(VolunteerModel);
 
 //* --------
 //* Datagrid

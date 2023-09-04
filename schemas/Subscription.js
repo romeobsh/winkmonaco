@@ -162,7 +162,7 @@ export const subscriptionSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Subscription = generateMongooseModel("Subscription", subscriptionSchema);
+export const SubscriptionModel = generateMongooseModel("Subscription", subscriptionSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -180,8 +180,8 @@ export const SubscriptionFormik = ({ id, title, children }) => generateFormik(su
 //* API Handlers
 //* ------------
 
-export const subscriptionsAPIHandler = generateCollectionApiHandler(Subscription);
-export const subscriptionAPIHandler = generateElementApiHandler(Subscription);
+export const subscriptionsAPIHandler = generateCollectionApiHandler(SubscriptionModel);
+export const subscriptionAPIHandler = generateElementApiHandler(SubscriptionModel);
 
 //* --------
 //* Datagrid

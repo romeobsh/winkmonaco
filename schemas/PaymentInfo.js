@@ -92,7 +92,7 @@ export const paymentInfoSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const PaymentInfo = generateMongooseModel("PaymentInfo", paymentInfoSchema);
+export const PaymentInfoModel = generateMongooseModel("PaymentInfo", paymentInfoSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -110,8 +110,8 @@ export const PaymentInfoFormik = ({ id, title, children }) => generateFormik(pay
 //* API Handlers
 //* ------------
 
-export const paymentInfosAPIHandler = generateCollectionApiHandler(PaymentInfo);
-export const paymentInfoAPIHandler = generateElementApiHandler(PaymentInfo);
+export const paymentInfosAPIHandler = generateCollectionApiHandler(PaymentInfoModel);
+export const paymentInfoAPIHandler = generateElementApiHandler(PaymentInfoModel);
 
 //* --------
 //* Datagrid

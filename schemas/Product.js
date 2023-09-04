@@ -125,7 +125,7 @@ export const productSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Product = generateMongooseModel("Product", productSchema);
+export const ProductModel = generateMongooseModel("Product", productSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -143,8 +143,8 @@ export const ProductFormik = ({ id, title, children }) => generateFormik(product
 //* API Handlers
 //* ------------
 
-export const productsAPIHandler = generateCollectionApiHandler(Product);
-export const productAPIHandler = generateElementApiHandler(Product);
+export const productsAPIHandler = generateCollectionApiHandler(ProductModel);
+export const productAPIHandler = generateElementApiHandler(ProductModel);
 
 //* --------
 //* Datagrid

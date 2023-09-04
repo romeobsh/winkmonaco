@@ -120,7 +120,7 @@ export const articleSchema = [
 //* Creation of Mongoose Model
 //* --------------------------
 
-export const Article = generateMongooseModel("Article", articleSchema);
+export const ArticleModel = generateMongooseModel("Article", articleSchema);
 
 //* ------------------------------
 //* MUI DataGrid column definition
@@ -138,8 +138,8 @@ export const ArticleFormik = ({ id, title, children }) => generateFormik(article
 //* API Handlers
 //* ------------
 
-export const articlesAPIHandler = generateCollectionApiHandler(Article);
-export const articleAPIHandler = generateElementApiHandler(Article);
+export const articlesAPIHandler = generateCollectionApiHandler(ArticleModel);
+export const articleAPIHandler = generateElementApiHandler(ArticleModel);
 
 //* --------
 //* Datagrid

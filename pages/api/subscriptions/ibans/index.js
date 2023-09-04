@@ -1,4 +1,4 @@
-import { Subscription } from "@/schemas/subscription";
+import { SubscriptionModel } from "@/schemas/subscription";
 import { dbConnect, dbDisconnect } from "../../../../lib/dbConnect";
 
 export default async function handler(req, res) {
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
     try {
       // Check if there is an existing subscription with the provided IBAN
-      const existingSubscription = await Subscription.findOne({ iban });
+      const existingSubscription = await SubscriptionModel.findOne({ iban });
 
       if (existingSubscription) {
         // If an existing subscription is found, return an error message
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       }
 
       // If no existing subscription is found, create a new subscription
-      const newSubscription = new Subscription({
+      const newSubscription = new SubscriptionModel({
         address,
         amountAsked,
         createdAt,
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
     async function updateSubscriptionStatus(iban, amount) {
       try {
         // Find the subscription with the matching IBAN
-        const subscription = await Subscription.findOne({ iban });
+        const subscription = await SubscriptionModel.findOne({ iban });
 
         if (!subscription) {
           return res.status(404).json({ message: "No subscription associated with this IBAN" });
