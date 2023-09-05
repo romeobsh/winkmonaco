@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: '18.x'
 
@@ -27,7 +27,11 @@ jobs:
       - name: Create a temporary directory
         run: |
           mkdir temp
-          cp -r . temp/
+        working-directory: ${{ github.workspace }}
+
+      - name: Copy build artifacts to the temporary directory
+        run: |
+          cp -r * temp/
         working-directory: ${{ github.workspace }}
 
       - name: Create an archive in a temporary directory
