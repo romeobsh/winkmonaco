@@ -24,10 +24,18 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Create an archive
+      - name: Create a temporary directory
         run: |
-          # Create a tarball archive of your build artifacts
-          tar -czf node-app.tar.gz .
+          mkdir temp
+          cp -r . temp/
+        working-directory: ${{ github.workspace }}
+
+      - name: Create an archive in a temporary directory
+        run: |
+          # Sleep for 10 seconds to allow ongoing changes to finish
+          sleep 10
+          tar -czf node-app.tar.gz -C temp .
+        working-directory: ${{ github.workspace }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
