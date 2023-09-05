@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductsDatagrid } from "@/schemas/product";
+import { ProductsDatagrid } from "@/schemas/productSchema";
 import { Typography } from "@mui/material";
 
 export default function AdminProduct() {

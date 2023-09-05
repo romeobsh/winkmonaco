@@ -1,3 +1,3 @@
-import { productAPIHandler } from "@/schemas/product";
+import { productAPIHandler } from "@/schemas/productSchema";
 
 export default productAPIHandler;

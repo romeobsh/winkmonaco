@@ -1,3 +1,3 @@
-import { donationAPIHandler } from "@/schemas/donation";
+import { donationAPIHandler } from "@/schemas/donationSchema";
 
 export default donationAPIHandler;

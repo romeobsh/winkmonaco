@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { SubscriptionFormik } from "@/schemas/subscription";
+import { SubscriptionFormik } from "@/schemas/subscriptionSchema";
 
 const EditSubscription = () => {
   const router = useRouter();

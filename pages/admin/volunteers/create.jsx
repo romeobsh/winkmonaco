@@ -1,4 +1,4 @@
-import { VolunteerFormik } from "@/schemas/volunteer";
+import { VolunteerFormik } from "@/schemas/volunteerSchema";
 
 const CreateVolunteer = () => {
   return <VolunteerFormik title={`Ajout d'un volontaire`} />;

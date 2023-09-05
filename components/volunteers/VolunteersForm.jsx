@@ -3,7 +3,7 @@ import { ArrowBack, Send } from "@mui/icons-material";
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import VolunteersLoading from "./VolunteersLoading";
-import { volunteerSchema } from "@/schemas/volunteer";
+import { volunteerSchema } from "@/schemas/volunteerSchema";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
 import { useFormik } from "formik";
 import MuiPhoneNumber from "material-ui-phone-number";

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { VolunteersDatagrid } from "@/schemas/volunteer";
+import { VolunteersDatagrid } from "@/schemas/volunteerSchema";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import SelectLanguage from "@/components/general/SelectLanguage";
 import { LanguageContext } from "@/contexts/LanguageContext";

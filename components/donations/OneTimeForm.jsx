@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { LoadingButton } from "@mui/lab";
 import { useFormik } from "formik";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
-import { donationSchema } from "@/schemas/donation";
+import { donationSchema } from "@/schemas/donationSchema";
 import SuccessModal from "../ui/SuccessModal";
 
 export default function OneTimeForm({ language, handleClick, paymentInfos }) {

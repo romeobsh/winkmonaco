@@ -1,4 +1,4 @@
-import { PaymentInfoFormik } from "@/schemas/paymentInfo";
+import { PaymentInfoFormik } from "@/schemas/paymentInfoSchema";
 
 const AdminPaymentInfoEdit = () => {
   return <PaymentInfoFormik title='Informations de paiement' id={"singleDocument"} />;

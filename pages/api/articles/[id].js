@@ -1,3 +1,3 @@
-import { articleAPIHandler } from "@/schemas/article";
+import { articleAPIHandler } from "@/schemas/articleSchema";
 
 export default articleAPIHandler;

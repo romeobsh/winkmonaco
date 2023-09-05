@@ -1,3 +1,3 @@
-import { helpContentsAPIHandler } from "@/schemas/helpContent";
+import { helpContentsAPIHandler } from "@/schemas/helpContentSchema";
 
 export default helpContentsAPIHandler;

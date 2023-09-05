@@ -1,6 +1,6 @@
 import React from "react";
 import TransferOrCheque from "@/components/donations/TransferOrCheque";
-import { DonationsDatagrid } from "@/schemas/donation";
+import { DonationsDatagrid } from "@/schemas/donationSchema";
 import { Launch } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";

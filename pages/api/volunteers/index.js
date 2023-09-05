@@ -1,3 +1,3 @@
-import { volunteersAPIHandler } from "@/schemas/volunteer";
+import { volunteersAPIHandler } from "@/schemas/volunteerSchema";
 
 export default volunteersAPIHandler;

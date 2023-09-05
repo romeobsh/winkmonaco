@@ -1,3 +1,3 @@
-import { contactAPIHandler } from "@/schemas/contact";
+import { contactAPIHandler } from "@/schemas/contactSchema";
 
 export default contactAPIHandler;

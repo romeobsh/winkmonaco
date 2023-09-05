@@ -1,3 +1,3 @@
-import { paymentInfosAPIHandler } from "@/schemas/paymentInfo";
+import { paymentInfosAPIHandler } from "@/schemas/paymentInfoSchema";
 
 export default paymentInfosAPIHandler;

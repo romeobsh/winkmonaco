@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ArticleFormik } from "@/schemas/article";
+import { ArticleFormik } from "@/schemas/articleSchema";
 
 const EditArticle = () => {
   const router = useRouter();

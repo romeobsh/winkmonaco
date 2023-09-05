@@ -1,4 +1,4 @@
-import { DonationFormik } from "@/schemas/donation";
+import { DonationFormik } from "@/schemas/donationSchema";
 
 const CreateDonation = () => {
   return <DonationFormik title={`Ajout d'un don`} />;

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { DonationFormik } from "@/schemas/donation";
+import { DonationFormik } from "@/schemas/donationSchema";
 
 const EditDonation = () => {
   const router = useRouter();

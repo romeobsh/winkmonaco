@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
-import { subscriptionSchema } from "@/schemas/subscription";
+import { subscriptionSchema } from "@/schemas/subscriptionSchema";
 import { useFormik } from "formik";
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
 import { ArrowBack, Edit, Euro, Send, VolunteerActivism } from "@mui/icons-material";

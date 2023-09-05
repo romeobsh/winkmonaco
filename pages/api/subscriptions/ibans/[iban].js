@@ -1,4 +1,4 @@
-import { SubscriptionModel } from "@/schemas/subscription";
+import { SubscriptionModel } from "@/schemas/subscriptionSchema";
 import { dbConnect, dbDisconnect } from "../../../../lib/dbConnect";
 
 export default async function handler(req, res) {

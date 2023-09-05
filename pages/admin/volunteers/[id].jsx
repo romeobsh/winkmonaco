@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { VolunteerFormik } from "@/schemas/volunteer";
+import { VolunteerFormik } from "@/schemas/volunteerSchema";
 
 const EditVolunteer = () => {
   const router = useRouter();

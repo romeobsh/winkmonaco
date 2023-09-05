@@ -1,3 +1,3 @@
-import { subscriptionAPIHandler } from "@/schemas/subscription";
+import { subscriptionAPIHandler } from "@/schemas/subscriptionSchema";
 
 export default subscriptionAPIHandler;

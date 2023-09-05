@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ProductFormik } from "@/schemas/product";
+import { ProductFormik } from "@/schemas/productSchema";
 
 const EditProduct = () => {
   const router = useRouter();

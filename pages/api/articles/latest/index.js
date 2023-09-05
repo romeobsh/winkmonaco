@@ -1,5 +1,5 @@
 import { dbConnect, dbDisconnect } from "@/lib/dbConnect";
-import { ArticleModel } from "@/schemas/article";
+import { ArticleModel } from "@/schemas/articleSchema";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {

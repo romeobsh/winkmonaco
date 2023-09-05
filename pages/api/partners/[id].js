@@ -1,3 +1,3 @@
-import { partnerAPIHandler } from "@/schemas/partner";
+import { partnerAPIHandler } from "@/schemas/partnerSchema";
 
 export default partnerAPIHandler;
