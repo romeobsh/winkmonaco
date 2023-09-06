@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-            node-version: '18.x'
+          node-version: "18.x"
 
       - name: npm install and build
         run: |
@@ -26,7 +26,7 @@ jobs:
       - name: Zip all files for upload between jobs
         # IMPORTANT: .next is a hidden folder and will NOT be included in the zip unless we specify it
         run: zip next.zip ./* .next -qr
-              
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -47,15 +47,15 @@ jobs:
           name: node-app
           # path: .
 
-        - name: 'Deploy to Azure Web App'
-          id: deploy-to-webapp
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: 'sampleapp'
-            slot-name: 'Production'
-            publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
-            package: next.zip
-            # package: .
+      - name: "Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "sampleapp"
+          slot-name: "Production"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
+          package: next.zip
+          # package: .
 
-        - name: Delete zip file
-          run: rm next.zip
+      - name: Delete zip file
+        run: rm next.zip
