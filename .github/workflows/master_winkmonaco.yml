@@ -51,7 +51,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "sampleapp"
+          app-name: "winkmonaco"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
           package: next.zip
