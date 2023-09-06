@@ -41,21 +41,21 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v2
-      with:
-        name: node-app
-        # path: .
-
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
         with:
-          app-name: 'sampleapp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
-          package: next.zip
-          # package: .
+          name: node-app
+          # path: .
 
-      - name: Delete zip file
-        run: rm next.zip
+        - name: 'Deploy to Azure Web App'
+          id: deploy-to-webapp
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: 'sampleapp'
+            slot-name: 'Production'
+            publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
+            package: next.zip
+            # package: .
+
+        - name: Delete zip file
+          run: rm next.zip
