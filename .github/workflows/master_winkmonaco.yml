@@ -53,7 +53,7 @@ jobs:
         with:
           app-name: "winkmonaco"
           slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43292FD527AD4CB58A695C72371EA1D6 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: next.zip
           # package: .
 
