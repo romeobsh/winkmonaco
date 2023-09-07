@@ -3,11 +3,10 @@ import { generateInitialValues } from "@/lib/generators/generateInitialValues";
 import { subscriptionSchema } from "@/schemas/subscriptionSchema";
 import { useFormik } from "formik";
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
-import { ArrowBack, Edit, Euro, Send, VolunteerActivism } from "@mui/icons-material";
+import { ArrowBack, Edit, Euro, VolunteerActivism } from "@mui/icons-material";
 import { translate } from "@/lib/translations/translate";
 import { object, string } from "yup";
 import { LoadingButton } from "@mui/lab";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import RecurringDonationSuccessModal from "./RecurringDonationSuccessModal";
@@ -265,12 +264,12 @@ const RecurringForm = ({ language, handleClick }) => {
               />
             </Grid>
             <Grid item mt={0.5} xs={12} md={6}>
-              <MuiPhoneNumber
+              <TextField
                 type='tel'
                 fullWidth
                 variant='outlined'
                 label={translate({ tKey: "general.tel", lang: language })}
-                defaultCountry='fr'
+                country='fr'
                 onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                 name={"tel"}
                 value={formik.values.tel}

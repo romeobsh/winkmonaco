@@ -6,7 +6,6 @@ import VolunteersLoading from "./VolunteersLoading";
 import { volunteerSchema } from "@/schemas/volunteerSchema";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
 import { useFormik } from "formik";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { LoadingButton } from "@mui/lab";
 import SuccessModal from "../ui/SuccessModal";
 import { useSnackbar } from "notistack";
@@ -147,7 +146,7 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
                   />
                 </Grid>
                 <Grid item mt={0.5} xs={12} md={6}>
-                  <MuiPhoneNumber
+                  <TextField
                     type='tel'
                     fullWidth
                     variant='outlined'
