@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    formats: ["image/avif", "image/webp", "image/png", "image/jpeg", "image/jpg"],
+    formats: ["image/avif", "image/webp"],
     domains: ["drive.google.com", "mega.nz"],
   },
 };
