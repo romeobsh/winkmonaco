@@ -44,7 +44,7 @@ export default function AdminDonations({ paymentInfos }) {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await (await fetch(process.env.NEXTAUTH_URL + `/api/paymentInfos`)).json();
+    const { data } = await (await fetch(`/api/paymentInfos`)).json();
 
     return {
       props: {

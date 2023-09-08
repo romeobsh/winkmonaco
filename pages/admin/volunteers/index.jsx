@@ -47,7 +47,7 @@ export default function AdminVolunteers({ data }) {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await (await fetch(process.env.NEXTAUTH_URL + `/api/helpContents`)).json();
+    const { data } = await (await fetch(`/api/helpContents`)).json();
 
     return {
       props: {
