@@ -27,6 +27,7 @@ const Home = ({ articles }) => {
 export default Home;
 
 export async function getServerSideProps() {
+  console.log("Server side props running!");
   try {
     const { data } = await (await fetch(`/api/articles/latest`)).json();
     return {
