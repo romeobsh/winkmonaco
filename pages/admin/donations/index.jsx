@@ -42,7 +42,7 @@ export default function AdminDonations({ paymentInfos }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   try {
     const hostname = ctx.req.headers.host;
 
