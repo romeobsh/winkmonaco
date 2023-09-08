@@ -13,7 +13,9 @@ export default DonatePage;
 
 export async function getServerSideProps() {
   try {
-    const { data } = await (await fetch(`/api/paymentInfos`)).json();
+    const hostname = ctx.req.headers.host;
+
+    const { data } = await (await fetch("http://" + hostname + `/api/paymentInfos`)).json();
     return {
       props: {
         paymentInfos: data[0] || {}, // Assuming data is an array and you need the first item

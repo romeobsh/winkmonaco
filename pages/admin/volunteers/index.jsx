@@ -47,7 +47,9 @@ export default function AdminVolunteers({ data }) {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await (await fetch(`/api/helpContents`)).json();
+    const hostname = ctx.req.headers.host;
+
+    const { data } = await (await fetch("http://" + hostname + `/api/helpContents`)).json();
 
     return {
       props: {
