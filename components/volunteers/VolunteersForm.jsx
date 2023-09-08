@@ -151,8 +151,6 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
                     fullWidth
                     variant='outlined'
                     label={translate({ tKey: "general.tel", lang: language })}
-                    defaultCountry='fr'
-                    onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                     name={"tel"}
                     value={formik.values.tel}
                     onChange={(val) => {

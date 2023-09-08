@@ -17,7 +17,7 @@ const HeroContent = () => {
       <Grid item xs={12} md={6} sx={{ paddingRight: { xs: 0, md: 4 } }}>
         <Typography>{renderTextWithLineBreaks(translate({ tKey: "home.heroText", lang: language }))}</Typography>
       </Grid>
-      <Grid item xs={12} md={6} sx={{ paddingLeft: { xs: 0, md: 4 }, minHeight: "400px", marginTop: { xs: 4, md: 0 } }}>
+      <Grid item xs={12} md={6} sx={{ paddingLeft: { xs: 0, md: 4 }, minHeight: { xs: "0", md: "400px" }, marginTop: { xs: 4, md: 0 } }}>
         <iframe
           style={{
             borderRadius: "1rem",

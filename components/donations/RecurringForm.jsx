@@ -269,8 +269,6 @@ const RecurringForm = ({ language, handleClick }) => {
                 fullWidth
                 variant='outlined'
                 label={translate({ tKey: "general.tel", lang: language })}
-                country='fr'
-                onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                 name={"tel"}
                 value={formik.values.tel}
                 onChange={(val) => (formik.values.tel = val)}

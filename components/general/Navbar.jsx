@@ -7,6 +7,7 @@ import Link from "next/link";
 import Translation from "./Translation";
 import SelectLanguage from "./SelectLanguage";
 import { LanguageContext } from "@/contexts/LanguageContext";
+import { translate } from "@/lib/translations/translate";
 
 // Largeur de la sidebar mobile
 const drawerWidth = 300;
@@ -86,7 +87,7 @@ function Navbar(props) {
               <SelectLanguage />
               <Link href='/donate'>
                 <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
-                  <Translation tKey='nav.donate' lang={language} />{" "}
+                  {translate({ tKey: "nav.donate", lang: language })}
                 </Button>
               </Link>
               <Button

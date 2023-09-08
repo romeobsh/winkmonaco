@@ -1,4 +1,0 @@
-{
-  "appService.defaultWebAppToDeploy": "/subscriptions/fe42d1e9-e899-4435-8281-6b7cbb5db8f3/resourceGroups/winkmonaco.mc/providers/Microsoft.Web/sites/winkmonaco",
-  "appService.deploySubpath": "."
-}

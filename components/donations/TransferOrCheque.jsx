@@ -17,7 +17,7 @@ const TransferOrCheque = ({ english, loading, data }) => {
           sx={{
             padding: "1rem 2rem",
             width: "fit-content",
-            minWidth: "494px",
+            minWidth: { xs: "none", md: "494px" },
             maxWidth: "600px",
             margin: "auto",
             backgroundColor: "#fafafa",
@@ -26,7 +26,9 @@ const TransferOrCheque = ({ english, loading, data }) => {
           <Typography variant='h6' mb={0.5}>
             <Translation tKey='donate.ownerName' lang={english ? "en" : "fr"} />
           </Typography>
-          <Typography variant='body1' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: "1.5rem" }}>
+          <Typography
+            variant='body1'
+            sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: { xs: "2rem", md: "1.5rem" } }}>
             {loading ? (
               <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "14rem", margin: "auto" }} />
             ) : (
@@ -39,7 +41,9 @@ const TransferOrCheque = ({ english, loading, data }) => {
           <Typography variant='h6' mt={2} mb={0.5}>
             IBAN{" "}
           </Typography>
-          <Typography variant='body1' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center" }}>
+          <Typography
+            variant='body1'
+            sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: { xs: "2rem", md: "1.5rem" } }}>
             {loading ? (
               <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "24rem", margin: "auto" }} />
             ) : (
@@ -52,7 +56,9 @@ const TransferOrCheque = ({ english, loading, data }) => {
           <Typography variant='h6' mt={2} mb={0.5}>
             BIC{" "}
           </Typography>
-          <Typography variant='body1 ' sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center" }}>
+          <Typography
+            variant='body1 '
+            sx={{ display: "flex", position: "relative", alignItems: "center", justifyContent: "center", paddingLeft: { xs: "2rem", md: "1.5rem" } }}>
             {loading ? (
               <Skeleton animation='wave' sx={{ borderRadius: "10px", width: "12rem", margin: "auto" }} />
             ) : (
@@ -75,7 +81,7 @@ const TransferOrCheque = ({ english, loading, data }) => {
           sx={{
             padding: "1rem 2rem",
             width: "fit-content",
-            minWidth: "494px",
+            minWidth: { xs: "none", md: "494px" },
             maxWidth: "600px",
             margin: "auto",
             backgroundColor: "#fafafa",
