@@ -26,10 +26,11 @@ const Home = ({ articles }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  console.log("Server side props running!");
+export async function getServerSideProps(ctx) {
   try {
-    const { data } = await (await fetch(`/api/articles/latest`)).json();
+    const hostname = ctx.req.headers.host;
+
+    const { data } = await (await fetch("http://" + hostname + `/api/articles/latest`)).json();
     return {
       props: {
         articles: data || [],
