@@ -1,5 +1,4 @@
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, IconButton, Tooltip, Typography } from "@mui/material";
-import Translation from "../general/Translation";
 import { Forward, Star } from "@mui/icons-material";
 import { translate } from "@/lib/translations/translate";
 
