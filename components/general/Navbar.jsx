@@ -40,7 +40,7 @@ function Navbar(props) {
         {tabs.map((tab) => (
           <ListItem key={Math.random()} sx={{ justifyContent: "right" }}>
             <Link key={Math.random()} href={tab.path} style={{ textDecoration: "none" }}>
-              <ListItemButton key={Math.random()} selected={router.pathname.includes(tab.path)}>
+              <ListItemButton key={Math.random()} selected={router.pathname === tab.path}>
                 <ListItemText key={Math.random()} primary={tab.name} />
                 <HorizontalRule key={Math.random()} color='primary' fontSize='large' sx={{ transform: "rotate(90deg)" }} />
               </ListItemButton>
@@ -87,7 +87,7 @@ function Navbar(props) {
             <Box display='flex' sx={{ alignItems: "center" }}>
               <SelectLanguage />
               <Link href='/donate'>
-                <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap" }} endIcon={<Favorite />}>
+                <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap", textDecoration: "none" }} endIcon={<Favorite />}>
                   {translate({ tKey: "nav.donate", lang: language })}
                 </Button>
               </Link>
