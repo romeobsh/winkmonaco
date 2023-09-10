@@ -1,10 +1,14 @@
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import { Forward, Star } from "@mui/icons-material";
 import { translate } from "@/lib/translations/translate";
+import { useRouter } from "next/router";
 
 export const ArticleCard = ({ article, handleClick, language }) => {
+  const router = useRouter();
+  console.log(router.pathname);
+
   return (
-    <Grid item xs={12} md={12} sx={{ padding: { xs: "0.5rem", md: "1rem" } }}>
+    <Grid item xs={12} md={router.pathname === "/" ? 12 : 6} sx={{ padding: { xs: "0.5rem", md: "1rem" } }}>
       <Card sx={{ height: "24rem", borderRadius: "1rem", backgroundColor: "#fff" }} elevation={3}>
         <CardActionArea onClick={() => handleClick(article._id)}>
           <CardContent sx={{ height: "10rem" }}>

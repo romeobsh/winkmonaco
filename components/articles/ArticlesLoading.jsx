@@ -7,8 +7,6 @@ const ArticlesLoading = () => {
       <Grid item xs={12} display='flex' mb={3}>
         <Skeleton variant='text' sx={{ height: "4rem", width: "5rem", marginLeft: { xs: 0, md: 2 } }} />
         <Skeleton variant='text' sx={{ height: "4rem", width: "12rem", marginLeft: 2 }} />
-        <Skeleton variant='text' sx={{ height: "4rem", width: "5rem", marginLeft: 2 }} />
-        <Skeleton variant='text' sx={{ height: "4rem", width: "12rem", marginLeft: 2 }} />
       </Grid>
       {Array.from({ length: 8 }).map((_, index) => (
         <Grid key={index} item xs={12} md={6} sx={{ padding: { xs: 0, md: "1rem" } }}>
