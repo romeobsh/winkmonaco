@@ -86,7 +86,7 @@ function Navbar(props) {
             </Box>
             <Box display='flex' sx={{ alignItems: "center" }}>
               <SelectLanguage />
-              <Link href='/donate'>
+              <Link href='/donate' style={{ textDecoration: "none" }}>
                 <Button variant='contained' color='secondary' size='small' sx={{ whiteSpace: "nowrap", textDecoration: "none" }} endIcon={<Favorite />}>
                   {translate({ tKey: "nav.donate", lang: language })}
                 </Button>
