@@ -4,7 +4,7 @@ import { translate } from "@/lib/translations/translate";
 
 export const ArticleCard = ({ article, handleClick, language }) => {
   return (
-    <Grid item xs={12} md={6} sx={{ padding: { xs: "0.5rem", md: "1rem" } }}>
+    <Grid item xs={12} md={12} sx={{ padding: { xs: "0.5rem", md: "1rem" } }}>
       <Card sx={{ height: "24rem", borderRadius: "1rem", backgroundColor: "#fff" }} elevation={3}>
         <CardActionArea onClick={() => handleClick(article._id)}>
           <CardContent sx={{ height: "10rem" }}>
@@ -37,7 +37,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
             </Typography>
           </CardContent>
           <Box sx={{ height: "14rem", paddingTop: "1rem", position: "relative" }}>
-            <CardMedia component='img' image={article.imageUrl} alt='Image' />
+            <CardMedia component='img' image={article.imageUrl} alt='Image' sx={{ height: "100%" }} />
             <Button sx={{ position: "absolute", right: "1rem", bottom: "1rem" }} component='div' variant='contained' color='primary' endIcon={<Forward />}>
               {translate({ tKey: "general.learnMore", lang: language })}
             </Button>

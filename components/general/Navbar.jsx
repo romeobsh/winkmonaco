@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
 import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
@@ -20,6 +20,7 @@ function Navbar(props) {
 
   // Onglets
   const tabs = [
+    { name: <Translation tKey='nav.home' />, path: "/" },
     { name: <Translation tKey='nav.donate' />, path: "/donate" },
     { name: <Translation tKey='nav.help' />, path: "/volunteers" },
     { name: <Translation tKey='nav.articles' />, path: "/articles" },
@@ -124,7 +125,6 @@ function Navbar(props) {
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
-          disableScrollLock
           sx={{
             display: { xs: "block", lg: "none" },
             zIndex: (theme) => theme.zIndex.appBar - 1,
