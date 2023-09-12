@@ -319,7 +319,7 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                 </Grid>
                 <Grid item xs={12} mt={1}>
                   <LoadingButton loadingPosition='end' loading={isSending} type='sumbit' variant='contained' color='secondary' endIcon={<VolunteerActivism />}>
-                    {translate({ tKey: "donate.monthlyButton", lang: language })}
+                    {translate({ tKey: "donate.oneTimeButton", lang: language })}
                   </LoadingButton>
                 </Grid>
               </Grid>

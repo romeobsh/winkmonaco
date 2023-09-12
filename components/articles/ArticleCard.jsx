@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 export const ArticleCard = ({ article, handleClick, language }) => {
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <Grid item xs={12} md={router.pathname === "/" ? 12 : 6} sx={{ padding: { xs: "0.5rem", md: "1rem" } }}>
