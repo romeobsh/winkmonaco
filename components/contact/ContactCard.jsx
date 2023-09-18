@@ -40,7 +40,7 @@ const ContactCard = ({ language }) => {
             <Typography variant='body1'>{data?.fullName || "Prénom Nom"}</Typography>
             <Link
               style={{ textDecoration: "none" }}
-              href={`tel:${language === "en" ? data?.internationalTel.replace(/\s/g, "") : data?.frTel.replace(/\s/g, "")}`}>
+              href={`tel:${language === "en" ? data?.internationalTel?.replace(/\s/g, "") : data?.frTel?.replace(/\s/g, "")}`}>
               <Typography variant='body1'>{language === "en" ? data?.internationalTel || "Phone number" : data?.frTel || "Numéro tél"}</Typography>
             </Link>
             <Link style={{ textDecoration: "none" }} href={`mailto:${data?.email.trim()}`}>

@@ -18,7 +18,7 @@ const Home = ({ articles }) => {
         textAlign: "center",
       }}>
       <HeroContent language={language} />
-      {articles.length > 0 && <LatestNews language={language} articles={articles} />}
+      <LatestNews language={language} articles={articles} />
       <HowToHelp language={language} />
     </Box>
   );
