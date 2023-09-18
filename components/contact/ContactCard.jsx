@@ -6,9 +6,13 @@ import ContactLoading from "../loading/ContactLoading";
 import { Person } from "@mui/icons-material";
 import { fetchData } from "@/lib/handlers/fetchData";
 
-const ContactCard = ({ language }) => {
+const ContactCard = ({ language, english }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
+
+  if (english) {
+    language = "en";
+  }
 
   const isMobile = useMediaQuery("(max-width:600px)"); // Check if the screen width is less than or equal to 600px
 

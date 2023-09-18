@@ -6,20 +6,20 @@ export default async function handler(req, res) {
   try {
     // Generate a unique orderId
     const orderId = uuidv4();
-    let publicKey;
+    let APIpassword;
 
     const apiUrl = `https://${process.env.PAYZEN_SERVER}/api-payment/V4/Charge/CreatePayment`;
 
     if (process.env.NODE_ENV === "development") {
-      publicKey = Base64.encode(process.env.PAYZEN_TESTPASSWORD);
+      APIpassword = Base64.encode(process.env.PAYZEN_TESTPASSWORD);
     } else {
-      publicKey = Base64.encode(process.env.PAYZEN_PRODPASSWORD);
+      APIpassword = Base64.encode(process.env.PAYZEN_PRODPASSWORD);
     }
 
     // Define your headers
-    // Authorization = Basic + clé publique encodée en base 64
+    // Authorization = Basic + clé API encodée en base 64
     const headers = {
-      Authorization: `Basic ${publicKey}`,
+      Authorization: `Basic ${APIpassword}`,
       "Content-Type": "application/json",
     };
 
