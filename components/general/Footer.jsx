@@ -15,10 +15,10 @@ const Footer = () => {
         display: "flex",
         flexDirection: "column",
       }}>
-      <Link href='/donate' color='text.main'>
+      <Link href='/policies' color='text.main' style={{ fontSize: "0.85rem" }}>
         {translate({ tKey: "general.legalNotices", lang: language })}
       </Link>
-      <Typography mt={1} variant='body2' sx={{ fontSize: "0.85rem" }}>
+      <Typography mt={1} variant='body2' sx={{ fontSize: "0.80rem" }}>
         {`Le Patio Palace 41 avenue Hector Otto,`}
         <br /> 98000 Monaco
       </Typography>
@@ -29,17 +29,17 @@ const Footer = () => {
           "@media (max-width: 960px)": {
             pointerEvents: "none",
           },
-          fontSize: "0.85rem",
+          fontSize: "0.80rem",
         }}>
         IBAN: MC98 3000 2032 6000 0007 2181 Z94
       </Typography>
-      <Typography mt={1} variant='body2' sx={{ fontSize: "0.85rem" }}>
+      <Typography mt={1} variant='body2' sx={{ fontSize: "0.80rem" }}>
         Design: Nathan Huart
       </Typography>
-      <Typography variant='body2' sx={{ fontSize: "0.85rem" }}>
+      <Typography variant='body2' sx={{ fontSize: "0.80rem" }}>
         Development: Steven Lucas
       </Typography>
-      <Typography variant='body2' sx={{ fontSize: "0.85rem" }}>
+      <Typography variant='body2' sx={{ fontSize: "0.80rem" }}>
         Wink Monaco © {new Date().getFullYear()}
       </Typography>
     </Box>

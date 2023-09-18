@@ -15,7 +15,6 @@ import SuccessModal from "../ui/SuccessModal";
 
 export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   const [isSending, setIsSending] = useState(false);
-  const [isOpened, setIsOpened] = useState(false);
   const [customAmount, setCustomAmount] = useState(0);
 
   const [method, setMethod] = useState("");
@@ -26,7 +25,6 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   };
 
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
 
   const validationSchema = object().shape({
     fullName: string()
@@ -74,36 +72,14 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
 
   const handleSubmit = async (values) => {
     values.amount = selectedOption === "custom" ? parseInt(customAmount) : parseInt(selectedOption);
+    values.createdAt = new Date();
 
     setIsSending(true);
-    if (values.amount < 1 || isNaN(values.amount)) {
-      enqueueSnackbar(translate({ tKey: "donate.donationTooSmall2", lang: language }), { variant: "error" });
-      setIsSending(false);
-      return;
-    }
 
-    try {
-      const response = await fetch("/api/donations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.ok) {
-        setIsOpened(true);
-        setTimeout(() => {
-          router.push("/");
-        }, 5000);
-      } else {
-        enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
-        setIsSending(false);
-      }
-    } catch (err) {
-      enqueueSnackbar(translate({ tKey: "general.errorOccurred", lang: language }), { variant: "error" });
-      setIsSending(false);
-      console.error(err);
-    }
+    router.push({
+      pathname: "/donate/payment",
+      query: values,
+    });
   };
 
   const formik = useFormik({
@@ -114,11 +90,6 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
 
   return (
     <Box>
-      <SuccessModal
-        opened={isOpened}
-        title={translate({ tKey: "donate.thankYou", lang: language }) + "!"}
-        text={translate({ tKey: "donate.modalText", lang: language }) + "!"}
-      />
       <Box sx={{ marginTop: "-1rem", textAlign: "left" }}>
         <Button startIcon={<ArrowBack />} onClick={() => handleClick("main")}>
           {translate({ tKey: "general.back", lang: language })}

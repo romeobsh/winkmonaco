@@ -14,7 +14,7 @@ const Custom500 = () => {
         alignItems: "center",
         justifyContent: "center",
       }}>
-      <Image alt='404 Not Found' src='/images/500.svg' height={300} width={800} />
+      <Image priority alt='500 Server Error' src='/images/500.svg' height={300} width={800} />
       <Typography variant='h5' sx={{ mt: 4 }}>{`Une erreur est survenue côté serveur`}</Typography>
       <Link href='/'>
         <Button variant='contained' sx={{ mt: 2 }}>

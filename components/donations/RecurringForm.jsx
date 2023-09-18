@@ -102,7 +102,6 @@ const RecurringForm = ({ language, handleClick }) => {
         },
         body: JSON.stringify(values),
       });
-      console.log(values);
       if (response) {
         const data = await response.json();
         if (data.message === "alreadyExist") {

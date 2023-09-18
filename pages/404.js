@@ -14,7 +14,7 @@ const Custom404 = () => {
         alignItems: "center",
         justifyContent: "center",
       }}>
-      <Image alt='404 Not Found' src='/images/404.svg' height={300} width={800} />
+      <Image priority alt='404 Not Found' src='/images/404.svg' height={300} width={800} />
       <Typography variant='h5' sx={{ mt: 4 }}>{`La page que vous recherchez n'existe pas`}</Typography>
       <Link href='/'>
         <Button variant='contained' sx={{ mt: 2 }}>

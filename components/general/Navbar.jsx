@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Close, Favorite, HorizontalRule, Menu } from "@mui/icons-material";
 import { AppBar, Box, Button, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
@@ -40,7 +40,7 @@ function Navbar(props) {
         {tabs.map((tab) => (
           <ListItem key={Math.random()} sx={{ justifyContent: "right" }}>
             <Link key={Math.random()} href={tab.path} style={{ textDecoration: "none" }}>
-              <ListItemButton key={Math.random()} selected={router.pathname === tab.path}>
+              <ListItemButton key={Math.random()} selected={tab.path === "/" ? router.asPath === tab.path : router.asPath.includes(tab.path)}>
                 <ListItemText key={Math.random()} primary={tab.name} />
                 <HorizontalRule key={Math.random()} color='primary' fontSize='large' sx={{ transform: "rotate(90deg)" }} />
               </ListItemButton>
@@ -78,7 +78,13 @@ function Navbar(props) {
                   <Button
                     key={Math.random()}
                     size='medium'
-                    sx={{ color: () => (router.pathname === tab.path ? "primary" : "#1C4057"), mr: 1, fontWeight: 600 }}>
+                    sx={{
+                      color: () =>
+                        tab.path === "/" ? (router.asPath === "/" ? "primary" : "#1C4057") : router.asPath.includes(tab.path) ? "primary" : "#1C4057",
+                      mr: 1,
+                      fontWeight: 600,
+                    }}
+                    selected={tab.path === "/" ? router.asPath === tab.path : router.asPath.includes(tab.path)}>
                     {tab.name}
                   </Button>
                 </Link>

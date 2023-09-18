@@ -1,5 +1,5 @@
 import { SessionProvider, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -9,10 +9,30 @@ import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
 import Loading from "@/components/general/Loading";
 import Footer from "@/components/general/Footer";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const isAdminPage = router.pathname.startsWith("/admin");
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
 
   return (
     <SessionProvider session={session}>
@@ -40,9 +60,15 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
             ) : (
               <>
                 <Navbar>
-                  <Component {...pageProps} />
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <>
+                      <Component {...pageProps} />
+                      <Footer />
+                    </>
+                  )}
                 </Navbar>
-                <Footer />
               </>
             )}
           </LanguageProvider>
