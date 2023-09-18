@@ -43,7 +43,7 @@ const ContactCard = ({ language }) => {
               href={`tel:${language === "en" ? data?.internationalTel?.replace(/\s/g, "") : data?.frTel?.replace(/\s/g, "")}`}>
               <Typography variant='body1'>{language === "en" ? data?.internationalTel || "Phone number" : data?.frTel || "Numéro tél"}</Typography>
             </Link>
-            <Link style={{ textDecoration: "none" }} href={`mailto:${data?.email.trim()}`}>
+            <Link style={{ textDecoration: "none" }} href={`mailto:${data?.email?.trim()}`}>
               <Typography variant='body1'>{data?.email || "email@a-renseigner.com"}</Typography>
             </Link>
           </Box>
