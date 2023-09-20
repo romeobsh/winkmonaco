@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import Translation from "../general/Translation";
 import { translate } from "@/lib/translations/translate";
 import { object, string } from "yup";
+import Link from "next/link";
 
 const VolunteersForm = ({ loading, data, language, onClick }) => {
   const [isSending, setIsSending] = useState(false);
@@ -128,7 +129,18 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
             title={translate({ tKey: "general.thanks", lang: language }) + "!"}
             text={translate({ tKey: "volunteers.modalText", lang: language }) + "!"}
           />
-          <Typography>{renderTextWithLineBreaks(language === "en" ? data?.enFormText : data?.formText)}</Typography>
+          <Typography>
+            {Object.keys(data).length > 0
+              ? renderTextWithLineBreaks(language === "en" ? data?.enFormText : data?.formText)
+              : renderTextWithLineBreaks(translate({ tKey: "volunteers.formText", lang: language }))}
+          </Typography>
+          <Typography mt={3}>
+            {translate({ tKey: "volunteers.formAd", lang: language })}{" "}
+            <Link style={{ textDecoration: "none", color: "#22c6fe", fontWeight: 600 }} href='/contact'>
+              <Translation tKey='nav.contact' />
+            </Link>{" "}
+            !
+          </Typography>
           <Paper sx={{ backgroundColor: "#fafafa", marginTop: 4, padding: { md: "2rem 3rem 1.5rem 1rem", xs: "2rem 2rem 1.5rem 0rem" }, borderRadius: "1rem" }}>
             <form onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
