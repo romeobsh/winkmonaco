@@ -29,6 +29,11 @@ const Payment = () => {
   useEffect(() => {
     const setupPaymentForm = async () => {
       try {
+        if (values.amount < 1) {
+          router.push("/404");
+          return;
+        }
+
         const res = await fetch(`/api/payments/createPayment?address=${values.address}&amount=${values.amount}&email=${values.email}`);
 
         if (!res.ok) {

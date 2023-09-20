@@ -13,7 +13,12 @@ const Donate = ({ paymentInfos }) => {
   const { language } = useContext(LanguageContext);
 
   const handleClick = (page) => {
-    document.body.scrollTo({ top: 0, behavior: "smooth" });
+    if ("scrollBehavior" in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Fallback for browsers that don't support smooth scrolling
+      window.scrollTo(0, 0);
+    }
     setCurrentPage(null);
     setTimeout(() => {
       setCurrentPage(page);

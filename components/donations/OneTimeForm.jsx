@@ -5,13 +5,12 @@ import React, { useState } from "react";
 import TransferOrCheque from "./TransferOrCheque";
 import { renderTextWithLineBreaks } from "@/lib/renderTextWithLineBreaks";
 import { object, string } from "yup";
-import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import { LoadingButton } from "@mui/lab";
 import { useFormik } from "formik";
 import { generateInitialValues } from "@/lib/generators/generateInitialValues";
 import { donationSchema } from "@/schemas/donationSchema";
-import SuccessModal from "../ui/SuccessModal";
+import { useSnackbar } from "notistack";
 
 export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   const [isSending, setIsSending] = useState(false);
@@ -24,6 +23,7 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
     setSelectedOption(event.target.value);
   };
 
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
   const validationSchema = object().shape({
@@ -72,6 +72,10 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
 
   const handleSubmit = async (values) => {
     values.amount = selectedOption === "custom" ? parseInt(customAmount) : parseInt(selectedOption);
+    if (values.amount < 1 || isNaN(values.amount)) {
+      enqueueSnackbar(translate({ tKey: "donate.donationTooSmall2", lang: language }), { variant: "info" });
+      return;
+    }
     values.createdAt = new Date();
 
     setIsSending(true);
@@ -127,7 +131,7 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
           <Typography> {translate({ tKey: "donate.amountOfDonation", lang: language })}</Typography>
           <FormControl>
             <Grid container mb={2}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} sx={{ display: "flex" }}>
                 <FormControlLabel
                   disabled={isSending}
                   control={<Checkbox checked={selectedOption === "20"} onChange={handleRadioChange} value={"20"} />}
@@ -143,9 +147,9 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   sx={{
                     backgroundColor: "#f0f0f0",
                     borderRadius: "1rem",
-                    padding: "0.4rem 2rem 0.4rem 1.4rem",
+                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                     width: "fit-content",
-                    margin: "1rem",
+                    margin: { xs: "1rem auto", md: "1rem" },
                   }}
                 />
                 <FormControlLabel
@@ -163,13 +167,13 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   sx={{
                     backgroundColor: "#f0f0f0",
                     borderRadius: "1rem",
-                    padding: "0.4rem 2rem 0.4rem 1.4rem",
+                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                     width: "fit-content",
-                    margin: "1rem",
+                    margin: { xs: "1rem auto", md: "1rem" },
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} sx={{ display: "flex" }}>
                 <FormControlLabel
                   disabled={isSending}
                   control={<Checkbox checked={selectedOption === "100"} onChange={handleRadioChange} value={"100"} />}
@@ -185,9 +189,9 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   sx={{
                     backgroundColor: "#f0f0f0",
                     borderRadius: "1rem",
-                    padding: "0.4rem 2rem 0.4rem 1.4rem",
+                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                     width: "fit-content",
-                    margin: "1rem",
+                    margin: { xs: "1rem auto", md: "1rem" },
                   }}
                 />
                 <FormControlLabel
@@ -195,10 +199,10 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   sx={{
                     backgroundColor: "#f0f0f0",
                     borderRadius: "1rem",
-                    padding: "0.4rem 2rem 0.4rem 1.4rem",
+                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                     width: "fit-content",
                     margin: 0,
-                    margin: "1rem",
+                    margin: { xs: "1rem auto", md: "1rem" },
                   }}
                   control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
                   label={
@@ -208,7 +212,8 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                         variant='standard'
                         sx={{ width: "60px" }}
                         onChange={(e) => setCustomAmount(e.target.value)}
-                        inputProps={{ min: 0 }}
+                        onClick={() => setSelectedOption("custom")}
+                        inputProps={{ min: 1, style: { textAlign: "center" } }}
                         InputProps={{
                           sx: {
                             fontSize: "1.2rem",

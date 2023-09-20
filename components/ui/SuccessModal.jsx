@@ -4,6 +4,7 @@ import React from "react";
 
 const style = {
   position: "absolute",
+  maxWidth: "90%",
   borderRadius: 4,
   top: "50%",
   left: "50%",
