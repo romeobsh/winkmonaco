@@ -26,7 +26,7 @@ const Article = ({ id }) => {
           <Typography variant='body2' sx={{ textAlign: "right" }} mb={2}>
             Publié le {new Date(article.createdAt).toLocaleDateString()}
           </Typography>
-          <Typography mb={3}>{renderTextWithLineBreaks(language === "fr" ? article?.content.trim() || "" : article?.enContent.trim() || "")}</Typography>
+          <Typography mb={3}>{renderTextWithLineBreaks(language === "fr" ? article?.content?.trim() || "" : article?.enContent?.trim() || "")}</Typography>
           <Image
             src={article.imageUrl}
             style={{ objectFit: "cover", borderRadius: "10px", maxWidth: "100%" }}

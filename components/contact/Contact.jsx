@@ -26,7 +26,7 @@ const Contact = () => {
         <Slide direction={"right"} in={seeContent} appear={false} unmountOnExit mountOnEnter timeout={600}>
           <Box>
             <ContactContent language={language} />
-            <Button variant='contained' color='error' endIcon={<Block />} sx={{ marginTop: 2 }} onClick={handleClick}>
+            <Button variant='contained' color='error' endIcon={<Block />} sx={{ marginTop: 1, marginBottom: 4 }} onClick={handleClick}>
               <Translation tKey='contact.button' lang={language} />
             </Button>
           </Box>

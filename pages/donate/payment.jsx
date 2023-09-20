@@ -1,9 +1,10 @@
+import ContactCard from "@/components/contact/ContactCard";
 import PaymentLoading from "@/components/loading/PaymentLoading";
 import SuccessModal from "@/components/ui/SuccessModal";
 import { LanguageContext } from "@/contexts/LanguageContext";
 import { translate } from "@/lib/translations/translate";
 import KRGlue from "@lyracom/embedded-form-glue";
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
@@ -132,6 +133,13 @@ const Payment = () => {
             <div className='kr-smart-form' style={{ margin: "auto" }}></div>
           </div>
         </Card>
+        <Typography variant='h4' mt={4} mb={2} sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+          {translate({ tKey: "donate.help", lang: language })}
+        </Typography>
+        <Typography> {translate({ tKey: "donate.donationService", lang: language })}</Typography>
+        <Paper sx={{ backgroundColor: "#fafafa", width: "fit-content", textAlign: "left", margin: "2rem auto", borderRadius: "1rem", padding: "1rem" }}>
+          <ContactCard language={language} />
+        </Paper>
       </Box>
     </React.Fragment>
   );

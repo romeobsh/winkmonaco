@@ -31,7 +31,7 @@ const VolunteersPage = ({ data, loading, language }) => {
         <Slide direction={"right"} in={seeContent} appear={false} unmountOnExit mountOnEnter timeout={600}>
           <Box>
             <VolunteersContent data={data} loading={loading} language={language} />
-            <Button variant='contained' color='success' endIcon={<Favorite />} sx={{ marginTop: 4, marginBottom: 4 }} onClick={handleClick}>
+            <Button variant='contained' color='success' endIcon={<Favorite />} sx={{ marginTop: 4 }} onClick={handleClick}>
               <Translation tKey='volunteers.button' lang={language} />
             </Button>
           </Box>

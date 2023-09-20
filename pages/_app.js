@@ -10,6 +10,7 @@ import AdminSidebar from "@/components/general/AdminSidebar";
 import Loading from "@/components/general/Loading";
 import Footer from "@/components/general/Footer";
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -55,6 +56,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
               <Auth>
                 <AdminSidebar>
                   <Component {...pageProps} />
+                  <Analytics />
                 </AdminSidebar>
               </Auth>
             ) : (
@@ -65,6 +67,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                   ) : (
                     <>
                       <Component {...pageProps} />
+                      <Analytics />
                       <Footer />
                     </>
                   )}

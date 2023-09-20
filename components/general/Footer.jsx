@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        margin: "1rem 1rem 2rem",
+        margin: "4rem 1rem 2rem",
         justifyContent: "center",
         textAlign: "center",
         display: "flex",
