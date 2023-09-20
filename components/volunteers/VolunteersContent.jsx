@@ -12,13 +12,15 @@ const VolunteersContent = ({ data, loading, language }) => {
 
   useEffect(() => {
     if (!loading && Object.keys(data).length > 0) {
-      const kitLanguage = language === "en" ? data.enKitContent : data.kitContent;
-      const shapedKit = kitLanguage
-        .replace(/;\s*$/, "")
-        .trim()
-        .split(";")
-        .map((item) => item.trim());
-      setKit(shapedKit);
+      const kitLanguage = language === "en" ? data?.enKitContent : data?.kitContent;
+      if (kitLanguage?.length > 0) {
+        const shapedKit = kitLanguage
+          .replace(/;\s*$/, "")
+          .trim()
+          .split(";")
+          .map((item) => item.trim());
+        setKit(shapedKit);
+      }
     }
   }, [loading, data, language]);
 
