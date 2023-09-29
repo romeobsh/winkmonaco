@@ -46,7 +46,7 @@ const SearchStatus = ({ subscription, notFound, isSearching, language }) => {
             <Typography color='warning.main'>{translate({ tKey: "contact.requestForCancellation", lang: language })}</Typography>
             <Typography>{translate({ tKey: "contact.secondaryRequestForCancellation", lang: language })}</Typography>
             <Typography mt={1}>
-              {translate({ tKey: "contact.oldAmount", lang: language })} <b>{subscription?.amount}€</b>
+              {translate({ tKey: "contact.oldAmount", lang: language })} <b>{subscription?.amount || 0}€</b>
             </Typography>
           </React.Fragment>
         )}

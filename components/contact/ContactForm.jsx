@@ -1,5 +1,5 @@
 import { ArrowBack, Edit, Euro, Send } from "@mui/icons-material";
-import { Badge, Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography } from "@mui/material";
+import { Badge, Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, Tab, TextField, Typography, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -23,6 +23,8 @@ const ContactForm = ({ language, isLoading, onClick }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState("half");
+
+  const isMobile = useMediaQuery("(max-width:600px)"); // Check if the screen width is less than or equal to 600px
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -134,15 +136,18 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                   <Typography variant='h6' mb={2}>
                     {translate({ tKey: "contact.iWant", lang: language })}
                   </Typography>
-                  <TabContext value={tab}>
-                    <TabList onChange={handleChangeTab} TabIndicatorProps={{ style: { backgroundColor: "transparent" } }} centered>
+                  <TabContext value={tab} sx={{ maxWidth: "100%" }}>
+                    <TabList
+                      onChange={handleChangeTab}
+                      orientation={isMobile ? "vertical" : "horizontal"}
+                      TabIndicatorProps={{ style: { backgroundColor: "transparent", maxWidth: "100%" } }}
+                      centered>
                       <Tab
                         sx={{
+                          margin: isMobile ? "auto" : "auto 2rem auto auto",
                           backgroundColor: tab === "0" ? "white" : "transparent",
-                          marginRight: { xs: "0.5rem", md: "2rem" },
                           color: "text.main",
                           borderRadius: "1rem",
-                          overflow: "clip",
                           fontWeight: 600,
                           transition: "all 0.5s ease-in-out",
                           "&.Mui-selected": { color: "text.main" },
@@ -153,8 +158,8 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                       />
                       <Tab
                         sx={{
+                          margin: isMobile ? "0.5rem auto auto" : "auto auto auto 2rem",
                           backgroundColor: tab === "1" ? "white" : "transparent",
-                          marginLeft: { xs: "0.5rem", md: "2rem" },
                           color: "error.main",
                           borderRadius: "1rem",
                           fontWeight: 600,
@@ -168,7 +173,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                     </TabList>
                     <Collapse in={subscription !== null}>
                       <TabPanel value='0'>
-                        <FormControl sx={{ flexDirection: "row", gap: "2rem" }}>
+                        <FormControl sx={{ flexDirection: "row", gap: { xs: "1.2rem", md: "2rem" }, margin: "auto" }}>
                           <Badge
                             badgeContent={"50%"}
                             sx={{
@@ -201,7 +206,7 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                               sx={{
                                 backgroundColor: "white",
                                 borderRadius: "1rem",
-                                padding: "0.4rem 2rem 0.4rem 1.4rem",
+                                padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                                 width: "fit-content",
                                 margin: 0,
                               }}
@@ -209,17 +214,26 @@ const ContactForm = ({ language, isLoading, onClick }) => {
                           </Badge>
                           <FormControlLabel
                             disabled={isSending}
-                            sx={{ backgroundColor: "white", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0 }}
+                            sx={{
+                              backgroundColor: "white",
+                              borderRadius: "1rem",
+                              padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
+                              width: "fit-content",
+                              margin: "auto",
+                            }}
                             control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
                             label={
                               <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <TextField
                                   type='number'
                                   variant='standard'
-                                  sx={{ width: "60px" }}
+                                  sx={{ width: "fit-content", minWidth: "40px", maxWidth: "60px" }}
                                   onChange={(e) => setCustomAmount(e.target.value)}
+                                  onClick={() => setSelectedOption("custom")}
+                                  inputProps={{ min: 1, style: { textAlign: "center" } }}
                                   InputProps={{
                                     sx: {
+                                      width: "fit-content",
                                       fontSize: "1.2rem",
                                       fontWeight: 600,
                                       "& input[type=number]": {

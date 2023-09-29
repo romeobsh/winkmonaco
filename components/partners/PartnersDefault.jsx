@@ -12,10 +12,12 @@ const PartnersDefault = ({ language }) => (
     </Typography>
     <Image
       src='/images/partnersDefault.webp'
-      style={{ objectFit: "cover", marginTop: "50px", borderRadius: "10px" }}
-      alt='Partners picture'
-      width={600}
-      height={300}
+      style={{ objectFit: "cover", width: "100%", height: "18rem", marginTop: "40px", borderRadius: "10px" }}
+      alt='Image partenaires'
+      width={0}
+      height={0}
+      sizes='100vw'
+      priority
     />
   </React.Fragment>
 );

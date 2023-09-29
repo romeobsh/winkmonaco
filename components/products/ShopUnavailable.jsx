@@ -3,36 +3,35 @@ import { translate } from "@/lib/translations/translate";
 import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
-//* Default page for 404 errors
-const Custom404 = () => {
+const ShopUnavailable = () => {
   const { language } = useContext(LanguageContext);
   const isMobile = useMediaQuery("(max-width:600px)"); // Check if the screen width is less than or equal to 600px
 
   return (
     <Box
       sx={{
-        margin: "6rem auto 4rem",
+        margin: "2rem auto auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
+        maxWidth: isMobile ? "90%" : "800px",
       }}>
       <Image
         priority
-        alt='404 Not Found'
-        src='/images/404.svg'
-        style={{ objectFit: "contain", width: "100%", maxWidth: "800px", height: isMobile ? "10rem" : "18rem", borderRadius: "10px" }}
+        alt='Shop unavailable'
+        src='/images/unavailableShop.svg'
+        style={{ objectFit: "contain", width: "100%", maxWidth: "800px", height: isMobile ? "10rem" : "16rem", borderRadius: "10px" }}
         width={0}
         height={0}
         sizes='100vw'
       />
-      <Typography variant='h5' sx={{ mt: 4 }}>
+      <Typography variant='h5' sx={{ mt: 4 }} mb={2}>
         {" "}
-        {translate({ tKey: "general.error404", lang: language })}
+        {translate({ tKey: "general.dev", lang: language })}
       </Typography>
       <Link href='/'>
         <Button variant='contained' sx={{ mt: 2 }}>
@@ -43,4 +42,4 @@ const Custom404 = () => {
   );
 };
 
-export default Custom404;
+export default ShopUnavailable;

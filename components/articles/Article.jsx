@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { fetchData } from "@/lib/handlers/fetchData";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import ArticleLoading from "./ArticleLoading";
 import { LanguageContext } from "@/contexts/LanguageContext";
 import Image from "next/image";
@@ -10,6 +10,8 @@ const Article = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   const { language } = useContext(LanguageContext);
+
+  const isMobile = useMediaQuery("(max-width:600px)"); // Check if the screen width is less than or equal to 600px
 
   useEffect(() => {
     fetchData("articles", setIsLoading, setArticle, id);
@@ -29,10 +31,11 @@ const Article = ({ id }) => {
           <Typography mb={3}>{renderTextWithLineBreaks(language === "fr" ? article?.content?.trim() || "" : article?.enContent?.trim() || "")}</Typography>
           <Image
             src={article.imageUrl}
-            style={{ objectFit: "cover", borderRadius: "10px", maxWidth: "100%" }}
-            alt='Image partenaires'
-            width={800}
-            height={400}
+            style={{ objectFit: "cover", width: "100%", maxWidth: "800px", height: isMobile ? "10rem" : "18rem", borderRadius: "10px" }}
+            alt='Image article'
+            width={0}
+            height={0}
+            sizes='100vw'
             priority
           />
         </React.Fragment>

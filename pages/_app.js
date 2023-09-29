@@ -1,16 +1,17 @@
+import React, { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider, useSession } from "next-auth/react";
 import { Router, useRouter } from "next/router";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "/lib/theme";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { CartProvider } from "@/contexts/CartContext";
 import { SnackbarProvider } from "notistack";
 import Head from "next/head";
 import Navbar from "@/components/general/Navbar";
 import AdminSidebar from "@/components/general/AdminSidebar";
 import Loading from "@/components/general/Loading";
 import Footer from "@/components/general/Footer";
-import { useEffect, useState } from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -47,33 +48,34 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           autoHideDuration={5000}
           style={{ fontSize: "1.2rem" }}>
           <LanguageProvider>
-            <Head>
-              <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-              <title>Wink Monaco</title>
-            </Head>
-            <CssBaseline />
-            {isAdminPage ? (
-              <Auth>
-                <AdminSidebar>
-                  <Component {...pageProps} />
-                  <Analytics />
-                </AdminSidebar>
-              </Auth>
-            ) : (
-              <>
-                <Navbar>
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    <>
-                      <Component {...pageProps} />
-                      <Analytics />
-                      <Footer />
-                    </>
-                  )}
-                </Navbar>
-              </>
-            )}
+            <CartProvider>
+              <Head>
+                <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+                <title>Wink Monaco</title>
+              </Head>
+              <CssBaseline />
+              {isAdminPage ? (
+                <Auth>
+                  <AdminSidebar>
+                    <Component {...pageProps} />
+                  </AdminSidebar>
+                </Auth>
+              ) : (
+                <React.Fragment>
+                  <Navbar>
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      <React.Fragment>
+                        <Component {...pageProps} />
+                        <Analytics />
+                        <Footer />
+                      </React.Fragment>
+                    )}
+                  </Navbar>
+                </React.Fragment>
+              )}
+            </CartProvider>
           </LanguageProvider>
         </SnackbarProvider>
       </ThemeProvider>

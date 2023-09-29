@@ -10,6 +10,7 @@ import { LoadingButton } from "@mui/lab";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import RecurringDonationSuccessModal from "./RecurringDonationSuccessModal";
+import MuiPhoneNumber from "mui-phone-number";
 
 const RecurringForm = ({ language, handleClick }) => {
   const [isSending, setIsSending] = useState(false);
@@ -141,7 +142,7 @@ const RecurringForm = ({ language, handleClick }) => {
       <Typography> {translate({ tKey: "donate.amountOfRecurring", lang: language })}</Typography>
       <FormControl>
         <Grid container mb={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} sx={{ display: "flex" }}>
             <FormControlLabel
               disabled={isSending}
               control={<Checkbox checked={selectedOption === "20"} onChange={handleRadioChange} value={"20"} />}
@@ -157,9 +158,9 @@ const RecurringForm = ({ language, handleClick }) => {
               sx={{
                 backgroundColor: "#f0f0f0",
                 borderRadius: "1rem",
-                padding: "0.4rem 2rem 0.4rem 1.4rem",
+                padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                 width: "fit-content",
-                margin: "1rem",
+                margin: { xs: "1rem auto", md: "1rem" },
               }}
             />
             <FormControlLabel
@@ -177,13 +178,13 @@ const RecurringForm = ({ language, handleClick }) => {
               sx={{
                 backgroundColor: "#f0f0f0",
                 borderRadius: "1rem",
-                padding: "0.4rem 2rem 0.4rem 1.4rem",
+                padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                 width: "fit-content",
-                margin: "1rem",
+                margin: { xs: "1rem auto", md: "1rem" },
               }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} sx={{ display: "flex" }}>
             <FormControlLabel
               disabled={isSending}
               control={<Checkbox checked={selectedOption === "100"} onChange={handleRadioChange} value={"100"} />}
@@ -199,14 +200,20 @@ const RecurringForm = ({ language, handleClick }) => {
               sx={{
                 backgroundColor: "#f0f0f0",
                 borderRadius: "1rem",
-                padding: "0.4rem 2rem 0.4rem 1.4rem",
+                padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                 width: "fit-content",
-                margin: "1rem",
+                margin: { xs: "1rem auto", md: "1rem" },
               }}
             />
             <FormControlLabel
               disabled={isSending}
-              sx={{ backgroundColor: "#f0f0f0", borderRadius: "1rem", padding: "0.4rem 2rem 0.4rem 1.4rem", width: "fit-content", margin: 0, margin: "1rem" }}
+              sx={{
+                backgroundColor: "#f0f0f0",
+                borderRadius: "1rem",
+                padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
+                width: "fit-content",
+                margin: { xs: "1rem auto", md: "1rem" },
+              }}
               control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
               label={
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -215,7 +222,8 @@ const RecurringForm = ({ language, handleClick }) => {
                     variant='standard'
                     sx={{ width: "60px" }}
                     onChange={(e) => setCustomAmount(e.target.value)}
-                    inputProps={{ min: 0 }}
+                    onClick={() => setSelectedOption("custom")}
+                    inputProps={{ min: 1, style: { textAlign: "center" } }}
                     InputProps={{
                       sx: {
                         fontSize: "1.2rem",
@@ -263,11 +271,12 @@ const RecurringForm = ({ language, handleClick }) => {
               />
             </Grid>
             <Grid item mt={0.5} xs={12} md={6}>
-              <TextField
-                type='tel'
+              <MuiPhoneNumber
                 fullWidth
                 variant='outlined'
                 label={translate({ tKey: "general.tel", lang: language })}
+                defaultCountry='fr'
+                onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                 name={"tel"}
                 value={formik.values.tel}
                 onChange={(val) => (formik.values.tel = val)}

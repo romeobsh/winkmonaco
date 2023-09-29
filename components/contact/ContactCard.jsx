@@ -36,7 +36,7 @@ const ContactCard = ({ language, english }) => {
             />
           )}
           {!data?.profilePic && (
-            <Avatar sx={{ width: 120, height: 120, backgroundColor: "primary.main" }}>
+            <Avatar sx={{ width: 120, height: 120, backgroundColor: "primary.main", margin: isMobile ? "auto" : "" }}>
               <Person sx={{ width: 80, height: 80, backgroundColor: "primary.main" }} />
             </Avatar>
           )}

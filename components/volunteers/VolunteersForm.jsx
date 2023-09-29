@@ -14,6 +14,7 @@ import Translation from "../general/Translation";
 import { translate } from "@/lib/translations/translate";
 import { object, string } from "yup";
 import Link from "next/link";
+import MuiPhoneNumber from "mui-phone-number";
 
 const VolunteersForm = ({ loading, data, language, onClick }) => {
   const [isSending, setIsSending] = useState(false);
@@ -158,16 +159,15 @@ const VolunteersForm = ({ loading, data, language, onClick }) => {
                   />
                 </Grid>
                 <Grid item mt={0.5} xs={12} md={6}>
-                  <TextField
-                    type='tel'
+                  <MuiPhoneNumber
                     fullWidth
                     variant='outlined'
                     label={translate({ tKey: "general.tel", lang: language })}
+                    defaultCountry='fr'
+                    onlyCountries={["fr", "mc", "ch", "be", "ma"]}
                     name={"tel"}
                     value={formik.values.tel}
-                    onChange={(val) => {
-                      formik.values.tel = val;
-                    }}
+                    onChange={(val) => (formik.values.tel = val)}
                     error={formik.touched.tel && !!formik.errors.tel}
                     helperText={formik.touched.tel && formik.errors.tel}
                     disabled={isSending || false}

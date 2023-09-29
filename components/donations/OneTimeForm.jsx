@@ -201,7 +201,6 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                     borderRadius: "1rem",
                     padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
                     width: "fit-content",
-                    margin: 0,
                     margin: { xs: "1rem auto", md: "1rem" },
                   }}
                   control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
