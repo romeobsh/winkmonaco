@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TransferOrCheque from './TransferOrCheque';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { object, string } from 'yup';
@@ -24,10 +24,12 @@ import { generateInitialValues } from '@/lib/generators/generateInitialValues';
 import { donationSchema } from '@/schemas/donationSchema';
 import { useSnackbar } from 'notistack';
 import ContactCard from '../contact/ContactCard';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
-export default function OneTimeForm({ language, paymentInfos }) {
+export default function OneTimeForm({ paymentInfos }) {
   const [isSending, setIsSending] = useState(false);
   const [customAmount, setCustomAmount] = useState(0);
+  const { language } = useContext(LanguageContext);
 
   const [method, setMethod] = useState('');
   const [selectedOption, setSelectedOption] = useState('50');

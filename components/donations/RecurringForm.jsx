@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { generateInitialValues } from '@/lib/generators/generateInitialValues';
 import { subscriptionSchema } from '@/schemas/subscriptionSchema';
 import { useFormik } from 'formik';
@@ -23,11 +23,13 @@ import { useRouter } from 'next/router';
 import RecurringDonationSuccessModal from './RecurringDonationSuccessModal';
 import MuiPhoneNumber from 'mui-phone-number';
 import ContactCard from '../contact/ContactCard';
+import { LanguageContext } from '@/contexts/LanguageContext';
 
-const RecurringForm = ({ language }) => {
+const RecurringForm = () => {
   const [isSending, setIsSending] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [customAmount, setCustomAmount] = useState(0);
+  const { language } = useContext(LanguageContext);
 
   const [selectedOption, setSelectedOption] = useState('50');
 
