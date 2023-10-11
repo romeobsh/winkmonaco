@@ -1,23 +1,36 @@
-import { translate } from "@/lib/translations/translate";
-import { ArrowBack, AttachEmail, CreditCard, Edit, Euro, VolunteerActivism } from "@mui/icons-material";
-import { Box, Button, Checkbox, Collapse, FormControl, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import TransferOrCheque from "./TransferOrCheque";
-import { renderTextWithLineBreaks } from "@/lib/renderTextWithLineBreaks";
-import { object, string } from "yup";
-import { useRouter } from "next/router";
-import { LoadingButton } from "@mui/lab";
-import { useFormik } from "formik";
-import { generateInitialValues } from "@/lib/generators/generateInitialValues";
-import { donationSchema } from "@/schemas/donationSchema";
-import { useSnackbar } from "notistack";
+import { translate } from '@/lib/translations/translate';
+import { ArrowBack, AttachEmail, CreditCard, Edit, Euro, VolunteerActivism } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Collapse,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  MenuItem,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
+import TransferOrCheque from './TransferOrCheque';
+import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
+import { object, string } from 'yup';
+import { useRouter } from 'next/router';
+import { LoadingButton } from '@mui/lab';
+import { useFormik } from 'formik';
+import { generateInitialValues } from '@/lib/generators/generateInitialValues';
+import { donationSchema } from '@/schemas/donationSchema';
+import { useSnackbar } from 'notistack';
+import ContactCard from '../contact/ContactCard';
 
-export default function OneTimeForm({ language, handleClick, paymentInfos }) {
+export default function OneTimeForm({ language, paymentInfos }) {
   const [isSending, setIsSending] = useState(false);
   const [customAmount, setCustomAmount] = useState(0);
 
-  const [method, setMethod] = useState("");
-  const [selectedOption, setSelectedOption] = useState("50");
+  const [method, setMethod] = useState('');
+  const [selectedOption, setSelectedOption] = useState('50');
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -27,53 +40,134 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   const router = useRouter();
 
   const validationSchema = object().shape({
-    fullName: string()
-      .required(translate({ tKey: "helperTexts.requiredFullName", lang: language }))
+    title: string().required(translate({ tKey: 'helpTexts.requiredTitle', lang: language })),
+    firstName: string()
+      .required(translate({ tKey: 'helperTexts.requiredFirstName', lang: language }))
       .min(
-        4,
-        translate({ tKey: "helperTexts.fullName", lang: language }) +
-          " " +
-          translate({ tKey: "helperTexts.cannotBeLess", lang: language }) +
-          " 4 " +
-          translate({ tKey: "helperTexts.characters", lang: language })
+        2,
+        translate({ tKey: 'helperTexts.firstName', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 2 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
       )
       .max(
-        128,
-        translate({ tKey: "helperTexts.fullName", lang: language }) +
-          " " +
-          translate({ tKey: "helperTexts.cannotExceed", lang: language }) +
-          " 128 " +
-          translate({ tKey: "helperTexts.characters", lang: language })
+        32,
+        translate({ tKey: 'helperTexts.firstName', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 32 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      ),
+    lastName: string()
+      .required(translate({ tKey: 'helperTexts.requiredLastName', lang: language }))
+      .min(
+        2,
+        translate({ tKey: 'helperTexts.lastName', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 2 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      )
+      .max(
+        32,
+        translate({ tKey: 'helperTexts.lastName', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 32 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
       ),
     email: string()
-      .required(translate({ tKey: "helperTexts.email", lang: language }))
-      .email(translate({ tKey: "helperTexts.invalidEmail", lang: language })),
+      .required(translate({ tKey: 'helperTexts.email', lang: language }))
+      .email(translate({ tKey: 'helperTexts.invalidEmail', lang: language })),
     address: string()
-      .required(translate({ tKey: "helperTexts.requiredAddress", lang: language }))
+      .required(translate({ tKey: 'helperTexts.requiredAddress', lang: language }))
       .min(
         12,
-        translate({ tKey: "helperTexts.address", lang: language }) +
-          " " +
-          translate({ tKey: "helperTexts.cannotBeLess", lang: language }) +
-          " 12 " +
-          translate({ tKey: "helperTexts.characters", lang: language })
+        translate({ tKey: 'helperTexts.address', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 12 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
       )
       .max(
         256,
-        translate({ tKey: "helperTexts.address", lang: language }) +
-          " " +
-          translate({ tKey: "helperTexts.cannotExceed", lang: language }) +
-          " 256 " +
-          translate({ tKey: "helperTexts.characters", lang: language })
+        translate({ tKey: 'helperTexts.address', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 256 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      ),
+    addressDetails: string().max(
+      128,
+      translate({ tKey: 'helperTexts.addressDetails', lang: language }) +
+        ' ' +
+        translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+        ' 128 ' +
+        translate({ tKey: 'helperTexts.characters', lang: language })
+    ),
+    zipCode: string()
+      .required(translate({ tKey: 'helperTexts.requiredZipCode', lang: language }))
+      .min(
+        4,
+        translate({ tKey: 'helperTexts.zipCode', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 4 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      )
+      .max(
+        12,
+        translate({ tKey: 'helperTexts.zipCode', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 12 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      ),
+    city: string()
+      .required(translate({ tKey: 'helperTexts.requiredCity', lang: language }))
+      .min(
+        2,
+        translate({ tKey: 'helperTexts.city', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 2 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      )
+      .max(
+        64,
+        translate({ tKey: 'helperTexts.city', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 64 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      ),
+    country: string()
+      .required(translate({ tKey: 'helperTexts.requiredCountry', lang: language }))
+      .min(
+        2,
+        translate({ tKey: 'helperTexts.country', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotBeLess', lang: language }) +
+          ' 2 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
+      )
+      .max(
+        64,
+        translate({ tKey: 'helperTexts.country', lang: language }) +
+          ' ' +
+          translate({ tKey: 'helperTexts.cannotExceed', lang: language }) +
+          ' 64 ' +
+          translate({ tKey: 'helperTexts.characters', lang: language })
       ),
   });
 
   const initialValues = generateInitialValues(donationSchema);
 
   const handleSubmit = async (values) => {
-    values.amount = selectedOption === "custom" ? parseInt(customAmount) : parseInt(selectedOption);
+    values.amount = selectedOption === 'custom' ? parseInt(customAmount) : parseInt(selectedOption);
     if (values.amount < 1 || isNaN(values.amount)) {
-      enqueueSnackbar(translate({ tKey: "donate.donationTooSmall2", lang: language }), { variant: "info" });
+      enqueueSnackbar(translate({ tKey: 'donate.donationTooSmall2', lang: language }), { variant: 'info' });
       return;
     }
     values.createdAt = new Date();
@@ -81,10 +175,19 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
     setIsSending(true);
 
     router.push({
-      pathname: "/donate/payment",
+      pathname: '/donate/payment',
       query: values,
     });
   };
+
+  const titleOptions = [
+    {
+      value: 'm',
+      label: translate({ tKey: 'general.mister', lang: language }),
+    },
+    { value: 'ms', label: translate({ tKey: 'general.miss', lang: language }) },
+    { value: 'other', label: translate({ tKey: 'general.other', lang: language }) },
+  ];
 
   const formik = useFormik({
     initialValues,
@@ -93,51 +196,64 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
   });
 
   return (
-    <Box>
-      <Box sx={{ marginTop: "-1rem", textAlign: "left" }}>
-        <Button startIcon={<ArrowBack />} onClick={() => handleClick("main")}>
-          {translate({ tKey: "general.back", lang: language })}
+    <Box
+      sx={{
+        maxWidth: { xs: '600px', md: '1050px' },
+        width: '100%',
+        margin: '1.2rem auto',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <Typography variant='h2' mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {translate({ tKey: 'donate.title', lang: language })}
+      </Typography>
+      <Box sx={{ marginTop: '-1rem', textAlign: 'left' }}>
+        <Button startIcon={<ArrowBack />} onClick={() => router.push('/donate')}>
+          {translate({ tKey: 'general.back', lang: language })}
         </Button>
       </Box>
       <Box mb={3}>
-        <Typography mb={3}>{translate({ tKey: "donate.choseType", lang: language })}</Typography>
-        <Box sx={{ display: "flex", gap: { xs: "1rem", md: " 3rem" }, width: "fit-content", margin: "auto" }}>
+        <Typography mb={3}>{translate({ tKey: 'donate.choseType', lang: language })}</Typography>
+        <Box sx={{ display: 'flex', gap: { xs: '1rem', md: ' 3rem' }, width: 'fit-content', margin: 'auto' }}>
           <Button
-            onClick={() => setMethod("card")}
-            disabled={method === "card"}
-            sx={{ borderRadius: "1rem", display: "flex", flexDirection: "column", width: "7.5rem", height: "7.5rem" }}
+            onClick={() => setMethod('card')}
+            disabled={method === 'card'}
+            sx={{ borderRadius: '1rem', display: 'flex', flexDirection: 'column', width: '7.5rem', height: '7.5rem' }}
             variant='contained'
-            color='secondary'>
+            color='secondary'
+          >
             <Typography variant='body2' color='white' mb={0.6} sx={{ fontWeight: 600 }}>
-              {translate({ tKey: "donate.card", lang: language })}
+              {translate({ tKey: 'donate.card', lang: language })}
             </Typography>
             <CreditCard fontSize='large' />
           </Button>
           <Button
-            onClick={() => setMethod("transferOrCheque")}
-            disabled={method === "transferOrCheque"}
-            sx={{ borderRadius: "1rem", display: "flex", flexDirection: "column", width: "7.5rem", height: "7.5rem" }}
+            onClick={() => setMethod('transferOrCheque')}
+            disabled={method === 'transferOrCheque'}
+            sx={{ borderRadius: '1rem', display: 'flex', flexDirection: 'column', width: '7.5rem', height: '7.5rem' }}
             variant='contained'
-            color='secondary'>
+            color='secondary'
+          >
             <Typography color='white' variant='body2' mb={0.6} sx={{ fontWeight: 600 }}>
-              {translate({ tKey: "donate.transferOrCheque", lang: language })}
+              {translate({ tKey: 'donate.transferOrCheque', lang: language })}
             </Typography>
             <AttachEmail fontSize='large' />
           </Button>
         </Box>
       </Box>
-      <Collapse in={method === "card"}>
+      <Collapse in={method === 'card'}>
         <Box>
-          <Typography> {translate({ tKey: "donate.amountOfDonation", lang: language })}</Typography>
+          <Typography> {translate({ tKey: 'donate.amountOfDonation', lang: language })}</Typography>
           <FormControl>
             <Grid container mb={2}>
-              <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+              <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
                 <FormControlLabel
                   disabled={isSending}
-                  control={<Checkbox checked={selectedOption === "20"} onChange={handleRadioChange} value={"20"} />}
+                  control={<Checkbox checked={selectedOption === '20'} onChange={handleRadioChange} value={'20'} />}
                   label={
-                    <Box sx={{ display: "flex", alignItems: "center", textAlign: "right" }}>
-                      <Typography variant='h6' sx={{ width: "60px", paddingRight: "0.5rem" }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'right' }}>
+                      <Typography variant='h6' sx={{ width: '60px', paddingRight: '0.5rem' }}>
                         20
                       </Typography>
                       <Euro fontSize='small' />
@@ -145,19 +261,19 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   }
                   value={20}
                   sx={{
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: "1rem",
-                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
-                    width: "fit-content",
-                    margin: { xs: "1rem auto", md: "1rem" },
+                    backgroundColor: '#f0f0f0',
+                    borderRadius: '1rem',
+                    padding: { xs: '0.4rem 1rem 0.4rem 0.4rem', sm: '0.4rem 2rem 0.4rem 1.4rem' },
+                    width: 'fit-content',
+                    margin: { xs: '1rem auto', md: '1rem' },
                   }}
                 />
                 <FormControlLabel
                   disabled={isSending}
-                  control={<Checkbox checked={selectedOption === "50"} onChange={handleRadioChange} value={"50"} />}
+                  control={<Checkbox checked={selectedOption === '50'} onChange={handleRadioChange} value={'50'} />}
                   label={
-                    <Box sx={{ display: "flex", alignItems: "center", textAlign: "right" }}>
-                      <Typography variant='h6' sx={{ width: "60px", paddingRight: "0.5rem" }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'right' }}>
+                      <Typography variant='h6' sx={{ width: '60px', paddingRight: '0.5rem' }}>
                         50
                       </Typography>
                       <Euro fontSize='small' />
@@ -165,21 +281,21 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   }
                   value={50}
                   sx={{
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: "1rem",
-                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
-                    width: "fit-content",
-                    margin: { xs: "1rem auto", md: "1rem" },
+                    backgroundColor: '#f0f0f0',
+                    borderRadius: '1rem',
+                    padding: { xs: '0.4rem 1rem 0.4rem 0.4rem', sm: '0.4rem 2rem 0.4rem 1.4rem' },
+                    width: 'fit-content',
+                    margin: { xs: '1rem auto', md: '1rem' },
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+              <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
                 <FormControlLabel
                   disabled={isSending}
-                  control={<Checkbox checked={selectedOption === "100"} onChange={handleRadioChange} value={"100"} />}
+                  control={<Checkbox checked={selectedOption === '100'} onChange={handleRadioChange} value={'100'} />}
                   label={
-                    <Box sx={{ display: "flex", alignItems: "center", textAlign: "right" }}>
-                      <Typography variant='h6' sx={{ width: "60px", paddingRight: "0.5rem" }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'right' }}>
+                      <Typography variant='h6' sx={{ width: '60px', paddingRight: '0.5rem' }}>
                         100
                       </Typography>
                       <Euro fontSize='small' />
@@ -187,54 +303,60 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                   }
                   value={100}
                   sx={{
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: "1rem",
-                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
-                    width: "fit-content",
-                    margin: { xs: "1rem auto", md: "1rem" },
+                    backgroundColor: '#f0f0f0',
+                    borderRadius: '1rem',
+                    padding: { xs: '0.4rem 1rem 0.4rem 0.4rem', sm: '0.4rem 2rem 0.4rem 1.4rem' },
+                    width: 'fit-content',
+                    margin: { xs: '1rem auto', md: '1rem' },
                   }}
                 />
                 <FormControlLabel
                   disabled={isSending}
                   sx={{
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: "1rem",
-                    padding: { xs: "0.4rem 1rem 0.4rem 0.4rem", sm: "0.4rem 2rem 0.4rem 1.4rem" },
-                    width: "fit-content",
-                    margin: { xs: "1rem auto", md: "1rem" },
+                    backgroundColor: '#f0f0f0',
+                    borderRadius: '1rem',
+                    padding: { xs: '0.4rem 1rem 0.4rem 0.4rem', sm: '0.4rem 2rem 0.4rem 1.4rem' },
+                    width: 'fit-content',
+                    margin: { xs: '1rem auto', md: '1rem' },
                   }}
-                  control={<Checkbox checked={selectedOption === "custom"} onChange={handleRadioChange} value='custom' />}
+                  control={
+                    <Checkbox checked={selectedOption === 'custom'} onChange={handleRadioChange} value='custom' />
+                  }
                   label={
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <TextField
                         type='number'
                         variant='standard'
-                        sx={{ width: "60px" }}
+                        sx={{ width: '60px' }}
                         onChange={(e) => setCustomAmount(e.target.value)}
-                        onClick={() => setSelectedOption("custom")}
-                        inputProps={{ min: 1, style: { textAlign: "center" } }}
+                        onClick={() => setSelectedOption('custom')}
+                        inputProps={{ min: 1, style: { textAlign: 'center' } }}
                         InputProps={{
                           sx: {
-                            fontSize: "1.2rem",
+                            fontSize: '1.2rem',
                             fontWeight: 600,
-                            "&.MuiInputBase-root": {
-                              backgroundColor: "#f0f0f0",
+                            '&.MuiInputBase-root': {
+                              backgroundColor: '#f0f0f0',
                             },
-                            "& input[type=number]": {
-                              MozAppearance: "textfield",
+                            '& input[type=number]': {
+                              MozAppearance: 'textfield',
                             },
-                            "& input[type=number]::-webkit-outer-spin-button": {
-                              WebkitAppearance: "none",
+                            '& input[type=number]::-webkit-outer-spin-button': {
+                              WebkitAppearance: 'none',
                               margin: 0,
                             },
-                            "& input[type=number]::-webkit-inner-spin-button": {
-                              WebkitAppearance: "none",
+                            '& input[type=number]::-webkit-inner-spin-button': {
+                              WebkitAppearance: 'none',
                               margin: 0,
                             },
                           },
                         }}
                       />
-                      {customAmount === 0 || customAmount === "" ? <Edit fontSize='small' /> : <Euro fontSize='small' />}
+                      {customAmount === 0 || customAmount === '' ? (
+                        <Edit fontSize='small' />
+                      ) : (
+                        <Euro fontSize='small' />
+                      )}
                     </Box>
                   }
                   value={customAmount}
@@ -242,26 +364,47 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
               </Grid>
             </Grid>
           </FormControl>
-          <Typography>{translate({ tKey: "donate.myInfo", lang: language })}</Typography>
+          <Typography>{translate({ tKey: 'donate.myInfo', lang: language })}</Typography>
           <Paper
             sx={{
-              backgroundColor: "#f0f0f0",
-              padding: { md: "2rem 3rem 1.5rem 1rem", xs: "2rem 2rem 1.5rem 0rem" },
-              maxWidth: "800px",
-              margin: "2rem auto",
-              borderRadius: "1rem",
-            }}>
+              backgroundColor: '#f0f0f0',
+              padding: { md: '2rem 3rem 1.5rem 1rem', xs: '2rem 2rem 1.5rem 0rem' },
+              maxWidth: '800px',
+              margin: '2rem auto',
+              borderRadius: '1rem',
+            }}
+          >
             <form onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
-                <Grid item mt={0.5} xs={12} md={6}>
+                <Grid item mt={0.5} xs={4} md={2}>
                   <TextField
                     fullWidth
-                    label={translate({ tKey: "general.fullName", lang: language })}
-                    name={"fullName"}
-                    value={formik.values.fullName}
+                    select
+                    label={translate({ tKey: 'general.formTitle', lang: language })}
+                    name={'title'}
+                    value={formik.values.title}
                     onChange={formik.handleChange}
-                    error={formik.touched.fullName && !!formik.errors.fullName}
-                    helperText={formik.touched.fullName && formik.errors.fullName}
+                    error={formik.touched.title && !!formik.errors.title}
+                    helperText={formik.touched.title && formik.errors.title}
+                    disabled={isSending || false}
+                    sx={{ textAlign: 'left' }}
+                  >
+                    {titleOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item mt={0.5} xs={8} md={4}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.firstName', lang: language })}
+                    name={'firstName'}
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.firstName && !!formik.errors.firstName}
+                    helperText={formik.touched.firstName && formik.errors.firstName}
                     disabled={isSending || false}
                     autoFocus
                   />
@@ -269,8 +412,20 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                 <Grid item mt={0.5} xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={translate({ tKey: "general.email", lang: language })}
-                    name={"email"}
+                    label={translate({ tKey: 'general.lastName', lang: language })}
+                    name={'lastName'}
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.lastName && !!formik.errors.lastName}
+                    helperText={formik.touched.lastName && formik.errors.lastName}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={12}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.email', lang: language })}
+                    name={'email'}
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     error={formik.touched.email && !!formik.errors.email}
@@ -278,13 +433,11 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                     disabled={isSending || false}
                   />
                 </Grid>
-                <Grid item mt={0.5} xs={12}>
+                <Grid item mt={0.5} xs={12} md={6}>
                   <TextField
                     fullWidth
-                    multiline
-                    minRows={2}
-                    label={translate({ tKey: "general.address", lang: language })}
-                    name={"address"}
+                    label={translate({ tKey: 'general.address', lang: language })}
+                    name={'address'}
                     value={formik.values.address}
                     onChange={formik.handleChange}
                     error={formik.touched.address && !!formik.errors.address}
@@ -292,9 +445,64 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
                     disabled={isSending || false}
                   />
                 </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.addressDetails', lang: language })}
+                    name={'addressDetails'}
+                    value={formik.values.addressDetails}
+                    onChange={formik.handleChange}
+                    error={formik.touched.addressDetails && !!formik.errors.addressDetails}
+                    helperText={formik.touched.addressDetails && formik.errors.addressDetails}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={2.5}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.zipCode', lang: language })}
+                    name={'zipCode'}
+                    value={formik.values.zipCode}
+                    onChange={formik.handleChange}
+                    error={formik.touched.zipCode && !!formik.errors.zipCode}
+                    helperText={formik.touched.zipCode && formik.errors.zipCode}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={4.75}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.city', lang: language })}
+                    name={'city'}
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    error={formik.touched.city && !!formik.errors.city}
+                    helperText={formik.touched.city && formik.errors.city}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={4.75}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.country', lang: language })}
+                    name={'country'}
+                    value={formik.values.country}
+                    onChange={formik.handleChange}
+                    error={formik.touched.country && !!formik.errors.country}
+                    helperText={formik.touched.country && formik.errors.country}
+                    disabled={isSending || false}
+                  />
+                </Grid>
                 <Grid item xs={12} mt={1}>
-                  <LoadingButton loadingPosition='end' loading={isSending} type='sumbit' variant='contained' color='secondary' endIcon={<VolunteerActivism />}>
-                    {translate({ tKey: "donate.oneTimeButton", lang: language })}
+                  <LoadingButton
+                    loadingPosition='end'
+                    loading={isSending}
+                    type='sumbit'
+                    variant='contained'
+                    color='secondary'
+                    endIcon={<VolunteerActivism />}
+                  >
+                    {translate({ tKey: 'donate.oneTimeButton', lang: language })}
                   </LoadingButton>
                 </Grid>
               </Grid>
@@ -302,14 +510,30 @@ export default function OneTimeForm({ language, handleClick, paymentInfos }) {
           </Paper>
         </Box>
       </Collapse>
-      <Collapse in={method === "transferOrCheque"}>
+      <Collapse in={method === 'transferOrCheque'}>
         <Box>
           <Typography mt={2} mb={2}>
-            {renderTextWithLineBreaks(translate({ tKey: "donate.infoTransferOrCheque", lang: language }))}
+            {renderTextWithLineBreaks(translate({ tKey: 'donate.infoTransferOrCheque', lang: language }))}
           </Typography>
-          <TransferOrCheque data={paymentInfos} english={language === "en"} />
+          <TransferOrCheque data={paymentInfos} english={language === 'en'} />
         </Box>
       </Collapse>
+      <Typography variant='h4' mt={4} mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {translate({ tKey: 'donate.help', lang: language })}
+      </Typography>
+      <Typography> {translate({ tKey: 'donate.donationService', lang: language })}</Typography>
+      <Paper
+        sx={{
+          backgroundColor: '#fafafa',
+          width: 'fit-content',
+          textAlign: 'left',
+          margin: '2rem auto',
+          borderRadius: '1rem',
+          padding: '1rem',
+        }}
+      >
+        <ContactCard language={language} />
+      </Paper>
     </Box>
   );
 }

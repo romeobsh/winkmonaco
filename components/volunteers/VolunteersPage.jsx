@@ -1,46 +1,39 @@
-import { Box, Button, Fade, Slide, Typography } from "@mui/material";
-import React, { useState } from "react";
-import Translation from "../general/Translation";
-import VolunteersContent from "./VolunteersContent";
-import { Favorite } from "@mui/icons-material";
-import VolunteersForm from "./VolunteersForm";
+import { Box, Button, Fade, Typography } from '@mui/material';
+import React from 'react';
+import Translation from '../general/Translation';
+import VolunteersContent from './VolunteersContent';
+import { Favorite } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 const VolunteersPage = ({ data, loading, language }) => {
-  const [seeContent, setSeeContent] = useState(true);
-  const [seeForm, setSeeForm] = useState(false);
-
-  const handleClick = () => {
-    seeContent ? setSeeContent(false) : setSeeForm(false);
-    if ("scrollBehavior" in document.documentElement.style) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      // Fallback for browsers that don't support smooth scrolling
-      window.scrollTo(0, 0);
-    }
-    setTimeout(() => {
-      seeForm ? setSeeContent(true) : setSeeForm(true);
-    }, 600);
-  };
+  const router = useRouter();
 
   return (
     <Fade in={true} timeout={1000}>
-      <Box sx={{ maxWidth: { xs: "600px", lg: "1000px" }, width: "100%", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
+      <Box
+        sx={{
+          maxWidth: { xs: '600px', lg: '1000px' },
+          width: '100%',
+          margin: '1.2rem auto',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
         <Typography variant='h2' mb={4}>
           <Translation tKey='volunteers.title' lang={language} />
         </Typography>
-        <Slide direction={"right"} in={seeContent} appear={false} unmountOnExit mountOnEnter timeout={600}>
-          <Box>
-            <VolunteersContent data={data} loading={loading} language={language} />
-            <Button variant='contained' color='success' endIcon={<Favorite />} sx={{ marginTop: 4 }} onClick={handleClick}>
-              <Translation tKey='volunteers.button' lang={language} />
-            </Button>
-          </Box>
-        </Slide>
-        <Slide direction={"left"} in={seeForm} mountOnEnter unmountOnExit timeout={600}>
-          <Box>
-            <VolunteersForm data={data} loading={loading} language={language} onClick={handleClick} />
-          </Box>
-        </Slide>
+        <Box>
+          <VolunteersContent data={data} loading={loading} language={language} />
+          <Button
+            variant='contained'
+            color='success'
+            endIcon={<Favorite />}
+            sx={{ marginTop: 4 }}
+            onClick={() => router.push('/volunteers/form')}
+          >
+            <Translation tKey='volunteers.button' lang={language} />
+          </Button>
+        </Box>
       </Box>
     </Fade>
   );
