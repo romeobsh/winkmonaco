@@ -1,10 +1,8 @@
-import { LanguageContext } from "@/contexts/LanguageContext";
-import React, { useContext, useState } from "react";
-import { Box, Button, Fade, Slide } from "@mui/material";
-import Translation from "../general/Translation";
-import ContactContent from "./ContactContent";
-import { Block } from "@mui/icons-material";
-import ContactForm from "./ContactForm";
+import { LanguageContext } from '@/contexts/LanguageContext';
+import React, { useContext, useState } from 'react';
+import { Box, Fade, Slide } from '@mui/material';
+import ContactContent from './ContactContent';
+import ContactForm from './ContactForm';
 
 const Contact = () => {
   const { language } = useContext(LanguageContext);
@@ -13,8 +11,8 @@ const Contact = () => {
   const [seeForm, setSeeForm] = useState(false);
 
   const handleClick = () => {
-    if ("scrollBehavior" in document.documentElement.style) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Fallback for browsers that don't support smooth scrolling
       window.scrollTo(0, 0);
@@ -27,16 +25,21 @@ const Contact = () => {
 
   return (
     <Fade in={true} timeout={1000}>
-      <Box sx={{ maxWidth: { xs: "600px", md: "1000px" }, width: "100%", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
-        <Slide direction={"right"} in={seeContent} appear={false} unmountOnExit mountOnEnter timeout={600}>
+      <Box
+        sx={{
+          maxWidth: { xs: '600px', md: '1000px' },
+          width: '100%',
+          margin: '1.2rem auto',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <Slide direction={'right'} in={seeContent} appear={false} unmountOnExit mountOnEnter timeout={600}>
           <Box>
-            <ContactContent language={language} />
-            <Button variant='contained' color='error' endIcon={<Block />} sx={{ marginTop: 1, marginBottom: 4 }} onClick={handleClick}>
-              <Translation tKey='contact.button' lang={language} />
-            </Button>
+            <ContactContent language={language} handleClick={handleClick} />
           </Box>
         </Slide>
-        <Slide direction={"left"} in={seeForm} mountOnEnter unmountOnExit timeout={600}>
+        <Slide direction={'left'} in={seeForm} mountOnEnter unmountOnExit timeout={600}>
           <Box>
             <ContactForm language={language} onClick={handleClick} />
           </Box>
