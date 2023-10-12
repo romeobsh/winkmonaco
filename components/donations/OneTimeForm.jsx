@@ -433,6 +433,7 @@ export default function OneTimeForm({ paymentInfos }) {
                     error={formik.touched.email && !!formik.errors.email}
                     helperText={formik.touched.email && formik.errors.email}
                     disabled={isSending || false}
+                    autoCorrect={false}
                   />
                 </Grid>
                 <Grid item mt={0.5} xs={12} md={6}>
