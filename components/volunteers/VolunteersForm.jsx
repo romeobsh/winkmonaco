@@ -300,7 +300,7 @@ const VolunteersForm = ({ loading, data, language }) => {
                     disabled={isSending || false}
                   />
                 </Grid>
-                <Grid item mt={0.5} xs={12} md={!data?.isActiveKit ? 12 : 6}>
+                <Grid item mt={0.5} xs={12} md={6}>
                   <TextField
                     fullWidth
                     label={translate({ tKey: 'general.email', lang: language })}
@@ -330,11 +330,11 @@ const VolunteersForm = ({ loading, data, language }) => {
                     disabled={isSending || false}
                   />
                 </Grid>
-                <Grid item mt={0.5} xs={12}>
-                  <Typography>{translate({ tKey: 'general.address', lang: language })}</Typography>
-                </Grid>
                 {data?.isActiveKit && (
                   <React.Fragment>
+                    <Grid item mt={0.5} xs={12}>
+                      <Typography>{translate({ tKey: 'general.address', lang: language })}</Typography>
+                    </Grid>
                     <Grid item mt={0.5} xs={12} md={6}>
                       <TextField
                         fullWidth

@@ -1,10 +1,9 @@
 import React from 'react';
 import Translation from '../general/Translation';
 import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
-import ContactCard from './ContactCard';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { translate } from '@/lib/translations/translate';
-import { Block, DeveloperBoard, Palette } from '@mui/icons-material';
+import { Block, Business, DeveloperBoard, Email, MarkAsUnread, Palette, Send } from '@mui/icons-material';
 import Link from 'next/link';
 
 const ContactContent = ({ language, handleClick }) => {
@@ -24,7 +23,22 @@ const ContactContent = ({ language, handleClick }) => {
           padding: '1rem',
         }}
       >
-        <ContactCard language={language} />
+        <Typography sx={{ display: 'flex', alignItems: 'center' }} mb={1}>
+          <MarkAsUnread sx={{ marginRight: 1 }} />
+          <Link
+            style={{ textDecoration: 'none', color: '#1C4057' }}
+            href='https://maps.google.com/?q=41 avenue Hector Otto, Le Patio Palace, 98000 Monaco'
+            target='_blank'
+          >
+            41 avenue Hector Otto, Le Patio Palace, 98000 Monaco
+          </Link>
+        </Typography>
+        <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+          <Send sx={{ marginRight: 1 }} />
+          <Link style={{ textDecoration: 'none', color: '#1C4057' }} href='mailto:winkmonaco@gmail.com'>
+            winkmonaco@gmail.com
+          </Link>
+        </Typography>
       </Paper>
       <Typography variant='h4' mb={2} mt={4} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
         <Translation tKey='contact.stopSubscription' lang={language} />

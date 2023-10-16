@@ -1,6 +1,6 @@
-import { Base64 } from "js-base64";
-import fetch from "node-fetch";
-import { v4 as uuidv4 } from "uuid";
+import { Base64 } from 'js-base64';
+import fetch from 'node-fetch';
+import { v4 as uuidv4 } from 'uuid';
 
 export default async function handler(req, res) {
   try {
@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
     const apiUrl = `https://${process.env.PAYZEN_SERVER}/api-payment/V4/Charge/CreatePayment`;
 
-    if (process.env.NODE_ENV === "development") {
-      APIpassword = Base64.encode(process.env.PAYZEN_TESTPASSWORD);
+    if (process.env.NODE_ENV === 'development') {
+      APIpassword = process.env.PAYZEN_TESTPASSWORD_BASE64;
     } else {
       APIpassword = Base64.encode(process.env.PAYZEN_PRODPASSWORD);
     }
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     // Authorization = Basic + clé API encodée en base 64
     const headers = {
       Authorization: `Basic ${APIpassword}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     };
 
     // Retrieve additional parameters from query
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     // Define your request body with dynamic orderId and additional parameters
     const requestBody = JSON.stringify({
       amount: amount, // Default amount to 990 if not provided
-      currency: "EUR",
+      currency: 'EUR',
       orderId: orderId, // Use the generated orderId
       customer: {
         email: email, // Default email if not provided
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
 
     // Make the API call using fetch
     const response = await fetch(apiUrl, {
-      method: "POST",
+      method: 'POST',
       headers,
       body: requestBody,
     });
@@ -55,6 +55,6 @@ export default async function handler(req, res) {
     res.status(200).json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while processing your request." });
+    res.status(500).json({ error: 'An error occurred while processing your request.' });
   }
 }

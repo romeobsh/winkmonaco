@@ -68,10 +68,16 @@ const Payment = () => {
         });
 
         await KR.onSubmit(async (paymentData) => {
+          const requestBody = {
+            paymentData: paymentData,
+            email: values.email,
+            language: language,
+          };
+
           const response = await fetch(`/api/payments/validatePayment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(paymentData),
+            body: JSON.stringify(requestBody),
           });
           if (response.status === 200) {
             try {
