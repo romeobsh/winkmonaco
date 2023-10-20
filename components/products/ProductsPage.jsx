@@ -1,9 +1,10 @@
-import { Box, Fade, Grid, Typography } from "@mui/material";
-import React from "react";
-import Translation from "../general/Translation";
-import ProductsLoading from "./ProductsLoading";
-import FloatingCart from "./FloatingCart";
-import ShopUnavailable from "./ShopUnavailable";
+import { Box, Fade, Grid, Typography } from '@mui/material';
+import React from 'react';
+import Translation from '../general/Translation';
+import ProductsLoading from './ProductsLoading';
+import FloatingCart from './FloatingCart';
+import ShopUnavailable from './ShopUnavailable';
+import { ProductCard } from './ProductCard';
 
 const ProductsPage = ({ data, loading, language }) => {
   const handleClick = (id) => {
@@ -12,7 +13,15 @@ const ProductsPage = ({ data, loading, language }) => {
 
   return (
     <Fade in={true} timeout={1000}>
-      <Box sx={{ maxWidth: { xs: "600px", md: "1200px" }, width: "100%", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
+      <Box
+        sx={{
+          maxWidth: { xs: '600px', md: '1200px' },
+          width: '100%',
+          margin: '1.2rem auto',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
         <FloatingCart language={language} />
         <Typography variant='h2' mb={3}>
           <Translation tKey='shop.title' lang={language} />
@@ -25,7 +34,7 @@ const ProductsPage = ({ data, loading, language }) => {
           ) : (
             <React.Fragment>
               {data?.map((product) => (
-                <>Products cards</>
+                <ProductCard product={product} language={language} key={product._id} />
               ))}
             </React.Fragment>
           )}

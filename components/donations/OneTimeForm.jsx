@@ -502,7 +502,7 @@ export default function OneTimeForm({ paymentInfos }) {
                   <LoadingButton
                     loadingPosition='end'
                     loading={isSending}
-                    type='sumbit'
+                    type='submit'
                     variant='contained'
                     color='secondary'
                     endIcon={<VolunteerActivism />}
@@ -520,7 +520,7 @@ export default function OneTimeForm({ paymentInfos }) {
           <Typography mt={2} mb={2}>
             {renderTextWithLineBreaks(translate({ tKey: 'donate.infoTransferOrCheque', lang: language }))}
           </Typography>
-          <TransferOrCheque data={paymentInfos} english={language === 'en'} />
+          <TransferOrCheque data={paymentInfos} language={language} />
         </Box>
       </Collapse>
       <Typography variant='h4' mt={4} mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>

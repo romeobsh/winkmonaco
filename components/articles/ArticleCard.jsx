@@ -35,7 +35,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                   textAlign: 'left',
                 }}
               >
-                {language === 'en' ? article.enTitle : article.title}
+                {language === 'en' ? article.enTitle : language === 'it' ? article.itTitle : article.title}
               </Typography>
               <Typography mt={1} ml={0.5} variant='body2'>
                 {new Date(article.createdAt).toLocaleDateString(language)}
@@ -55,7 +55,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                 lineHeight: 1.6,
               }}
             >
-              {language === 'en' ? article.enContent : article.content}
+              {language === 'en' ? article.enContent : language === 'it' ? article.itContent : article.content}
             </Typography>
           </CardContent>
           <Box sx={{ height: '14rem', paddingTop: '1rem', position: 'relative' }}>

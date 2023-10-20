@@ -1,10 +1,8 @@
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { ArrowBack, Send } from '@mui/icons-material';
 import { Box, Button, Grid, MenuItem, Paper, TextField, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import VolunteersLoading from './VolunteersLoading';
-import { volunteerSchema } from '@/schemas/volunteerSchema';
-import { generateInitialValues } from '@/lib/generators/generateInitialValues';
 import { useFormik } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import SuccessModal from '../ui/SuccessModal';
@@ -170,20 +168,8 @@ const VolunteersForm = ({ loading, data, language }) => {
     { value: 'other', label: translate({ tKey: 'general.other', lang: language }) },
   ];
 
-  const initialValues = generateInitialValues(volunteerSchema);
-
-  useEffect(() => {
-    if (!loading && !data?.isActiveKit) {
-      initialValues.address = "Pas d'adresse (kit inactif)";
-      initialValues.addressDetails = "Pas d'adresse (kit inactif)";
-      initialValues.zipCode = '00000';
-      initialValues.city = "Pas d'adresse (kit inactif)";
-      initialValues.country = "Pas d'adresse (kit inactif)";
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, data]);
-
   const handleSubmit = async (values) => {
+    console.log(values);
     setIsSending(true);
     try {
       const response = await fetch('/api/volunteers', {
@@ -210,7 +196,21 @@ const VolunteersForm = ({ loading, data, language }) => {
   };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      title: 'm',
+      firstName: '',
+      lastName: '',
+      email: '',
+      tel: '',
+      address: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
+      addressDetails: '',
+      zipCode: !data?.isActiveKit ? '00000' : '',
+      city: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
+      country: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
+      job: '',
+      comment: '',
+    },
+    enableReinitialize: true,
     validationSchema,
     onSubmit: handleSubmit,
   });
@@ -232,7 +232,9 @@ const VolunteersForm = ({ loading, data, language }) => {
           />
           <Typography>
             {Object.keys(data).length > 0
-              ? renderTextWithLineBreaks(language === 'en' ? data?.enFormText : data?.formText)
+              ? renderTextWithLineBreaks(
+                  language === 'en' ? data?.enFormText : language === 'it' ? data?.itFormText : data?.formText
+                )
               : renderTextWithLineBreaks(translate({ tKey: 'volunteers.formText', lang: language }))}
           </Typography>
           <Typography mt={3}>

@@ -15,7 +15,12 @@ export default async function handler(req, res) {
     );
 
     if (hash === answerHash) {
-      const { subject, emailContent } = req.body.language === 'fr' ? getFrenchEmailContent() : getEnglishEmailContent();
+      const { subject, emailContent } =
+        req.body.language === 'fr'
+          ? getFrenchEmailContent()
+          : req.body.language === 'it'
+          ? getItalienEmailContent()
+          : getEnglishEmailContent();
 
       const mailOptions = {
         from: {
@@ -76,6 +81,25 @@ function getEnglishEmailContent() {
       <p>With all our gratitude,</p>
       <p>Corinne Rodier</p>
       <p>President</p>
+      <p>WINK MONACO</p>
+    `,
+  };
+}
+
+// Define Italian email subject and content
+function getItalienEmailContent() {
+  return {
+    subject: 'Grazie per la vostra generosità verso Wink Monaco',
+    emailContent: `
+      <p>Cari donatori,</p><br />
+      <p>Desidero esprimervi la mia sincera gratitudine a nome di tutto il team di WINK MONACO per la vostra generosa donazione che abbiamo ricevuto.</p>
+      <p>Il vostro sostegno è fondamentale per la nostra causa e siamo toccati dalla vostra generosità.</p>
+      <p>Le vostre contribuzioni ci consentono di portare avanti le nostre missioni di prevenzione e formazione, al fine di preservare la vista e l'udito della maggior parte delle persone, nonché di offrire opportunità di lavoro nelle aziende per le persone ipovedenti.</p>
+      <br /><p>Per informazioni sui nostri progetti o per partecipare, potete contattarci via email all'indirizzo: winkmonaco@gmail.com</p>
+      <p>Ancora una volta, grazie per il vostro sostegno,</p><br />
+      <p>Con tutta la nostra gratitudine,</p>
+      <p>Corinne Rodier</p>
+      <p>Presidente</p>
       <p>WINK MONACO</p>
     `,
   };

@@ -8,6 +8,7 @@ import {
   ContactPage,
   Loyalty,
   Email,
+  LocalShipping,
 } from '@mui/icons-material';
 import {
   Box,
@@ -36,6 +37,7 @@ const adminTabs = [
   { name: 'Partenaires', icon: <Handshake />, path: '/admin/partners' },
   { name: 'Aider autrement', icon: <Recommend />, path: '/admin/volunteers' },
   { name: 'Contact dons', icon: <ContactPage />, path: '/admin/contacts' },
+  { name: 'Commandes', icon: <LocalShipping />, path: '/admin/orders' },
   { name: 'Emails', icon: <Email />, path: '/admin/emails' },
 ];
 

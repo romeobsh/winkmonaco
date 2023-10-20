@@ -64,7 +64,12 @@ const Payment = () => {
         await KR.setFormConfig({
           /* set the minimal configuration */
           formToken: formToken,
-          'kr-language': language === 'fr' ? 'fr-FR' : 'en-EN' /* to update initialization parameter */,
+          'kr-language':
+            language === 'fr'
+              ? 'fr-FR'
+              : language === 'it'
+              ? 'it-IT'
+              : 'en-EN' /* to update initialization parameter */,
         });
 
         await KR.onSubmit(async (paymentData) => {
