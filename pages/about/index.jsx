@@ -1,3 +1,4 @@
+import HowToHelp from '@/components/Home/HowToHelp';
 import { LanguageContext } from '@/contexts/LanguageContext';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { translate } from '@/lib/translations/translate';
@@ -37,6 +38,7 @@ const About = () => {
         sizes='100vw'
         priority
       />
+      <HowToHelp />
     </Grid>
   );
 };
