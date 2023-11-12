@@ -1,6 +1,17 @@
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { ArrowBack, Send } from '@mui/icons-material';
-import { Box, Button, Grid, MenuItem, Paper, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  MenuItem,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
 import VolunteersLoading from './VolunteersLoading';
 import { useFormik } from 'formik';
@@ -10,7 +21,7 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import Translation from '../general/Translation';
 import { translate } from '@/lib/translations/translate';
-import { object, string } from 'yup';
+import { bool, object, string } from 'yup';
 import Link from 'next/link';
 import MuiPhoneNumber from 'mui-phone-number';
 
@@ -157,6 +168,7 @@ const VolunteersForm = ({ loading, data, language }) => {
         translate({ tKey: 'helperTexts.characters', lang: language })
     ),
     comment: string(),
+    iWantKit: bool(),
   });
 
   const titleOptions = [
@@ -169,7 +181,6 @@ const VolunteersForm = ({ loading, data, language }) => {
   ];
 
   const handleSubmit = async (values) => {
-    console.log(values);
     setIsSending(true);
     try {
       const response = await fetch('/api/volunteers', {
@@ -202,13 +213,14 @@ const VolunteersForm = ({ loading, data, language }) => {
       lastName: '',
       email: '',
       tel: '',
-      address: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
+      address: '',
       addressDetails: '',
-      zipCode: !data?.isActiveKit ? '00000' : '',
-      city: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
-      country: !data?.isActiveKit ? "Pas d'adresse (kit inactif)" : '',
+      zipCode: '',
+      city: '',
+      country: '',
       job: '',
       comment: '',
+      iWantKit: false,
     },
     enableReinitialize: true,
     validationSchema,
@@ -323,7 +335,7 @@ const VolunteersForm = ({ loading, data, language }) => {
                     variant='outlined'
                     label={translate({ tKey: 'general.tel', lang: language })}
                     defaultCountry='fr'
-                    onlyCountries={['fr', 'mc', 'ch', 'be', 'ma']}
+                    onlyCountries={['fr', 'mc', 'ch', 'it', 'uk', 'be', 'gb', 'gr']}
                     name={'tel'}
                     value={formik.values.tel}
                     onChange={(val) => (formik.values.tel = val)}
@@ -332,100 +344,109 @@ const VolunteersForm = ({ loading, data, language }) => {
                     disabled={isSending || false}
                   />
                 </Grid>
-                {data?.isActiveKit && (
-                  <React.Fragment>
-                    <Grid item mt={0.5} xs={12}>
-                      <Typography>{translate({ tKey: 'general.address', lang: language })}</Typography>
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.address', lang: language })}
-                        name={'address'}
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                        error={formik.touched.address && !!formik.errors.address}
-                        helperText={formik.touched.address && formik.errors.address}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.addressDetails', lang: language })}
-                        name={'addressDetails'}
-                        value={formik.values.addressDetails}
-                        onChange={formik.handleChange}
-                        error={formik.touched.addressDetails && !!formik.errors.addressDetails}
-                        helperText={formik.touched.addressDetails && formik.errors.addressDetails}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={2.5}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.zipCode', lang: language })}
-                        name={'zipCode'}
-                        value={formik.values.zipCode}
-                        onChange={formik.handleChange}
-                        error={formik.touched.zipCode && !!formik.errors.zipCode}
-                        helperText={formik.touched.zipCode && formik.errors.zipCode}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={4.75}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.city', lang: language })}
-                        name={'city'}
-                        value={formik.values.city}
-                        onChange={formik.handleChange}
-                        error={formik.touched.city && !!formik.errors.city}
-                        helperText={formik.touched.city && formik.errors.city}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={4.75}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.country', lang: language })}
-                        name={'country'}
-                        value={formik.values.country}
-                        onChange={formik.handleChange}
-                        error={formik.touched.country && !!formik.errors.country}
-                        helperText={formik.touched.country && formik.errors.country}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12}>
-                      <Typography>{translate({ tKey: 'general.optional', lang: language })}</Typography>
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.job', lang: language })}
-                        name={'job'}
-                        value={formik.values.job}
-                        onChange={formik.handleChange}
-                        error={formik.touched.job && !!formik.errors.job}
-                        helperText={formik.touched.job && formik.errors.job}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                    <Grid item mt={0.5} xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label={translate({ tKey: 'general.comment', lang: language })}
-                        name={'comment'}
-                        value={formik.values.comment}
-                        onChange={formik.handleChange}
-                        error={formik.touched.comment && !!formik.errors.comment}
-                        helperText={formik.touched.comment && formik.errors.comment}
-                        disabled={isSending || false}
-                      />
-                    </Grid>
-                  </React.Fragment>
-                )}
+                <Grid item mt={0.5} xs={12}>
+                  <Typography>{translate({ tKey: 'general.address', lang: language })}</Typography>
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.address', lang: language })}
+                    name={'address'}
+                    value={formik.values.address}
+                    onChange={formik.handleChange}
+                    error={formik.touched.address && !!formik.errors.address}
+                    helperText={formik.touched.address && formik.errors.address}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.addressDetails', lang: language })}
+                    name={'addressDetails'}
+                    value={formik.values.addressDetails}
+                    onChange={formik.handleChange}
+                    error={formik.touched.addressDetails && !!formik.errors.addressDetails}
+                    helperText={formik.touched.addressDetails && formik.errors.addressDetails}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={2.5}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.zipCode', lang: language })}
+                    name={'zipCode'}
+                    value={formik.values.zipCode}
+                    onChange={formik.handleChange}
+                    error={formik.touched.zipCode && !!formik.errors.zipCode}
+                    helperText={formik.touched.zipCode && formik.errors.zipCode}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={4.75}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.city', lang: language })}
+                    name={'city'}
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    error={formik.touched.city && !!formik.errors.city}
+                    helperText={formik.touched.city && formik.errors.city}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={4.75}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.country', lang: language })}
+                    name={'country'}
+                    value={formik.values.country}
+                    onChange={formik.handleChange}
+                    error={formik.touched.country && !!formik.errors.country}
+                    helperText={formik.touched.country && formik.errors.country}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12}>
+                  <Typography>{translate({ tKey: 'general.optional', lang: language })}</Typography>
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.job', lang: language })}
+                    name={'job'}
+                    value={formik.values.job}
+                    onChange={formik.handleChange}
+                    error={formik.touched.job && !!formik.errors.job}
+                    helperText={formik.touched.job && formik.errors.job}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item mt={0.5} xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label={translate({ tKey: 'general.comment', lang: language })}
+                    name={'comment'}
+                    value={formik.values.comment}
+                    onChange={formik.handleChange}
+                    error={formik.touched.comment && !!formik.errors.comment}
+                    helperText={formik.touched.comment && formik.errors.comment}
+                    disabled={isSending || false}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      value={formik.values.iWantKit || false}
+                      checked={formik.values.iWantKit || false}
+                      label={translate({ tKey: 'volunteers.iWantKit', lang: language })}
+                      name={'iWantKit'}
+                      onChange={formik.handleChange}
+                      disabled={isSending}
+                    />
+                  </FormGroup>
+                </Grid>
                 <Grid item xs={12} mt={1}>
                   <LoadingButton
                     loadingPosition='end'

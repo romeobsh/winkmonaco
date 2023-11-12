@@ -5,7 +5,6 @@ import { Add, Info, Remove } from '@mui/icons-material';
 import { Button, Collapse, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 
 const HeroContent = () => {
@@ -51,28 +50,30 @@ const HeroContent = () => {
         item
         xs={12}
         sx={{
-          paddingLeft: 2,
-          paddingRight: 2,
           height: 'auto',
-          minHeight: '400px',
           marginTop: 4,
+          position: 'relative', // new style
+          paddingBottom: '56.25%', // for 16:9 aspect ratio
+          height: 0, // use padding to determine height
         }}
       >
-        <iframe
-          style={{
-            borderRadius: '1rem',
-            border: 'none',
-            boxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
-            WebkitBoxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
-            MozBoxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
-          }}
-          width='100%'
-          height='100%'
-          src={`https://www.youtube.com/embed/W6gFZBi30Yw`}
-          allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowFullScreen
-          title='Embedded youtube'
-        />
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          <iframe
+            style={{
+              borderRadius: '1rem',
+              border: 'none',
+              boxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
+              WebkitBoxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
+              MozBoxShadow: '2px 2px 10px -2px rgba(0,0,0,0.75)',
+              width: '100%', // ensure it covers the full width of the parent
+              height: '100%', // ensure it covers the full height of the parent
+            }}
+            src={`https://www.youtube.com/embed/W6gFZBi30Yw`}
+            allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+            title='Embedded youtube'
+          />
+        </div>
       </Grid>
     </Grid>
   );

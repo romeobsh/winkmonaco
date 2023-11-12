@@ -4,7 +4,8 @@ import { generateCollectionApiHandler } from '@/lib/generators/generateCollectio
 import { generateElementApiHandler } from '@/lib/generators/generateElementApiHandler';
 import { generateFormik } from '@/lib/generators/generateFormik';
 import CustomDatagrid from '@/components/datagrid/CustomDatagrid';
-import { string } from 'yup';
+import { bool, string } from 'yup';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 
 //* General model definition
 export const volunteerSchema = [
@@ -196,6 +197,24 @@ export const volunteerSchema = [
     mongooseType: String,
     mongooseRequired: false,
     yupValidations: string(),
+  },
+  {
+    name: 'iWantKit',
+    type: 'checkbox',
+    label: 'Souhaite recevoir le kit',
+    initialValue: false,
+    muiHeaderName: 'Kit',
+    muiType: 'boolean',
+    muiFlex: 1.5,
+    muiRenderCell: (params) =>
+      params.row.iWantKit ? (
+        <CheckCircle sx={{ color: 'green', fontSize: '2rem' }} />
+      ) : (
+        <Cancel sx={{ color: 'red', fontSize: '2rem' }} />
+      ),
+    mongooseType: Boolean,
+    mongooseRequired: true,
+    yupValidations: bool().required('La volonté de recevoir le kit est requise'),
   },
 ];
 
