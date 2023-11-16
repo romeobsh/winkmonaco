@@ -126,6 +126,42 @@ export const partnerSchema = [
       .min(120, 'Le second texte en italien ne peut pas faire moins de 120 caractères')
       .max(3000, 'Le second texte en italien ne peut pas faire plus de 3000 caractères'),
   },
+  {
+    name: 'imageUrl2',
+    placeholder: "URL de l'image 2",
+    type: 'text',
+    initialValue: '',
+    muiHeaderName: 'Image 2',
+    muiType: 'string',
+    muiFlex: 1,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().url('Entrez un URL valide'),
+  },
+  {
+    name: 'imageUrl3',
+    placeholder: "URL de l'image 3",
+    type: 'text',
+    initialValue: '',
+    muiHeaderName: 'Image 3',
+    muiType: 'string',
+    muiFlex: 1,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().url('Entrez un URL valide'),
+  },
+  {
+    name: 'imageUrl4',
+    placeholder: "URL de l'image 4",
+    type: 'text',
+    initialValue: '',
+    muiHeaderName: 'Image 4',
+    muiType: 'string',
+    muiFlex: 1,
+    mongooseType: String,
+    mongooseRequired: true,
+    yupValidations: string().url('Entrez un URL valide'),
+  },
 ];
 
 //* --------------------------

@@ -4,7 +4,8 @@ import SuccessModal from '@/components/ui/SuccessModal';
 import { LanguageContext } from '@/contexts/LanguageContext';
 import { translate } from '@/lib/translations/translate';
 import KRGlue from '@lyracom/embedded-form-glue';
-import { Box, Card, Paper, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { Box, Button, Card, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
@@ -147,6 +148,11 @@ const Payment = () => {
         <Typography variant='h2' mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {translate({ tKey: 'donate.title', lang: language })}
         </Typography>
+        <Box sx={{ marginTop: '-1rem', textAlign: 'left' }}>
+          <Button startIcon={<ArrowBack />} onClick={() => router.push('/donate/oneTime')}>
+            {translate({ tKey: 'general.back', lang: language })}
+          </Button>
+        </Box>
         <Card
           sx={{
             maxWidth: '600px',

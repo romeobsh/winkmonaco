@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { fetchData } from '@/lib/handlers/fetchData';
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import ArticleLoading from './ArticleLoading';
 import { LanguageContext } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
+import { ArrowBack } from '@mui/icons-material';
+import { translate } from '@/lib/translations/translate';
+import { useRouter } from 'next/router';
 
 const Article = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   const { language } = useContext(LanguageContext);
+
+  const router = useRouter();
 
   const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
 
@@ -30,12 +35,26 @@ const Article = ({ id }) => {
       {isLoading && <ArticleLoading />}
       {!isLoading && (
         <React.Fragment>
-          <Typography variant='h2' mb={1} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <Typography variant='h2' mb={1} mt={-1} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {language === 'en' ? article.enTitle : language === 'it' ? article.itTitle : article.title}
           </Typography>
-          <Typography variant='body2' sx={{ textAlign: 'right' }} mb={2}>
-            Publié le {new Date(article.createdAt).toLocaleDateString()}
-          </Typography>
+          <Box
+            sx={{
+              marginTop: '-1rem',
+              textAlign: 'left',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 1,
+            }}
+          >
+            <Button startIcon={<ArrowBack />} onClick={() => router.push('/articles')}>
+              {translate({ tKey: 'general.back', lang: language })}
+            </Button>
+            <Typography variant='body2' sx={{ textAlign: 'right' }}>
+              Publié le {new Date(article.createdAt).toLocaleDateString()}
+            </Typography>
+          </Box>
           <Typography mb={3}>
             {renderTextWithLineBreaks(
               language === 'fr'

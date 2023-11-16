@@ -51,7 +51,7 @@ function Navbar(props) {
       <Toolbar sx={{ borderBottom: 0 }} />
       <List>
         {tabs.map((tab) => (
-          <ListItem key={Math.random()} sx={{ justifyContent: 'right' }}>
+          <ListItem key={Math.random()} sx={{ justifyContent: 'right', padding: '0.4rem 1rem' }}>
             <Link key={Math.random()} href={tab.path} style={{ textDecoration: 'none' }}>
               <ListItemButton
                 key={Math.random()}

@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TransferOrCheque from './TransferOrCheque';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { object, string } from 'yup';
@@ -197,6 +197,18 @@ export default function OneTimeForm({ paymentInfos }) {
     onSubmit: handleSubmit,
   });
 
+  const scrollToWithOffset = (elementId, offset) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - offset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -219,7 +231,12 @@ export default function OneTimeForm({ paymentInfos }) {
         <Typography mb={3}>{translate({ tKey: 'donate.choseType', lang: language })}</Typography>
         <Box sx={{ display: 'flex', gap: { xs: '1rem', md: ' 3rem' }, width: 'fit-content', margin: 'auto' }}>
           <Button
-            onClick={() => setMethod('card')}
+            onClick={() => {
+              setMethod('card');
+              setTimeout(() => {
+                scrollToWithOffset('card', 65);
+              }, 500);
+            }}
             disabled={method === 'card'}
             sx={{ borderRadius: '1rem', display: 'flex', flexDirection: 'column', width: '7.5rem', height: '7.5rem' }}
             variant='contained'
@@ -231,7 +248,12 @@ export default function OneTimeForm({ paymentInfos }) {
             <CreditCard fontSize='large' />
           </Button>
           <Button
-            onClick={() => setMethod('transferOrCheque')}
+            onClick={() => {
+              setMethod('transferOrCheque');
+              setTimeout(() => {
+                scrollToWithOffset('transferOrCheque', 65);
+              }, 500);
+            }}
             disabled={method === 'transferOrCheque'}
             sx={{ borderRadius: '1rem', display: 'flex', flexDirection: 'column', width: '7.5rem', height: '7.5rem' }}
             variant='contained'
@@ -245,7 +267,7 @@ export default function OneTimeForm({ paymentInfos }) {
         </Box>
       </Box>
       <Collapse in={method === 'card'}>
-        <Box>
+        <Box id='card'>
           <Typography> {translate({ tKey: 'donate.amountOfDonation', lang: language })}</Typography>
           <FormControl>
             <Grid container mb={2}>
@@ -516,7 +538,7 @@ export default function OneTimeForm({ paymentInfos }) {
         </Box>
       </Collapse>
       <Collapse in={method === 'transferOrCheque'}>
-        <Box>
+        <Box id='transferOrCheque'>
           <Typography mt={2} mb={2}>
             {renderTextWithLineBreaks(translate({ tKey: 'donate.infoTransferOrCheque', lang: language }))}
           </Typography>

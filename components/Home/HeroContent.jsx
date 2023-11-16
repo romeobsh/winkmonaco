@@ -68,7 +68,13 @@ const HeroContent = () => {
               width: '100%', // ensure it covers the full width of the parent
               height: '100%', // ensure it covers the full height of the parent
             }}
-            src={`https://www.youtube.com/embed/W6gFZBi30Yw`}
+            src={
+              language === 'fr'
+                ? `https://youtube.com/embed/qHtXdPnzfRg`
+                : language === 'en'
+                ? `https://youtube.com/embed/AemBjXs2zLc`
+                : `https://youtube.com/embed/XGqGgrLX0qY`
+            }
             allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
             title='Embedded youtube'
