@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Card, CardActionArea, Grid } from '@mui/material';
-import ReactImageMagnify from 'react-image-magnify';
+// import ReactImageMagnify from 'react-image-magnify';
 
 function ProductImageGallery({ images }) {
   const [selectedImage, setSelectedImage] = useState(images[0]);
@@ -9,7 +9,7 @@ function ProductImageGallery({ images }) {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Card>
-          <ReactImageMagnify
+          {/* <ReactImageMagnify
             {...{
               smallImage: {
                 alt: 'Main image',
@@ -23,20 +23,20 @@ function ProductImageGallery({ images }) {
               },
               lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
             }}
-          />
+          /> */}
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Box display="flex" justifyContent="center" overflow="auto">
+        <Box display='flex' justifyContent='center' overflow='auto'>
           {images.map((image, index) => (
             <Box key={index} margin={1}>
               <CardActionArea onClick={() => setSelectedImage(image)}>
                 <Box
-                  component="img"
+                  component='img'
                   sx={{
                     width: 100,
                     height: 100,
-                    opacity: image === selectedImage ? 1 : 0.5
+                    opacity: image === selectedImage ? 1 : 0.5,
                   }}
                   src={image}
                   alt={`Thumbnail ${index + 1}`}
