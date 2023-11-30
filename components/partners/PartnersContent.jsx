@@ -28,6 +28,7 @@ const PartnersContent = ({ partners, loading, language }) => {
             style={{
               objectFit: 'contain',
               width: 'fit-content',
+              maxWidth: '100%',
               marginTop: '1rem',
               height: 'auto',
               // height: isMobile ? '10rem' : '18rem',
@@ -45,6 +46,7 @@ const PartnersContent = ({ partners, loading, language }) => {
               style={{
                 objectFit: 'contain',
                 width: 'fit-content',
+                maxWidth: '100%',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',
@@ -63,6 +65,7 @@ const PartnersContent = ({ partners, loading, language }) => {
               style={{
                 objectFit: 'contain',
                 width: 'fit-content',
+                maxWidth: '100%',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',
@@ -81,6 +84,7 @@ const PartnersContent = ({ partners, loading, language }) => {
               style={{
                 objectFit: 'contain',
                 width: 'fit-content',
+                maxWidth: '100%',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',

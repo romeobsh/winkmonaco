@@ -69,7 +69,7 @@ const Article = ({ id }) => {
             style={{
               objectFit: 'contain',
               width: 'fit-content',
-              maxWidth: '800px',
+              maxWidth: '100%',
               height: isMobile ? '10rem' : '18rem',
               borderRadius: '10px',
             }}

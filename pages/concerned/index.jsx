@@ -1,4 +1,5 @@
 import { LanguageContext } from '@/contexts/LanguageContext';
+import { translate } from '@/lib/translations/translate';
 import Head from 'next/head';
 import React, { useContext } from 'react';
 
