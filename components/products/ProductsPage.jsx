@@ -17,7 +17,7 @@ const ProductsPage = ({ data, loading, language }) => {
         sx={{
           maxWidth: { xs: '600px', md: '1200px' },
           width: '100%',
-          margin: '1.2rem auto',
+          margin: 'auto',
           justifyContent: 'center',
           textAlign: 'center',
         }}

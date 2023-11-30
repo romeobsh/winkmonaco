@@ -1,7 +1,12 @@
-import React from "react";
+import Product from '@/components/products/Product';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 const ShopProduct = () => {
-  return <div>ShopProduct</div>;
+  const router = useRouter();
+  const { id } = router.query;
+
+  return <Product id={id} />;
 };
 
 export default ShopProduct;

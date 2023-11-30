@@ -28,8 +28,9 @@ const PartnersContent = ({ partners, loading, language }) => {
             style={{
               objectFit: 'cover',
               width: '100%',
-              marginTop: '40px',
-              height: isMobile ? '10rem' : '18rem',
+              marginTop: '1rem',
+              height: 'auto',
+              // height: isMobile ? '10rem' : '18rem',
               borderRadius: '10px',
             }}
             alt='Image partenaires'
@@ -38,6 +39,60 @@ const PartnersContent = ({ partners, loading, language }) => {
             sizes='100vw'
             priority
           />
+          {partners?.imageUrl2 && (
+            <Image
+              src={partners?.imageUrl2}
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                marginTop: '0.5rem',
+                height: 'auto',
+                // height: isMobile ? '10rem' : '18rem',
+                borderRadius: '10px',
+              }}
+              alt='Image partenaires'
+              width={0}
+              height={0}
+              sizes='100vw'
+              priority
+            />
+          )}
+          {partners?.imageUrl3 && (
+            <Image
+              src={partners?.imageUrl3}
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                marginTop: '0.5rem',
+                height: 'auto',
+                // height: isMobile ? '10rem' : '18rem',
+                borderRadius: '10px',
+              }}
+              alt='Image partenaires'
+              width={0}
+              height={0}
+              sizes='100vw'
+              priority
+            />
+          )}
+          {partners?.imageUrl4 && (
+            <Image
+              src={partners?.imageUrl4}
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                marginTop: '0.5rem',
+                height: 'auto',
+                // height: isMobile ? '10rem' : '18rem',
+                borderRadius: '10px',
+              }}
+              alt='Image partenaires'
+              width={0}
+              height={0}
+              sizes='100vw'
+              priority
+            />
+          )}
           <Typography variant='body1' sx={{ marginTop: 5 }}>
             {renderTextWithLineBreaks(
               language === 'fr'
