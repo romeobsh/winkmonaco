@@ -67,8 +67,8 @@ const Article = ({ id }) => {
           <Image
             src={article.imageUrl}
             style={{
-              objectFit: 'cover',
-              width: '100%',
+              objectFit: 'contain',
+              width: 'fit-content',
               maxWidth: '800px',
               height: isMobile ? '10rem' : '18rem',
               borderRadius: '10px',

@@ -26,8 +26,8 @@ const PartnersContent = ({ partners, loading, language }) => {
           <Image
             src={partners?.imageUrl}
             style={{
-              objectFit: 'cover',
-              width: '100%',
+              objectFit: 'contain',
+              width: 'fit-content',
               marginTop: '1rem',
               height: 'auto',
               // height: isMobile ? '10rem' : '18rem',
@@ -43,8 +43,8 @@ const PartnersContent = ({ partners, loading, language }) => {
             <Image
               src={partners?.imageUrl2}
               style={{
-                objectFit: 'cover',
-                width: '100%',
+                objectFit: 'contain',
+                width: 'fit-content',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',
@@ -61,8 +61,8 @@ const PartnersContent = ({ partners, loading, language }) => {
             <Image
               src={partners?.imageUrl3}
               style={{
-                objectFit: 'cover',
-                width: '100%',
+                objectFit: 'contain',
+                width: 'fit-content',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',
@@ -79,8 +79,8 @@ const PartnersContent = ({ partners, loading, language }) => {
             <Image
               src={partners?.imageUrl4}
               style={{
-                objectFit: 'cover',
-                width: '100%',
+                objectFit: 'contain',
+                width: 'fit-content',
                 marginTop: '0.5rem',
                 height: 'auto',
                 // height: isMobile ? '10rem' : '18rem',
