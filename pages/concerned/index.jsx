@@ -1,7 +1,18 @@
-import React from 'react';
+import { LanguageContext } from '@/contexts/LanguageContext';
+import Head from 'next/head';
+import React, { useContext } from 'react';
 
 const Concerned = () => {
-  return <div>En développement</div>;
+  const { language } = useContext(LanguageContext);
+
+  return (
+    <React.Fragment>
+      <Head>
+        <title>{translate({ tKey: 'nav.concerned', lang: language }) + ' - Wink Monaco'}</title>
+      </Head>
+      En développement
+    </React.Fragment>
+  );
 };
 
 export default Concerned;

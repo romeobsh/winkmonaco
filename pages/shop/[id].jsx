@@ -1,4 +1,6 @@
 import Product from '@/components/products/Product';
+import { translate } from '@/lib/translations/translate';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -6,7 +8,14 @@ const ShopProduct = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  return <Product id={id} />;
+  return (
+    <React.Fragment>
+      <Head>
+        <title>{translate({ tKey: 'nav.shop', lang: language }) + ' - Wink Monaco'}</title>
+      </Head>
+      <Product id={id} />
+    </React.Fragment>
+  );
 };
 
 export default ShopProduct;

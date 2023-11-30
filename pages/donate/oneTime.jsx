@@ -1,7 +1,20 @@
 import OneTimeForm from '@/components/donations/OneTimeForm';
+import { LanguageContext } from '@/contexts/LanguageContext';
+import { translate } from '@/lib/translations/translate';
+import Head from 'next/head';
+import React, { useContext } from 'react';
 
 const OneTime = ({ paymentInfos }) => {
-  return <OneTimeForm paymentInfos={paymentInfos} />;
+  const { language } = useContext(LanguageContext);
+
+  return (
+    <React.Fragment>
+      <Head>
+        <title>{translate({ tKey: 'nav.donate', lang: language }) + ' - Wink Monaco'}</title>
+      </Head>
+      <OneTimeForm paymentInfos={paymentInfos} />
+    </React.Fragment>
+  );
 };
 
 export default OneTime;

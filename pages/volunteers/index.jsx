@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { fetchData } from '@/lib/handlers/fetchData';
 import VolunteersPage from '@/components/volunteers/VolunteersPage';
+import Head from 'next/head';
+import { translate } from '@/lib/translations/translate';
 
 const Volunteers = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +16,14 @@ const Volunteers = () => {
     fetchData('helpContents', setIsLoading, setHelpContents, 'singleDocument');
   }, []);
 
-  return <VolunteersPage loading={isLoading} data={helpContents} language={language} />;
+  return (
+    <React.Fragment>
+      <Head>
+        <title>{translate({ tKey: 'nav.help', lang: language }) + ' - Wink Monaco'}</title>
+      </Head>
+      <VolunteersPage loading={isLoading} data={helpContents} language={language} />
+    </React.Fragment>
+  );
 };
 
 export default Volunteers;

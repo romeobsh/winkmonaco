@@ -6,6 +6,7 @@ import { translate } from '@/lib/translations/translate';
 import KRGlue from '@lyracom/embedded-form-glue';
 import { ArrowBack } from '@mui/icons-material';
 import { Box, Button, Card, Paper, Typography } from '@mui/material';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
@@ -131,6 +132,9 @@ const Payment = () => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>{translate({ tKey: 'nav.donate', lang: language }) + ' - Wink Monaco'}</title>
+      </Head>
       <SuccessModal
         opened={isOpened}
         title={translate({ lang: language, tKey: 'donate.thankYou' }) + '!'}
