@@ -21,7 +21,7 @@ const Partners = () => {
       <Head>
         <title>{translate({ tKey: 'nav.partners', lang: language }) + ' - Wink Monaco'}</title>
       </Head>
-      <PartnersPage loading={isLoading} partners={partners} language={language} />;
+      <PartnersPage loading={isLoading} partners={partners} language={language} />
     </React.Fragment>
   );
 };
