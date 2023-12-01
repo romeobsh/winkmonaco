@@ -331,7 +331,6 @@ const VolunteersForm = ({ loading, data, language }) => {
                 </Grid>
                 <Grid item mt={0.5} xs={12} md={6}>
                   <MuiPhoneNumber
-                    {...props}
                     sx={{ '& svg': { height: '1em' } }}
                     fullWidth
                     variant='outlined'
