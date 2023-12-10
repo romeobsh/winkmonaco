@@ -77,7 +77,6 @@ const VolunteersContent = ({ data, loading, language }) => {
                   padding: '0 0.25rem 0 0',
                 }}
               >
-                {' '}
                 <Image
                   src={data.imageUrl}
                   style={{ objectFit: 'cover', width: '100%', height: '18rem' }}

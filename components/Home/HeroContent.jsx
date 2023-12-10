@@ -41,7 +41,7 @@ const HeroContent = () => {
           </Link>
         </Grid>
       </Collapse>
-      <Button onClick={() => setIsShown(!isShown)} startIcon={isShown ? <Remove /> : <Add />}>
+      <Button color='secondary' onClick={() => setIsShown(!isShown)} startIcon={isShown ? <Remove /> : <Add />}>
         {isShown
           ? translate({ tKey: 'general.reduce', lang: language })
           : translate({ tKey: 'general.readMore', lang: language })}

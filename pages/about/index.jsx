@@ -9,7 +9,7 @@ import React, { useContext } from 'react';
 
 const About = () => {
   const { language } = useContext(LanguageContext);
-  const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
+  const isMobile = useMediaQuery('(max-width:950px)'); // Check if the screen width is less than or equal to 950px
 
   return (
     <React.Fragment>
@@ -28,21 +28,44 @@ const About = () => {
         <Grid item xs={12} sx={{ padding: 'auto 2rem', marginTop: '1.5rem' }}>
           <Typography>{renderTextWithLineBreaks(translate({ tKey: 'about.heroText', lang: language }))}</Typography>
         </Grid>
-        <Image
-          src='/images/defaultAbout.jpeg'
-          style={{
-            objectFit: 'cover',
-            width: '100%',
-            marginTop: '40px',
-            height: isMobile ? '10rem' : '18rem',
-            borderRadius: '10px',
-          }}
-          alt="Image de l'association"
-          width={0}
-          height={0}
-          sizes='100vw'
-          priority
-        />
+        <Grid item xs={12} md={8}>
+          <Image
+            src='/images/about1.jpg'
+            style={{
+              objectFit: 'contain',
+              width: 'fit-content',
+              maxWidth: isMobile ? '100%' : null,
+              borderRadius: isMobile ? '1rem' : '1rem 0 0 1rem',
+              maxHeight: '24rem',
+              marginTop: '40px',
+              height: 'auto',
+            }}
+            alt="Image de l'association"
+            width={0}
+            height={0}
+            sizes='100vw'
+            priority
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Image
+            src='/images/about2.jpg'
+            style={{
+              objectFit: 'contain',
+              width: 'fit-content',
+              maxWidth: isMobile ? '100%' : null,
+              borderRadius: isMobile ? '1rem' : '0 1rem 1rem 0',
+              maxHeight: '24rem',
+              marginTop: isMobile ? '1rem' : '40px',
+              height: isMobile ? '24rem' : 'auto',
+            }}
+            alt="Image de l'association"
+            width={0}
+            height={0}
+            sizes='100vw'
+            priority
+          />
+        </Grid>
         <HowToHelp />
       </Grid>
     </React.Fragment>
