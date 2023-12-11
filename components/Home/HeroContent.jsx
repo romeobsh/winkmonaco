@@ -2,7 +2,7 @@ import { LanguageContext } from '@/contexts/LanguageContext';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { translate } from '@/lib/translations/translate';
 import { Add, Info, Remove } from '@mui/icons-material';
-import { Button, Collapse, Grid, Typography } from '@mui/material';
+import { Button, Collapse, Grid, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useState } from 'react';
@@ -10,6 +10,8 @@ import React, { useContext, useState } from 'react';
 const HeroContent = () => {
   const [isShown, setIsShown] = useState(false);
   const { language } = useContext(LanguageContext);
+
+  const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
 
   return (
     <Grid
@@ -56,14 +58,25 @@ const HeroContent = () => {
         item
         xs={12}
         sx={{
-          height: 'auto',
+          height: 'fit-content',
           marginTop: 4,
+
           position: 'relative', // new style
-          paddingBottom: '56.25%', // for 16:9 aspect ratio
+          // paddingBottom: '56.25%', // for 16:9 aspect ratio
           height: 0, // use padding to determine height
         }}
       >
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+
+            width: isMobile ? '100%' : '70%',
+            height: isMobile ? '100%' : '70%',
+          }}
+        >
           <iframe
             style={{
               borderRadius: '1rem',

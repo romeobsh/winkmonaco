@@ -46,7 +46,7 @@ export const helpContentSchema = [
       .max(3000, 'Le premier texte en anglais ne peut pas faire plus de 3000 caractères'),
   },
   {
-    name: 'enFirstText',
+    name: 'itFirstText',
     placeholder: 'Premier texte (italien)',
     translation: true,
     type: 'text',
@@ -245,7 +245,7 @@ export const helpContentSchema = [
     multiline: true,
     minRows: 4,
     initialValue: '',
-    muiHeaderName: 'Texte du formulaire (IT)',
+    muiHeaderName: 'Texte du formulaire (EN)',
     muiType: 'string',
     muiFlex: 3,
     mongooseType: String,
