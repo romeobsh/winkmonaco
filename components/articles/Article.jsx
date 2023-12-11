@@ -65,6 +65,7 @@ const Article = ({ id }) => {
             )}
           </Typography>
           <Image
+            unoptimized
             src={article.imageUrl}
             style={{
               objectFit: 'contain',

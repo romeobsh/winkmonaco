@@ -118,6 +118,7 @@ function Navbar(props) {
                           : '#1C4057',
                       mr: 1,
                       fontWeight: 600,
+                      // fontSize: '1.2rem',
                     }}
                     selected={tab.path === '/' ? router.asPath === tab.path : router.asPath.includes(tab.path)}
                   >

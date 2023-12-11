@@ -18,6 +18,7 @@ const HeroContent = () => {
     >
       <Grid item xs={12}>
         <Image
+          unoptimized
           width={216.5}
           height={72}
           src={'/icons/fullLogo.png'}
@@ -41,7 +42,12 @@ const HeroContent = () => {
           </Link>
         </Grid>
       </Collapse>
-      <Button color='secondary' onClick={() => setIsShown(!isShown)} startIcon={isShown ? <Remove /> : <Add />}>
+      <Button
+        color='secondary'
+        size='large'
+        onClick={() => setIsShown(!isShown)}
+        startIcon={isShown ? <Remove /> : <Add fontSize='large' />}
+      >
         {isShown
           ? translate({ tKey: 'general.reduce', lang: language })
           : translate({ tKey: 'general.readMore', lang: language })}

@@ -63,6 +63,7 @@ const PartnersContent = ({ partners, loading, language }) => {
           )}
           {partners?.imageUrl3 && (
             <Image
+              unoptimized
               src={partners?.imageUrl3}
               style={{
                 objectFit: 'contain',
@@ -82,6 +83,7 @@ const PartnersContent = ({ partners, loading, language }) => {
           )}
           {partners?.imageUrl4 && (
             <Image
+              unoptimized
               src={partners?.imageUrl4}
               style={{
                 objectFit: 'contain',
@@ -99,7 +101,7 @@ const PartnersContent = ({ partners, loading, language }) => {
               priority
             />
           )}
-          <Typography variant='body1' sx={{ marginTop: 5, textAlign: 'left' }}>
+          <Typography variant='body1' sx={{ marginTop: 5 }}>
             {renderTextWithLineBreaks(
               language === 'fr'
                 ? partners?.secondText || ''
