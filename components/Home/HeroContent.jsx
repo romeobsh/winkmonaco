@@ -83,6 +83,7 @@ const HeroContent = () => {
               transform: 'translateY(-10%)',
             },
           },
+          zIndex: 999,
         }}
         color='secondary'
         size='large'
