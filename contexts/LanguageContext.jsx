@@ -1,5 +1,5 @@
 // LanguageContext.js
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
 // Crée le contexte de langue
 export const LanguageContext = createContext();
@@ -7,7 +7,7 @@ export const LanguageContext = createContext();
 // Crée un composant fournisseur pour envelopper votre application avec le contexte
 export const LanguageProvider = ({ children }) => {
   // Définit l'état de la langue avec une valeur initiale
-  const [language, setLanguage] = useState("fr");
+  const [language, setLanguage] = useState('fr');
 
   // Fonction pour mettre à jour la langue
   const changeLanguage = (newLanguage) => {

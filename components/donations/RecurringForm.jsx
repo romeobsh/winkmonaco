@@ -450,7 +450,9 @@ const RecurringForm = () => {
                   variant='outlined'
                   label={translate({ tKey: 'general.tel', lang: language })}
                   defaultCountry='fr'
-                  onlyCountries={['fr', 'mc', 'ch', 'be', 'ma']}
+                  onlyCountries={['fr', 'mc', 'ch', 'it', 'uk', 'gb', 'gr', 'de', 'ru', 'lu', 'us']}
+                  // preferredCountries={['fr', 'mc', 'it', 'gb', 'be', 'ch', 'de', 'us', 'lu', 'ru']}
+                  disableAreaCodes
                   name={'tel'}
                   value={formik.values.tel}
                   onChange={(val) => (formik.values.tel = val)}

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /config/
+Sitemap: https://www.wink-monaco.mc/sitemap.xml

@@ -24,6 +24,7 @@ import { translate } from '@/lib/translations/translate';
 import { bool, object, string } from 'yup';
 import Link from 'next/link';
 import MuiPhoneNumber from 'mui-phone-number';
+import ContactCard from '../contact/ContactCard';
 
 const VolunteersForm = ({ loading, data, language }) => {
   const [isSending, setIsSending] = useState(false);
@@ -194,7 +195,7 @@ const VolunteersForm = ({ loading, data, language }) => {
         setIsOpened(true);
         setTimeout(() => {
           router.push('/');
-        }, 2500);
+        }, 10000);
       } else {
         enqueueSnackbar(translate({ tKey: 'general.errorOccurred', lang: language }), { variant: 'error' });
         setIsSending(false);
@@ -239,8 +240,8 @@ const VolunteersForm = ({ loading, data, language }) => {
         <React.Fragment>
           <SuccessModal
             opened={isOpened}
-            title={translate({ tKey: 'general.thanks', lang: language }) + '!'}
-            text={translate({ tKey: 'volunteers.modalText', lang: language }) + '!'}
+            title={translate({ tKey: 'volunteers.thanks', lang: language })}
+            text={translate({ tKey: 'volunteers.modalText', lang: language })}
           />
           <Typography>
             {Object.keys(data).length > 0
@@ -336,7 +337,7 @@ const VolunteersForm = ({ loading, data, language }) => {
                     variant='outlined'
                     label={translate({ tKey: 'general.tel', lang: language })}
                     defaultCountry='fr'
-                    onlyCountries={['fr', 'mc', 'ch', 'it', 'uk', 'be', 'gb', 'gr']}
+                    onlyCountries={['fr', 'mc', 'ch', 'it', 'uk', 'gb', 'gr', 'de', 'ru', 'lu', 'us']}
                     name={'tel'}
                     value={formik.values.tel}
                     onChange={(val) => (formik.values.tel = val)}
@@ -423,9 +424,11 @@ const VolunteersForm = ({ loading, data, language }) => {
                     disabled={isSending || false}
                   />
                 </Grid>
-                <Grid item mt={0.5} xs={12} md={6}>
+                <Grid item mt={0.5} xs={12}>
                   <TextField
                     fullWidth
+                    multiline
+                    minRows={2}
                     label={translate({ tKey: 'general.comment', lang: language })}
                     name={'comment'}
                     value={formik.values.comment}
@@ -462,6 +465,22 @@ const VolunteersForm = ({ loading, data, language }) => {
                 </Grid>
               </Grid>
             </form>
+          </Paper>
+          <Typography variant='h4' mt={4} mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {translate({ tKey: 'volunteers.help', lang: language })}
+          </Typography>
+          <Typography> {translate({ tKey: 'donate.donationService', lang: language })}</Typography>
+          <Paper
+            sx={{
+              backgroundColor: '#fafafa',
+              width: 'fit-content',
+              textAlign: 'left',
+              margin: '2rem auto',
+              borderRadius: '1rem',
+              padding: '1rem',
+            }}
+          >
+            <ContactCard language={language} />
           </Paper>
         </React.Fragment>
       )}

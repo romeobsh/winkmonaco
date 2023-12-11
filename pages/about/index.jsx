@@ -15,12 +15,22 @@ const About = () => {
     <React.Fragment>
       <Head>
         <title>{translate({ tKey: 'nav.about', lang: language }) + ' - Wink Monaco'}</title>
+        <meta property='og:title' content={translate({ tKey: 'nav.about', lang: language }) + ' - Wink Monaco'} />
+        <meta name='description' content={translate({ tKey: 'seo.about', lang: language })} />
+        <meta property='og:description' content={translate({ tKey: 'seo.about', lang: language })} />
+        <meta name='keywords' content={translate({ tKey: 'seo.aboutKeywords', lang: language })} />
+        <link rel='canonical' href='https://www.wink-monaco.mc/about' />
+        <meta property='og:url' content='https://www.wink-monaco.mc/about' />
+        <meta property='og:type' content='website' />
       </Head>
       <Grid
         container
         sx={{ maxWidth: '800px', width: '100%', margin: '1.2rem auto', justifyContent: 'center', textAlign: 'center' }}
       >
         <Grid item xs={12}>
+          <Typography variant='h1' sx={{ display: 'none' }}>
+            {translate({ tKey: 'about.title', lang: language })}
+          </Typography>
           <Typography variant='h2' mb={1}>
             {translate({ tKey: 'about.title', lang: language })}
           </Typography>
@@ -30,6 +40,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Image
+            unoptimized
             src='/images/about1.jpg'
             style={{
               objectFit: 'contain',
@@ -49,6 +60,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Image
+            unoptimized
             src='/images/about2.jpg'
             style={{
               objectFit: 'contain',

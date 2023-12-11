@@ -13,6 +13,35 @@ const HeroContent = () => {
 
   const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
 
+  // Function to wrap each letter in a span, excluding spaces
+  const waveText = (text) => (
+    <>
+      {text.split('').map((char, index) => {
+        // Check if the character is a space
+        if (char === ' ') {
+          return (
+            <span key={index} style={{ whiteSpace: 'pre' }}>
+              {char}
+            </span>
+          );
+        }
+
+        return (
+          <span
+            key={index}
+            style={{
+              display: 'inline-block',
+              animation: `wave 2s ease ${index / 10}s infinite`,
+              animationDirection: index % 2 === 0 ? 'alternate-reverse' : 'alternate',
+            }}
+          >
+            {char}
+          </span>
+        );
+      })}
+    </>
+  );
+
   return (
     <Grid
       container
@@ -45,6 +74,16 @@ const HeroContent = () => {
         </Grid>
       </Collapse>
       <Button
+        sx={{
+          '@keyframes wave': {
+            '0%, 100%': {
+              transform: 'translateY(0%)',
+            },
+            '50%': {
+              transform: 'translateY(-10%)',
+            },
+          },
+        }}
         color='secondary'
         size='large'
         onClick={() => setIsShown(!isShown)}
@@ -52,7 +91,7 @@ const HeroContent = () => {
       >
         {isShown
           ? translate({ tKey: 'general.reduce', lang: language })
-          : translate({ tKey: 'general.readMore', lang: language })}
+          : waveText(translate({ tKey: 'general.readMore', lang: language }))}
       </Button>
       <Grid
         item

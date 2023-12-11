@@ -21,7 +21,7 @@ const ContactCard = ({ language, english }) => {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex', gap: '1rem', flexDirection: isMobile ? 'column' : 'row' }}>
+    <Box sx={{ display: 'flex', gap: isMobile ? '0.7rem' : '1rem', flexDirection: 'row' }}>
       {isLoading && <ContactLoading />}
       {!isLoading && (
         <React.Fragment>
@@ -30,15 +30,22 @@ const ContactCard = ({ language, english }) => {
               unoptimized
               priority
               alt='Photo de profil'
-              width={120}
-              height={120}
+              width={isMobile ? 80 : 120}
+              height={isMobile ? 80 : 120}
               style={{ borderRadius: '50%', margin: isMobile ? 'auto' : '' }}
               src={data.profilePic}
             />
           )}
           {!data?.profilePic && (
-            <Avatar sx={{ width: 120, height: 120, backgroundColor: 'primary.main', margin: isMobile ? 'auto' : '' }}>
-              <Person sx={{ width: 80, height: 80, backgroundColor: 'primary.main' }} />
+            <Avatar
+              sx={{
+                width: isMobile ? 80 : 120,
+                height: isMobile ? 80 : 120,
+                backgroundColor: 'primary.main',
+                margin: isMobile ? 'auto' : '',
+              }}
+            >
+              <Person sx={{ width: isMobile ? 53 : 80, height: isMobile ? 53 : 80, backgroundColor: 'primary.main' }} />
             </Avatar>
           )}
           <Box
@@ -46,7 +53,7 @@ const ContactCard = ({ language, english }) => {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              textAlign: isMobile ? 'center' : 'left',
+              textAlign: 'left',
               padding: '5px 0',
             }}
           >
@@ -59,14 +66,14 @@ const ContactCard = ({ language, english }) => {
                   : data?.frTel?.replace(/\s/g, '')
               }`}
             >
-              <Typography variant='body1'>
+              <Typography variant={isMobile ? 'body2' : 'body1'}>
                 {language === 'en' || language === 'it'
                   ? data?.internationalTel || 'Phone number'
                   : data?.frTel || 'Numéro tél'}
               </Typography>
             </Link>
             <Link style={{ textDecoration: 'none' }} href={`mailto:${data?.email?.trim()}`}>
-              <Typography variant='body1'>{data?.email || 'email@a-renseigner.com'}</Typography>
+              <Typography variant={isMobile ? 'body2' : 'body1'}>{data?.email || 'email@a-renseigner.com'}</Typography>
             </Link>
           </Box>
         </React.Fragment>

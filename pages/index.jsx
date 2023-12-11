@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '@/contexts/LanguageContext';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import HeroContent from '@/components/Home/HeroContent';
 import HowToHelp from '@/components/Home/HowToHelp';
 import LatestNews from '@/components/Home/LatestNews';
@@ -14,6 +14,13 @@ const Home = ({ articles }) => {
     <React.Fragment>
       <Head>
         <title>{translate({ tKey: 'nav.home', lang: language }) + ' - Wink Monaco'}</title>
+        <meta property='og:title' content={translate({ tKey: 'nav.home', lang: language }) + ' - Wink Monaco'} />
+        <meta name='description' content={translate({ tKey: 'seo.index', lang: language })} />
+        <meta property='og:description' content={translate({ tKey: 'seo.index', lang: language })} />
+        <meta name='keywords' content={translate({ tKey: 'seo.indexKeywords', lang: language })} />
+        <link rel='canonical' href='https://www.wink-monaco.mc' />
+        <meta property='og:url' content='https://www.wink-monaco.mc' />
+        <meta property='og:type' content='website' />
       </Head>
       <Box
         sx={{
@@ -24,6 +31,9 @@ const Home = ({ articles }) => {
           textAlign: 'center',
         }}
       >
+        <Typography variant='h1' sx={{ display: 'none' }}>
+          {translate({ tKey: 'nav.home', lang: language }) + ' - Wink Monaco'}
+        </Typography>
         <HeroContent language={language} />
         <LatestNews language={language} articles={articles} />
         <HowToHelp language={language} />
