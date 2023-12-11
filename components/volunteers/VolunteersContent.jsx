@@ -18,7 +18,14 @@ const VolunteersContent = ({ data, loading, language }) => {
         .replace(/;\s*$/, '')
         .trim()
         .split(';')
-        .map((item) => item.trim());
+        .map((item) => item.trim())
+        .map((item) =>
+          item
+            .split(/(\*[^*]+\*)/g)
+            .map((part, idx) =>
+              part.startsWith('*') && part.endsWith('*') ? <b key={idx}>{part.slice(1, -1)}</b> : part
+            )
+        );
       setKit(shapedKit);
     }
   }, [loading, data, language]);

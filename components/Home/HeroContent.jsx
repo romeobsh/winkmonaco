@@ -59,10 +59,10 @@ const HeroContent = () => {
         xs={12}
         sx={{
           height: 'fit-content',
-          marginTop: 4,
-
+          marginTop: isMobile ? 4 : -6,
+          marginBottom: isMobile ? 0 : -10,
           position: 'relative', // new style
-          // paddingBottom: '56.25%', // for 16:9 aspect ratio
+          paddingBottom: '56.25%', // for 16:9 aspect ratio
           height: 0, // use padding to determine height
         }}
       >
