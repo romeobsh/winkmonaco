@@ -75,17 +75,12 @@ const About = () => {
             src='/images/about2.webp'
             style={{
               objectFit: 'contain',
-              width: 'fit-content',
-              maxWidth: isMobile ? '100%' : null,
               borderRadius: isMobile ? '1rem' : '0 1rem 1rem 0',
-              maxHeight: isMobile ? 'unset' : '24rem',
               marginTop: isMobile ? '1rem' : '40px',
-              height: isMobile ? '24rem' : 'auto',
             }}
             alt="Image 2 de l'association"
-            width={0}
-            height={0}
-            sizes='100vw'
+            width={288}
+            height={384}
             loading='eager'
           />
         </Grid>
