@@ -53,8 +53,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Image
-            unoptimized
-            src='/images/about1.jpg'
+            src='/images/about1.webp'
             style={{
               objectFit: 'contain',
               width: 'fit-content',
@@ -73,12 +72,11 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Image
-            unoptimized
-            src='/images/about2.jpg'
+            src='/images/about2.webp'
             style={{
               objectFit: 'contain',
               width: 'fit-content',
-              maxWidth: isMobile ? '100%' : '100%',
+              maxWidth: isMobile ? '100%' : null,
               borderRadius: isMobile ? '1rem' : '0 1rem 1rem 0',
               maxHeight: '24rem',
               marginTop: isMobile ? '1rem' : '40px',

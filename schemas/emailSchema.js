@@ -34,6 +34,7 @@ export const emailSchema = [
     muiType: 'singleSelect',
     muiMdSize: 4,
     selectOptions: [
+      { value: 'test', label: 'Test (winkmonaco@gmail.com)' },
       {
         value: 'everyone',
         label: 'Tout le monde',

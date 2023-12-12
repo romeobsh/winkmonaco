@@ -5,8 +5,10 @@ import {
   Box,
   Checkbox,
   Collapse,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   Grid,
   MenuItem,
   TextField,
@@ -80,6 +82,7 @@ const SendEmail = () => {
     subject: '',
     text: '',
     isHtml: false,
+    verification: false,
   };
 
   const validationSchema = object().shape({
@@ -87,9 +90,11 @@ const SendEmail = () => {
     subject: string().required('Sujet requis'),
     text: string().required('Texte requis').min(64, 'Le texte doit faire minimum 64 caractères'),
     isHtml: bool(),
+    verification: bool().required('Cette case doit être cochée').oneOf([true], 'Cette case doit être cochée'),
   });
 
   const groupOptions = [
+    { value: 'test', label: 'Test (winkmonaco@gmail.com)' },
     {
       value: 'everyone',
       label: 'Tout le monde',
@@ -236,6 +241,25 @@ const SendEmail = () => {
                     onChange={formik.handleChange}
                     disabled={isSending || false}
                   />
+                  <FormControl
+                    required
+                    error={formik.touched.verification && Boolean(formik.errors.verification)}
+                    component='fieldset'
+                    disabled={isSending}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value={formik.values.verification}
+                          checked={formik.values.verification}
+                          onChange={formik.handleChange}
+                          name='verification'
+                        />
+                      }
+                      label="J'ai bien relu mon mail et vérifié qu'il n'y a pas d'erreurs"
+                    />
+                    <FormHelperText>{formik.touched.verification && formik.errors.verification}</FormHelperText>
+                  </FormControl>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} mt={2}>

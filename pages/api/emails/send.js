@@ -15,6 +15,9 @@ export default async function handler(req, res) {
 
     // Apply filters based on the 'group' parameter
     switch (group) {
+      case 'test':
+        recipientEmails = ['winkmonaco@gmail.com'];
+        break;
       case 'everyone':
         // Retrieve emails from 'donations' and 'subscriptions' collections
         const donationEmails = await DonationModel.distinct('email').exec();
