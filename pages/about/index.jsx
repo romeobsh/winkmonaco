@@ -72,7 +72,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Image
-            src='/images/about2.webp'
+            src='/images/about1.webp'
             style={{
               objectFit: 'contain',
               width: 'fit-content',
