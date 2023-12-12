@@ -72,21 +72,21 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Image
-            src='/images/about1.webp'
+            src='/images/about2.webp'
             style={{
               objectFit: 'contain',
               width: 'fit-content',
               maxWidth: isMobile ? '100%' : null,
               borderRadius: isMobile ? '1rem' : '0 1rem 1rem 0',
-              maxHeight: '24rem',
+              maxHeight: isMobile ? 'unset' : '24rem',
               marginTop: isMobile ? '1rem' : '40px',
               height: isMobile ? '24rem' : 'auto',
             }}
-            alt="Image de l'association"
+            alt="Image 2 de l'association"
             width={0}
             height={0}
             sizes='100vw'
-            priority
+            loading='eager'
           />
         </Grid>
         <HowToHelp />
