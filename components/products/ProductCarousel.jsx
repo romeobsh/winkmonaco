@@ -19,15 +19,6 @@ const ImageCarousel = ({ pictures }) => {
     slidesToScroll: 1,
     variableWidth: true,
     pauseOnHover: true,
-    nextArrow: <ArrowRight />,
-    prevArrow: <ArrowLeft />,
-    customPaging: function (i) {
-      return (
-        <a>
-          <img src={pictures[i]?.imgPath} />
-        </a>
-      );
-    },
   };
 
   return (
