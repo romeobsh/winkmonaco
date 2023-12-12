@@ -2,14 +2,18 @@ import HowToHelp from '@/components/Home/HowToHelp';
 import { LanguageContext } from '@/contexts/LanguageContext';
 import { renderTextWithLineBreaks } from '@/lib/renderTextWithLineBreaks';
 import { translate } from '@/lib/translations/translate';
-import { Grid, Typography, useMediaQuery } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { Button, Grid, Typography, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 
 const About = () => {
   const { language } = useContext(LanguageContext);
   const isMobile = useMediaQuery('(max-width:950px)'); // Check if the screen width is less than or equal to 950px
+
+  const router = useRouter();
 
   return (
     <React.Fragment>
@@ -25,8 +29,17 @@ const About = () => {
       </Head>
       <Grid
         container
-        sx={{ maxWidth: '800px', width: '100%', margin: '1.2rem auto', justifyContent: 'center', textAlign: 'center' }}
+        sx={{
+          maxWidth: '800px',
+          width: '100%',
+          margin: '-1rem auto auto',
+          justifyContent: 'flex-start',
+          textAlign: 'center',
+        }}
       >
+        <Button startIcon={<ArrowBack />} sx={{ justifyContent: 'flex-start' }} onClick={() => router.push('/')}>
+          {translate({ tKey: 'general.back', lang: language })}
+        </Button>
         <Grid item xs={12}>
           <Typography variant='h1' sx={{ display: 'none' }}>
             {translate({ tKey: 'about.title', lang: language })}
@@ -65,7 +78,7 @@ const About = () => {
             style={{
               objectFit: 'contain',
               width: 'fit-content',
-              maxWidth: isMobile ? '100%' : null,
+              maxWidth: isMobile ? '100%' : '100%',
               borderRadius: isMobile ? '1rem' : '0 1rem 1rem 0',
               maxHeight: '24rem',
               marginTop: isMobile ? '1rem' : '40px',

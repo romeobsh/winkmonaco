@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Typography, Box, Fade, Grid, Pagination } from "@mui/material";
-import Translation from "../general/Translation";
-import ArticlesLoading from "./ArticlesLoading";
-import { useRouter } from "next/router";
-import { DateFilter } from "./DateFilter";
-import { ArticleCard } from "./ArticleCard";
-import { filterByDate } from "@/lib/handlers/filterByDate";
-import NoResults from "./NoResults";
-import dayjs from "dayjs";
+import React, { useState, useEffect } from 'react';
+import { Typography, Box, Fade, Grid, Pagination, Button } from '@mui/material';
+import Translation from '../general/Translation';
+import ArticlesLoading from './ArticlesLoading';
+import { useRouter } from 'next/router';
+import { DateFilter } from './DateFilter';
+import { ArticleCard } from './ArticleCard';
+import { filterByDate } from '@/lib/handlers/filterByDate';
+import NoResults from './NoResults';
+import dayjs from 'dayjs';
+import { ArrowBack } from '@mui/icons-material';
+import { translate } from '@/lib/translations/translate';
 
 export const ArticlesPage = ({ data, loading, language }) => {
   // Pagination state
@@ -39,46 +41,64 @@ export const ArticlesPage = ({ data, loading, language }) => {
 
   return (
     <Fade in={true} timeout={1000}>
-      <Box sx={{ maxWidth: { xs: "600px", md: "1200px" }, width: "100%", margin: "1.2rem auto", justifyContent: "center", textAlign: "center" }}>
-        <Typography variant='h2' mb={3}>
-          <Translation tKey='articles.title' lang={language} />
-        </Typography>
-        <Grid container>
-          {loading ? (
-            <ArticlesLoading />
-          ) : !loading && data.length === 0 ? (
-            <NoResults language={language} />
-          ) : (
-            <React.Fragment>
-              <DateFilter
-                selectedStartDate={selectedStartDate}
-                selectedEndDate={selectedEndDate}
-                handleStartDateChange={setSelectedStartDate}
-                handleEndDateChange={setSelectedEndDate}
-                language={language}
-              />
-              {currentArticles.length === 0 && <NoResults filter language={language} />}
-              {currentArticles.map((article) => (
-                <ArticleCard key={article.title} article={article} handleClick={handleClick} language={language} />
-              ))}
-              {/* Pagination */}
-              <Grid item xs={12} sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
-                <Pagination
-                  count={Math.ceil(data.length / articlesPerPage)}
-                  page={page}
-                  onChange={(e, val) => setPage(val)}
-                  size='large'
-                  color='primary'
-                  showFirstButton
-                  showLastButton
-                  siblingCount={1}
-                  boundaryCount={1}
-                />
-              </Grid>
-            </React.Fragment>
-          )}
+      <Grid
+        container
+        sx={{
+          maxWidth: { xs: '600px', md: '1200px' },
+          width: '100%',
+          margin: '-1rem auto auto',
+          justifyContent: 'flex-start',
+          textAlign: 'center',
+        }}
+      >
+        <Button startIcon={<ArrowBack />} onClick={() => router.push('/')}>
+          {translate({ tKey: 'general.back', lang: language })}
+        </Button>
+        <Grid item xs={12}>
+          <Typography variant='h1' sx={{ display: 'none' }}>
+            {translate({ tKey: 'articles.title', lang: language })}
+          </Typography>
+          <Typography variant='h2' mb={1}>
+            {translate({ tKey: 'articles.title', lang: language })}
+          </Typography>
         </Grid>
-      </Box>
+        {loading ? (
+          <ArticlesLoading />
+        ) : !loading && data.length === 0 ? (
+          <NoResults language={language} />
+        ) : (
+          <React.Fragment>
+            <Typography variant='h1' sx={{ display: 'none' }}>
+              {translate({ tKey: 'articles.title', lang: language })}
+            </Typography>
+            <DateFilter
+              selectedStartDate={selectedStartDate}
+              selectedEndDate={selectedEndDate}
+              handleStartDateChange={setSelectedStartDate}
+              handleEndDateChange={setSelectedEndDate}
+              language={language}
+            />
+            {currentArticles.length === 0 && <NoResults filter language={language} />}
+            {currentArticles.map((article) => (
+              <ArticleCard key={article.title} article={article} handleClick={handleClick} language={language} />
+            ))}
+            {/* Pagination */}
+            <Grid item xs={12} sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+              <Pagination
+                count={Math.ceil(data.length / articlesPerPage)}
+                page={page}
+                onChange={(e, val) => setPage(val)}
+                size='large'
+                color='primary'
+                showFirstButton
+                showLastButton
+                siblingCount={1}
+                boundaryCount={1}
+              />
+            </Grid>
+          </React.Fragment>
+        )}
+      </Grid>
     </Fade>
   );
 };

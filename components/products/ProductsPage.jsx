@@ -7,10 +7,6 @@ import ShopUnavailable from './ShopUnavailable';
 import { ProductCard } from './ProductCard';
 
 const ProductsPage = ({ data, loading, language }) => {
-  const handleClick = (id) => {
-    router.push(`/products/${id}`);
-  };
-
   return (
     <Fade in={true} timeout={1000}>
       <Box

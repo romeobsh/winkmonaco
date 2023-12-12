@@ -49,12 +49,12 @@ const Product = ({ id }) => {
       {isLoading && <>Loading...</>}
       {!isLoading && (
         <React.Fragment>
-          <Card sx={{ color: '##fafafa' }}>
+          <Card sx={{ color: '##fafafa', padding: '1rem 1rem 4rem' }}>
             <Grid container>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <ProductCarousel pictures={pictures} />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <Typography variant='h4'>{product.name}</Typography>
               </Grid>
             </Grid>

@@ -1,53 +1,60 @@
-import React, { useState } from 'react';
-import { Box, Card, CardActionArea, Grid } from '@mui/material';
-// import ReactImageMagnify from 'react-image-magnify';
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
+import { Box } from '@mui/material';
+import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 
-function ProductImageGallery({ images }) {
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+const ImageCarousel = ({ pictures }) => {
+  const settings = {
+    autoplay: true,
+    autoplaySpeed: 3000,
+    cssEase: 'linear',
+    dots: true,
+    centerMode: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true,
+    pauseOnHover: true,
+    nextArrow: <ArrowRight />,
+    prevArrow: <ArrowLeft />,
+    customPaging: function (i) {
+      return (
+        <a>
+          <img src={pictures[i]?.imgPath} />
+        </a>
+      );
+    },
+  };
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card>
-          {/* <ReactImageMagnify
-            {...{
-              smallImage: {
-                alt: 'Main image',
-                isFluidWidth: true,
-                src: selectedImage
-              },
-              largeImage: {
-                src: selectedImage,
-                width: 1200,
-                height: 1800
-              },
-              lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
+    <Slider {...settings}>
+      {pictures.map((picture, index) => (
+        <Box key={index}>
+          <Image
+            unoptimized
+            width={0}
+            height={0}
+            sizes='100vw'
+            priority
+            style={{
+              objectFit: 'cover',
+              width: 'fit-content',
+              maxWidth: '100%',
+              height: '20rem',
+              borderRadius: '10px',
+              border: '1px solid lightgray',
             }}
-          /> */}
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Box display='flex' justifyContent='center' overflow='auto'>
-          {images.map((image, index) => (
-            <Box key={index} margin={1}>
-              <CardActionArea onClick={() => setSelectedImage(image)}>
-                <Box
-                  component='img'
-                  sx={{
-                    width: 100,
-                    height: 100,
-                    opacity: image === selectedImage ? 1 : 0.5,
-                  }}
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                />
-              </CardActionArea>
-            </Box>
-          ))}
+            src={picture.imgPath}
+            alt={`Slide ${index}`}
+          />
         </Box>
-      </Grid>
-    </Grid>
+      ))}
+    </Slider>
   );
-}
+};
 
-export default ProductImageGallery;
+export default ImageCarousel;

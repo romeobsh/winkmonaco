@@ -1,11 +1,13 @@
 import Product from '@/components/products/Product';
+import { LanguageContext } from '@/contexts/LanguageContext';
 import { translate } from '@/lib/translations/translate';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
 const ShopProduct = () => {
   const router = useRouter();
+  const { language } = useContext(LanguageContext);
   const { id } = router.query;
 
   return (
