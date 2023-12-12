@@ -49,10 +49,11 @@ const HeroContent = () => {
     >
       <Grid item xs={12}>
         <Image
+          priority
           unoptimized
           width={216.5}
           height={72}
-          src={'/icons/fullLogo.png'}
+          src={'/icons/fullLogo.webp'}
           alt='Wink Logo'
           layout='responsive'
           style={{ maxWidth: '216.5px' }}

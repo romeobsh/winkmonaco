@@ -32,7 +32,8 @@ const SelectLanguage = () => {
           <Box sx={{ display: 'flex', gap: 1 }}>
             {language === 'fr' ? (
               <Image
-                src={'/images/france.png'}
+                priority
+                src={'/images/france.webp'}
                 width={30}
                 height={30}
                 alt='drapeau français'
@@ -40,7 +41,8 @@ const SelectLanguage = () => {
               />
             ) : language === 'en' ? (
               <Image
-                src={'/images/united-kingdom.png'}
+                priority
+                src={'/images/united-kingdom.webp'}
                 width={30}
                 height={30}
                 alt='drapeau uk'
@@ -48,7 +50,8 @@ const SelectLanguage = () => {
               />
             ) : (
               <Image
-                src={'/images/italy.png'}
+                priority
+                src={'/images/italy.webp'}
                 width={30}
                 height={30}
                 alt='drapeau italien'

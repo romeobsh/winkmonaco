@@ -61,7 +61,7 @@ export default function AdminSidebar(props) {
           anchor='left'
         >
           <Toolbar sx={{ justifyContent: 'center' }}>
-            <Image alt='Logo' src='/icons/ecritures.png' width={85} height={51} />
+            <Image priority alt='Logo' src='/icons/ecritures.webp' width={85} height={51} />
           </Toolbar>
           <Divider />
           <List>

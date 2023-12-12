@@ -93,7 +93,7 @@ function Navbar(props) {
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Link href={'/'}>
               <Image
-                src='/icons/ecritures.png'
+                src='/icons/ecritures.webp'
                 priority
                 alt='Logo'
                 width={70}
