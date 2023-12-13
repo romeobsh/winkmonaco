@@ -51,8 +51,43 @@ export const ProductCard = ({ product, language }) => {
   const hasMultipleSizes = product.sizes && product.sizes.split(';').length > 1;
 
   return (
-    <Grid item xs={12} md={router.pathname === '/' ? 12 : 6} sx={{ padding: { xs: '0.5rem', md: '1rem' } }}>
-      <Card sx={{ height: '25.5rem', borderRadius: '1rem', backgroundColor: '#fff' }} elevation={3}>
+    <Grid
+      item
+      xs={12}
+      md={router.pathname === '/' ? 12 : 6}
+      sx={{ padding: { xs: '0.5rem', md: '1rem' }, position: 'relative' }}
+    >
+      {!product.isActive && (
+        <Typography
+          sx={{
+            position: 'absolute',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) rotate(-35deg)',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            zIndex: 2,
+            padding: '0.5rem',
+            display: product.isActive ? 'none' : 'block', // Only show when not active
+          }}
+          variant='h3'
+          color='secondary'
+        >
+          Out of stock
+        </Typography>
+      )}
+      <Card
+        sx={{
+          height: '25.5rem',
+          borderRadius: '1rem',
+          backgroundColor: '#fff',
+          position: 'relative', // For positioning the "Out of stock" overlay
+          filter: product.isActive ? 'none' : 'grayscale(100%)',
+          pointerEvents: product.isActive ? 'auto' : 'none', // Disable interactions if not active
+        }}
+        elevation={3}
+      >
         <CardActionArea onClick={() => router.push('/shop/' + product._id)}>
           <Box sx={{ height: '14rem', position: 'relative' }}>
             <CardMedia component='img' image={product.imageUrl} alt='Image' sx={{ height: '100%' }} />
@@ -100,7 +135,7 @@ export const ProductCard = ({ product, language }) => {
             </Typography>
           </CardContent>
           {hasMultipleSizes && (
-            <FormControl variant='standard' sx={{ position: 'absolute', left: '1rem', bottom: '1rem', width: '100px' }}>
+            <FormControl variant='standard' sx={{ position: 'absolute', left: '1rem', bottom: '1rem', width: '90px' }}>
               <InputLabel>{translate({ tKey: 'shop.size', lang: language })}</InputLabel>
               <Select
                 onClick={(e) => e.stopPropagation()}

@@ -90,49 +90,49 @@ const Product = ({ id }) => {
       {isLoading && <>Loading...</>}
       {!isLoading && (
         <React.Fragment>
-          <Card sx={{ color: '##fafafa', padding: '1rem 1rem' }}>
-            <Grid container>
-              <Grid item xs={12} md={6}>
-                <ProductCarousel pictures={pictures} />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-                sx={{
-                  padding: '0.5rem 1.5rem 2rem',
-                  textAlign: 'left',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='h4'>{product.name}</Typography>
-                <Typography sx={{ overflow: 'hidden' }}>{product.description}</Typography>
-                {hasMultipleSizes && (
-                  <FormControl variant='standard' sx={{ width: '100px' }}>
-                    <InputLabel>{translate({ tKey: 'shop.size', lang: language })}</InputLabel>
-                    <Select
-                      onClick={(e) => e.stopPropagation()}
-                      value={selectedSize}
-                      onChange={handleSizeChange}
-                      size='small'
-                      sx={{ textAlign: 'left' }}
-                    >
-                      {product.sizes.split(';').map((size) => (
-                        <MenuItem key={size} value={size}>
-                          {size}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
-                <Button variant='contained' color='primary' endIcon={<AddShoppingCart />} onClick={handleAddToCart}>
-                  {translate({ tKey: 'shop.addToBasket', lang: language })}
-                </Button>
-              </Grid>
+          {/* <Card sx={{ color: '##fafafa', padding: '1rem 1rem' }}> */}
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <ProductCarousel pictures={pictures} />
             </Grid>
-          </Card>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                padding: '0.5rem 1.5rem 2rem',
+                textAlign: 'left',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography variant='h4'>{product.name}</Typography>
+              <Typography sx={{ overflow: 'hidden' }}>{product.description}</Typography>
+              {hasMultipleSizes && (
+                <FormControl variant='standard' sx={{ width: '100px' }}>
+                  <InputLabel>{translate({ tKey: 'shop.size', lang: language })}</InputLabel>
+                  <Select
+                    onClick={(e) => e.stopPropagation()}
+                    value={selectedSize}
+                    onChange={handleSizeChange}
+                    size='small'
+                    sx={{ textAlign: 'left' }}
+                  >
+                    {product.sizes.split(';').map((size) => (
+                      <MenuItem key={size} value={size}>
+                        {size}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+              <Button variant='contained' color='primary' endIcon={<AddShoppingCart />} onClick={handleAddToCart}>
+                {translate({ tKey: 'shop.addToBasket', lang: language })}
+              </Button>
+            </Grid>
+          </Grid>
+          {/* </Card> */}
         </React.Fragment>
       )}
     </Box>

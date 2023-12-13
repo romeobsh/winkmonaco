@@ -28,6 +28,12 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                 variant='h5'
                 component='div'
                 sx={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2, // Set the number of lines to display before applying ellipsis
+                  WebkitBoxOrient: 'vertical',
+                  lineHeight: 1.8,
                   // whiteSpace: 'nowrap',
                   // overflow: 'hidden',
                   // textOverflow: 'ellipsis',
@@ -37,7 +43,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
               >
                 {language === 'en' ? article.enTitle : language === 'it' ? article.itTitle : article.title}
               </Typography>
-              <Typography mt={1} ml={0.5} variant='body2'>
+              <Typography mt={1} ml={0.25} variant='body2'>
                 {new Date(article.createdAt).toLocaleDateString(language)}
               </Typography>
             </Box>
