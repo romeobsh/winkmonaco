@@ -28,9 +28,9 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                 variant='h5'
                 component='div'
                 sx={{
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
+                  // whiteSpace: 'nowrap',
+                  // overflow: 'hidden',
+                  // textOverflow: 'ellipsis',
                   fontWeight: 600,
                   textAlign: 'left',
                 }}
@@ -45,6 +45,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
               variant='body1'
               color='text.secondary'
               sx={{
+                textAlign: 'left',
                 height: '6.5rem',
                 maxHeight: '6.5rem',
                 overflow: 'hidden',

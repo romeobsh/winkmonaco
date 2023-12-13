@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Box, LinearProgress, Typography } from "@mui/material";
-import { deletionHandler } from "@/lib/handlers/deletionHandler";
-import { generateColumns } from "@/lib/generators/generateColumns";
-import CustomDatagridToolbar from "./CustomDatagridToolbar";
-import ConfirmationModal from "../general/ConfirmationModal";
+import { useEffect, useState } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box, LinearProgress, Typography } from '@mui/material';
+import { deletionHandler } from '@/lib/handlers/deletionHandler';
+import { generateColumns } from '@/lib/generators/generateColumns';
+import CustomDatagridToolbar from './CustomDatagridToolbar';
+import ConfirmationModal from '../general/ConfirmationModal';
 
 export default function CustomDatagrid({ endpoint, schema, title }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isOpened, setIsOpened] = useState(false);
-  const [selectedRow, setSelectedRow] = useState("");
+  const [selectedRow, setSelectedRow] = useState('');
 
   const handleDelete = (id) => {
     setSelectedRow(id);
@@ -43,9 +43,16 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
     fetchData();
   }, [endpoint]);
 
+  const columnVisibilityModel = schema.reduce((model, field) => {
+    if (field.hide) {
+      model[field.name] = false;
+    }
+    return model;
+  }, {});
+
   const initialState = {
     columns: {
-      columnVisibilityModel: {},
+      columnVisibilityModel,
     },
   };
 
@@ -66,7 +73,7 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
         text='Êtes-vous sur de vouloir supprimer cet élément de la base de données?'
       />
       <Typography variant='h3'>{title}</Typography>
-      <Box sx={{ minHeight: "30rem", height: "40rem", maxHeight: "calc(100vh - 72px)" }}>
+      <Box sx={{ minHeight: '30rem', height: '40rem', maxHeight: 'calc(100vh - 72px)' }}>
         <DataGrid
           getRowId={(row) => row._id}
           rows={data}

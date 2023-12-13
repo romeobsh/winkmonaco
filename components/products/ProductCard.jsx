@@ -22,7 +22,7 @@ export const ProductCard = ({ product, language }) => {
   const router = useRouter();
   const { dispatch, cart } = useCart();
 
-  const defaultSize = product.sizes.split(';')[0];
+  const defaultSize = product.sizes?.split(';')[0];
   const [selectedSize, setSelectedSize] = useState(defaultSize);
 
   const handleSizeChange = (event) => {
@@ -45,7 +45,7 @@ export const ProductCard = ({ product, language }) => {
       },
     });
 
-    console.log(cart);
+    // console.log(cart);
   };
 
   const hasMultipleSizes = product.sizes && product.sizes.split(';').length > 1;
