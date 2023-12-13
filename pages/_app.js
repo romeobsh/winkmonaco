@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Analytics } from '@vercel/analytics/react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Router, useRouter } from 'next/router';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -12,7 +11,6 @@ import Navbar from '@/components/general/Navbar';
 import AdminSidebar from '@/components/general/AdminSidebar';
 import Loading from '@/components/general/Loading';
 import Footer from '@/components/general/Footer';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -64,14 +62,12 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                 </Auth>
               ) : (
                 <React.Fragment>
-                  <SpeedInsights />
                   <Navbar>
                     {loading ? (
                       <Loading />
                     ) : (
                       <React.Fragment>
                         <Component {...pageProps} />
-                        <Analytics />
                         <Footer />
                       </React.Fragment>
                     )}

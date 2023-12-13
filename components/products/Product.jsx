@@ -17,15 +17,18 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import ProductCarousel from './ProductCarousel';
+import FloatingCart from './FloatingCart';
+import { useCart } from '@/contexts/CartContext';
+import ProductLoading from './ProductLoading';
 
 const Product = ({ id }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState({});
   const { language } = useContext(LanguageContext);
   const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
+  const { dispatch, cart } = useCart();
 
-  const defaultSize = product.sizes?.split(';')[0];
-  const [selectedSize, setSelectedSize] = useState(defaultSize);
+  const [selectedSize, setSelectedSize] = useState('');
 
   const hasMultipleSizes = product.sizes && product.sizes.split(';').length > 1;
 
@@ -37,24 +40,51 @@ const Product = ({ id }) => {
 
   const handleAddToCart = (event) => {
     event.stopPropagation();
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        id: product._id,
-        product: {
-          name: product.name,
-          imageUrl: product.imageUrl,
-          price: product.price,
+
+    // Find the existing item in the cart
+    const existingCartItem = cart.items.find((item) => item.id === product._id && item.size === selectedSize);
+
+    // If the item exists, dispatch an 'UPDATE_QUANTITY' action instead of 'ADD_ITEM'
+    if (existingCartItem) {
+      dispatch({
+        type: 'UPDATE_QUANTITY',
+        payload: {
+          id: product._id,
+          quantity: existingCartItem.quantity + 1, // Increment the quantity
         },
-        size: selectedSize,
-        quantity: 1,
-      },
-    });
+      });
+    } else {
+      // If the item doesn't exist, dispatch 'ADD_ITEM' as normal
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: {
+          id: product._id,
+          product: {
+            name: product.name,
+            enName: product.enName,
+            itName: product.itName,
+            imageUrl: product.imageUrl,
+            price: product.price,
+          },
+          size: selectedSize,
+          quantity: 1,
+        },
+      });
+    }
+
+    // console.log(cart);
   };
 
   useEffect(() => {
     fetchData('products', setIsLoading, setProduct, id);
   }, [id]);
+
+  useEffect(() => {
+    if (product?.isActive === false) {
+      router.push('/shop');
+    }
+    setSelectedSize(product.sizes?.split(';')[0] || '');
+  }, [product, router]);
 
   const pictures = [{ imgPath: product.imageUrl, label: 'Image 1' }];
 
@@ -76,6 +106,7 @@ const Product = ({ id }) => {
         textAlign: 'center',
       }}
     >
+      <FloatingCart language={language} />
       <Box sx={{ marginTop: '-1rem', textAlign: 'left' }}>
         <Button startIcon={<ArrowBack />} onClick={() => router.push('/shop')}>
           {translate({ tKey: 'general.back', lang: language })}
@@ -87,7 +118,7 @@ const Product = ({ id }) => {
       <Typography variant='h2' mb={2} mt={-2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
         {translate({ tKey: 'nav.shop', lang: language })}
       </Typography>
-      {isLoading && <>Loading...</>}
+      {isLoading && <ProductLoading />}
       {!isLoading && (
         <React.Fragment>
           {/* <Card sx={{ color: '##fafafa', padding: '1rem 1rem' }}> */}
@@ -108,28 +139,49 @@ const Product = ({ id }) => {
               }}
             >
               <Typography variant='h4'>{product.name}</Typography>
+
               <Typography sx={{ overflow: 'hidden' }}>{product.description}</Typography>
-              {hasMultipleSizes && (
-                <FormControl variant='standard' sx={{ width: '100px' }}>
-                  <InputLabel>{translate({ tKey: 'shop.size', lang: language })}</InputLabel>
-                  <Select
-                    onClick={(e) => e.stopPropagation()}
-                    value={selectedSize}
-                    onChange={handleSizeChange}
-                    size='small'
-                    sx={{ textAlign: 'left' }}
-                  >
-                    {product.sizes.split(';').map((size) => (
-                      <MenuItem key={size} value={size}>
-                        {size}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              )}
-              <Button variant='contained' color='primary' endIcon={<AddShoppingCart />} onClick={handleAddToCart}>
-                {translate({ tKey: 'shop.addToBasket', lang: language })}
-              </Button>
+
+              <Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    marginBottom: 2,
+                    marginTop: 4,
+                  }}
+                >
+                  {hasMultipleSizes && (
+                    <FormControl variant='standard' sx={{ width: '100px' }}>
+                      <InputLabel>{translate({ tKey: 'shop.size', lang: language })}</InputLabel>
+                      <Select
+                        onClick={(e) => e.stopPropagation()}
+                        value={selectedSize}
+                        onChange={handleSizeChange}
+                        size='small'
+                        sx={{ textAlign: 'left' }}
+                      >
+                        {product.sizes.split(';').map((size) => (
+                          <MenuItem key={size} value={size}>
+                            {size}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  )}
+                  <Typography variant='h6'>{product?.price}€</Typography>
+                </Box>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  sx={{ width: '100%' }}
+                  endIcon={<AddShoppingCart />}
+                  onClick={handleAddToCart}
+                >
+                  {translate({ tKey: 'shop.addToBasket', lang: language })}
+                </Button>
+              </Box>
             </Grid>
           </Grid>
           {/* </Card> */}

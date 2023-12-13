@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Skeleton, useMediaQuery } from '@mui/material';
 
 const ImageCarousel = ({ pictures }) => {
   const isMobile = useMediaQuery('(max-width:600px)'); // Check if the screen width is less than or equal to 600px
@@ -29,18 +29,16 @@ const ImageCarousel = ({ pictures }) => {
           <Box key={index} sx={{ padding: '0 5px' }}>
             <Image
               unoptimized
-              width={0}
-              height={0}
+              width={270}
+              height={318}
               sizes='100vw'
               priority
               style={{
                 objectFit: 'cover',
-                width: 'fit-content',
                 maxWidth: isMobile ? '80vw' : '500px',
-                height: '20rem',
                 borderRadius: '10px',
                 border: '1px solid lightgray',
-                margin: 'auto 0.5rem',
+                margin: 'auto 0.4rem',
               }}
               src={picture.imgPath}
               alt={`Slide ${index}`}

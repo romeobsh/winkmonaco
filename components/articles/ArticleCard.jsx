@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { Forward, Star } from '@mui/icons-material';
 import { translate } from '@/lib/translations/translate';
@@ -16,6 +17,7 @@ import { useRouter } from 'next/router';
 
 export const ArticleCard = ({ article, handleClick, language }) => {
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width:950px)'); // Check if the screen width is less than or equal to 600px
 
   return (
     <Grid item xs={12} md={router.pathname === '/' ? 12 : 6} sx={{ padding: { xs: '0.5rem', md: '1rem' } }}>
@@ -33,7 +35,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
                   display: '-webkit-box',
                   WebkitLineClamp: 2, // Set the number of lines to display before applying ellipsis
                   WebkitBoxOrient: 'vertical',
-                  lineHeight: 1.8,
+                  lineHeight: isMobile ? 1.8 : 1.5,
                   // whiteSpace: 'nowrap',
                   // overflow: 'hidden',
                   // textOverflow: 'ellipsis',
@@ -43,7 +45,7 @@ export const ArticleCard = ({ article, handleClick, language }) => {
               >
                 {language === 'en' ? article.enTitle : language === 'it' ? article.itTitle : article.title}
               </Typography>
-              <Typography mt={1} ml={0.25} variant='body2'>
+              <Typography mt={isMobile ? 1 : 1.2} ml={0.25} variant='body2'>
                 {new Date(article.createdAt).toLocaleDateString(language)}
               </Typography>
             </Box>

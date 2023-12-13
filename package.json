@@ -17,8 +17,6 @@
     "@mui/material": "^5.13.6",
     "@mui/x-data-grid": "^6.4.0",
     "@mui/x-date-pickers": "^6.10.0",
-    "@vercel/analytics": "^1.0.2",
-    "@vercel/speed-insights": "^1.0.1",
     "autoprefixer": "^10.4.16",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.9",

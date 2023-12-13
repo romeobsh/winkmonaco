@@ -31,21 +31,39 @@ export const ProductCard = ({ product, language }) => {
 
   const handleAddToCart = (event) => {
     event.stopPropagation();
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        id: product._id,
-        product: {
-          name: product.name,
-          imageUrl: product.imageUrl,
-          price: product.price,
-        },
-        size: selectedSize,
-        quantity: 1,
-      },
-    });
 
-    // console.log(cart);
+    // Find the existing item in the cart
+    const existingCartItem = cart.items.find((item) => item.id === product._id && item.size === selectedSize);
+
+    // If the item exists, dispatch an 'UPDATE_QUANTITY' action instead of 'ADD_ITEM'
+    if (existingCartItem) {
+      dispatch({
+        type: 'UPDATE_QUANTITY',
+        payload: {
+          id: product._id,
+          quantity: existingCartItem.quantity + 1, // Increment the quantity
+        },
+      });
+    } else {
+      // If the item doesn't exist, dispatch 'ADD_ITEM' as normal
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: {
+          id: product._id,
+          product: {
+            name: product.name,
+            enName: product.enName,
+            itName: product.itName,
+            imageUrl: product.imageUrl,
+            price: product.price,
+          },
+          size: selectedSize,
+          quantity: 1,
+        },
+      });
+    }
+
+    console.log(cart);
   };
 
   const hasMultipleSizes = product.sizes && product.sizes.split(';').length > 1;
@@ -74,7 +92,7 @@ export const ProductCard = ({ product, language }) => {
           variant='h3'
           color='secondary'
         >
-          Out of stock
+          {translate({ tKey: 'shop.outOfStock', lang: language })}{' '}
         </Typography>
       )}
       <Card
