@@ -81,6 +81,8 @@ const Payment = () => {
             language: language,
           };
 
+          console.log(paymentData);
+
           const response = await fetch(`/api/payments/validatePayment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
