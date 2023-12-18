@@ -172,14 +172,34 @@ export default function OneTimeForm({ paymentInfos }) {
       enqueueSnackbar(translate({ tKey: 'donate.donationTooSmall2', lang: language }), { variant: 'info' });
       return;
     }
+    values.isPaid = false;
     values.createdAt = new Date();
 
     setIsSending(true);
 
-    router.push({
-      pathname: '/donate/payment',
-      query: values,
-    });
+    try {
+      const res = await fetch('/api/donations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (res.ok) {
+        const { data } = await res.json();
+        router.push({
+          pathname: '/donate/payment',
+          query: data,
+        });
+      } else {
+        enqueueSnackbar(translate({ tKey: 'general.errorOccurred', lang: language }), { variant: 'error' });
+        setIsSending(false);
+      }
+    } catch (err) {
+      enqueueSnackbar(translate({ tKey: 'general.errorOccurred', lang: language }), { variant: 'error' });
+      setIsSending(false);
+      console.error(err);
+    }
   };
 
   const titleOptions = [

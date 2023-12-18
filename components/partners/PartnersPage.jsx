@@ -3,6 +3,7 @@ import React from 'react';
 import Translation from '../general/Translation';
 import PartnersContent from './PartnersContent';
 import Link from 'next/link';
+import { translate } from '@/lib/translations/translate';
 
 export const PartnersPage = ({ partners, loading, language }) => {
   return (
@@ -13,7 +14,7 @@ export const PartnersPage = ({ partners, loading, language }) => {
         </Typography>
         <PartnersContent partners={partners} loading={loading} language={language} />
         <Typography variant='body1' sx={{ marginTop: 3 }}>
-          <Translation tKey='partners.defaultAd' />
+          {translate({ lang: language, tKey: 'partners.defaultAd' })}
           <Link style={{ textDecoration: 'none', color: '#22c6fe', fontWeight: 600 }} href='/contact'>
             <Translation tKey='nav.contact' />
           </Link>

@@ -1,3 +1,4 @@
+import ErrorModal from '@/components/UI/ErrorModal';
 import ContactCard from '@/components/contact/ContactCard';
 import PaymentLoading from '@/components/loading/PaymentLoading';
 import SuccessModal from '@/components/ui/SuccessModal';
@@ -81,39 +82,42 @@ const Payment = () => {
             language: language,
           };
 
-          console.log(paymentData);
-
           const response = await fetch(`/api/payments/validatePayment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
           });
-          if (response.status === 200) {
+
+          const paymentResponse = JSON.parse(paymentData.rawClientAnswer);
+
+          if (response.status === 200 && paymentResponse.orderStatus === 'PAID') {
             try {
-              const res = await fetch('/api/donations', {
-                method: 'POST',
+              const res = await fetch('/api/donations/' + router.query._id, {
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(values),
+                body: JSON.stringify({ ...values, isPaid: true }),
               });
               if (res.ok) {
                 setStatus('success');
                 setIsOpened(true);
                 setTimeout(() => {
                   router.push('/');
-                }, 5000);
+                }, 8000);
               } else {
                 enqueueSnackbar(translate({ tKey: 'general.errorOccurred', lang: language }), { variant: 'error' });
-                setIsSending(false);
               }
             } catch (err) {
               enqueueSnackbar(translate({ tKey: 'general.errorOccurred', lang: language }), { variant: 'error' });
-              setIsSending(false);
               console.error(err);
             }
           } else {
             setStatus('error');
+            setIsOpened(true);
+            setTimeout(() => {
+              router.reload();
+            }, 6000);
             console.log(response);
           }
         });
@@ -137,11 +141,20 @@ const Payment = () => {
       <Head>
         <title>{translate({ tKey: 'nav.donate', lang: language }) + ' - Wink Monaco'}</title>
       </Head>
-      <SuccessModal
-        opened={isOpened}
-        title={translate({ lang: language, tKey: 'donate.thankYou' }) + '!'}
-        text={translate({ lang: language, tKey: 'donate.modalText' }) + '!'}
-      />
+      {status === 'success' && (
+        <SuccessModal
+          opened={isOpened}
+          title={translate({ lang: language, tKey: 'donate.thankYou' })}
+          text={translate({ lang: language, tKey: 'donate.modalText' })}
+        />
+      )}
+      {status === 'error' && (
+        <ErrorModal
+          opened={isOpened}
+          title={translate({ lang: language, tKey: 'donate.paymentDeclined' })}
+          text={translate({ lang: language, tKey: 'donate.paymentDeclinedText' })}
+        />
+      )}
       <Box
         sx={{
           maxWidth: { xs: '600px', md: '1050px' },

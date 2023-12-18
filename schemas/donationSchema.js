@@ -2,9 +2,10 @@ import { generateMongooseModel } from '@/lib/generators/generateMongooseModel';
 import { generateColumns } from '@/lib/generators/generateColumns';
 import { generateCollectionApiHandler } from '@/lib/generators/generateCollectionApiHandler';
 import { generateElementApiHandler } from '@/lib/generators/generateElementApiHandler';
-import { date, number, string } from 'yup';
+import { bool, date, number, string } from 'yup';
 import { generateFormik } from '@/lib/generators/generateFormik';
 import CustomDatagrid from '@/components/datagrid/CustomDatagrid';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 
 //* General schema definition
 export const donationSchema = [
@@ -189,6 +190,24 @@ export const donationSchema = [
     mongooseType: String,
     mongooseRequired: true,
     yupValidations: string().required('Type requis'),
+  },
+  {
+    name: 'isPaid',
+    type: 'checkbox',
+    label: 'Don finalisé',
+    initialValue: false,
+    muiHeaderName: 'Don finalisé',
+    muiType: 'boolean',
+    muiFlex: 1.5,
+    muiRenderCell: (params) =>
+      params.row.isPaid ? (
+        <CheckCircle sx={{ color: 'green', fontSize: '2rem' }} />
+      ) : (
+        <Cancel sx={{ color: 'red', fontSize: '2rem' }} />
+      ),
+    mongooseType: Boolean,
+    mongooseRequired: true,
+    yupValidations: bool().required('Requis'),
   },
   {
     name: 'createdAt',
