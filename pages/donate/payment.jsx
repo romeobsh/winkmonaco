@@ -1,4 +1,4 @@
-import ErrorModal from '@/components/UI/ErrorModal';
+import ErrorModal from '@/components/ui/ErrorModal';
 import ContactCard from '@/components/contact/ContactCard';
 import PaymentLoading from '@/components/loading/PaymentLoading';
 import SuccessModal from '@/components/ui/SuccessModal';
