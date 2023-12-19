@@ -1,7 +1,7 @@
-import ErrorModal from '@/components/ui/ErrorModal';
+import ErrorModal from '@/components/UI/ErrorModal';
 import ContactCard from '@/components/contact/ContactCard';
 import PaymentLoading from '@/components/loading/PaymentLoading';
-import SuccessModal from '@/components/ui/SuccessModal';
+import SuccessModal from '@/components/UI/SuccessModal';
 import { LanguageContext } from '@/contexts/LanguageContext';
 import { translate } from '@/lib/translations/translate';
 import KRGlue from '@lyracom/embedded-form-glue';

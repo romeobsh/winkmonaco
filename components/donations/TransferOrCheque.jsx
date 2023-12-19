@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Skeleton, Typography } from '@mui/material';
-import CopyToClipboardButton from '../ui/CopyToClipboardButton';
+import CopyToClipboardButton from '../UI/CopyToClipboardButton';
 import Translation from '../general/Translation';
 
 const TransferOrCheque = ({ language, loading, data }) => {

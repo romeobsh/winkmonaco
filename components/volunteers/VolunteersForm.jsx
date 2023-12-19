@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import VolunteersLoading from './VolunteersLoading';
 import { useFormik } from 'formik';
 import { LoadingButton } from '@mui/lab';
-import SuccessModal from '../ui/SuccessModal';
+import SuccessModal from '../UI/SuccessModal';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import Translation from '../general/Translation';

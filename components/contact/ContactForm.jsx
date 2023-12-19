@@ -23,7 +23,7 @@ import IBAN from 'iban';
 import { LoadingButton, TabContext, TabList, TabPanel } from '@mui/lab';
 import SearchStatus from './SearchStatus';
 import { translate } from '@/lib/translations/translate';
-import SuccessModal from '../ui/SuccessModal';
+import SuccessModal from '../UI/SuccessModal';
 import ContactFormLoading from './ContactFormLoading';
 
 const ContactForm = ({ language, isLoading, onClick }) => {
