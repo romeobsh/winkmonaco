@@ -256,5 +256,12 @@ export const donationAPIHandler = generateElementApiHandler(DonationModel);
 //* --------
 
 export const DonationsDatagrid = () => (
-  <CustomDatagrid schema={donationSchema} title='Donations' endpoint='donations' />
+  <CustomDatagrid
+    schema={donationSchema}
+    sorting={{
+      sortModel: [{ field: 'createdAt', sort: 'desc' }],
+    }}
+    title='Donations'
+    endpoint='donations'
+  />
 );

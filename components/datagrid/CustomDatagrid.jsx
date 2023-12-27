@@ -6,7 +6,7 @@ import { generateColumns } from '@/lib/generators/generateColumns';
 import CustomDatagridToolbar from './CustomDatagridToolbar';
 import ConfirmationModal from '../general/ConfirmationModal';
 
-export default function CustomDatagrid({ endpoint, schema, title }) {
+export default function CustomDatagrid({ endpoint, schema, title, sorting }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isOpened, setIsOpened] = useState(false);
@@ -54,6 +54,7 @@ export default function CustomDatagrid({ endpoint, schema, title }) {
     columns: {
       columnVisibilityModel,
     },
+    sorting: sorting,
   };
 
   // Constructing the column visibility model based on the schema

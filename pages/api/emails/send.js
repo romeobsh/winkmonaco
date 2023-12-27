@@ -79,26 +79,38 @@ export default async function handler(req, res) {
     // Deduplicate recipientEmails
     recipientEmails = [...new Set(recipientEmails)];
 
-    recipientEmails.forEach((email) => {
-      const mailOptions = {
-        from: {
-          name: 'Wink Monaco',
-          address: 'noreply.winkmonaco@example.com',
-        },
-        to: email,
-        subject: subject,
-        html: isHtml ? text : textToHTML(text),
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Email sending error:', error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
+    // A helper function to promisify transporter.sendMail
+    const sendEmail = (mailOptions) => {
+      return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error('Email sending error:', error);
+            reject(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+            resolve(info);
+          }
+        });
       });
-    });
+    };
 
+    // Use Promise.all to wait for all emails to be sent
+    await Promise.all(
+      recipientEmails.map((email) => {
+        const mailOptions = {
+          from: {
+            name: 'Wink Monaco',
+            address: 'noreply.winkmonaco@example.com',
+          },
+          to: email,
+          subject: subject,
+          html: isHtml ? text : textToHTML(text),
+        };
+        return sendEmail(mailOptions);
+      })
+    );
+
+    // If all emails were sent successfully, save the record
     const newEmail = new EmailModel({
       subject: subject,
       sentOn: new Date(),
@@ -112,10 +124,10 @@ export default async function handler(req, res) {
     res.status(200).json({ message: 'Emails sent successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Email sending error' });
+    res.status(500).json({ message: 'Email sending error', error: error.message });
+  } finally {
+    await dbDisconnect();
   }
-
-  await dbDisconnect();
 }
 
 // Define a function to convert text to HTML as needed
