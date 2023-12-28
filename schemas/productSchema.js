@@ -160,7 +160,7 @@ export const productSchema = [
   {
     name: 'imageUrl',
     placeholder: "URL de l'image 1",
-    title: "L'image numéro 1 sera celle affichée sur la carte du produit dans la boutique",
+    title: "Lien à compléter: https://drive.google.com/uc?export=view&id=[ID DE L'IMAGE]",
     type: 'text',
     initialValue: '',
     muiHeaderName: 'Image 1',
@@ -173,6 +173,8 @@ export const productSchema = [
   {
     name: 'imageUrl2',
     placeholder: "URL de l'image 2",
+    title:
+      "L'image numéro 1 sera celle affichée sur la carte du produit dans la boutique! Les suivantes sont pour la fiche produit.",
     type: 'text',
     initialValue: '',
     muiHeaderName: 'Image 2',

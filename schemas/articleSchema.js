@@ -114,6 +114,8 @@ export const articleSchema = [
   {
     name: 'videoUrl',
     placeholder: "URL de la vidéo de l'article",
+    title:
+      'Lien à compléter: https://youtube.com/embed/[ID DE LA VIDEO] - NE PAS UTILISER LE LIEN DE LA VIDEO DIRECTEMENT',
     type: 'text',
     initialValue: '',
     muiHeaderName: 'URL de la vidéo',
@@ -152,6 +154,7 @@ export const articleSchema = [
   {
     name: 'imageUrl',
     placeholder: "URL de l'image de l'article",
+    title: "Lien à compléter: https://drive.google.com/uc?export=view&id=[ID DE L'IMAGE]",
     type: 'text',
     initialValue: '',
     muiHeaderName: "URL de l'image",

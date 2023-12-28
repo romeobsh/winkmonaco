@@ -11,6 +11,7 @@ import {
   SwipeableDrawer,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -28,6 +29,7 @@ function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const { language } = useContext(LanguageContext);
+  const isSmallMobile = useMediaQuery('(max-width:360px)'); // Check if the screen width is less than or equal to 360px
 
   // Onglets
   const tabs = [
@@ -96,7 +98,7 @@ function Navbar(props) {
                 src='/icons/ecritures.webp'
                 priority
                 alt='Logo'
-                width={70}
+                width={isSmallMobile ? 0 : 70}
                 height={42}
                 style={{ marginRight: '10px' }}
               />

@@ -132,6 +132,7 @@ export const helpContentSchema = [
   {
     name: 'imageUrl',
     placeholder: "URL de l'image 1",
+    title: "Lien à compléter: https://drive.google.com/uc?export=view&id=[ID DE L'IMAGE]",
     type: 'text',
     initialValue: '',
     title: 'Images',
