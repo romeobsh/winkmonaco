@@ -214,7 +214,7 @@ export const volunteerSchema = [
       ),
     mongooseType: Boolean,
     mongooseRequired: true,
-    yupValidations: bool().required('La volonté de recevoir le kit est requise'),
+    yupValidations: bool(),
   },
 ];
 

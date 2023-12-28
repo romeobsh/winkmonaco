@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Box, Fade, Grid, Pagination, Button } from '@mui/material';
-import Translation from '../general/Translation';
+import { Typography, Fade, Grid, Pagination, Button } from '@mui/material';
 import ArticlesLoading from './ArticlesLoading';
 import { useRouter } from 'next/router';
 import { DateFilter } from './DateFilter';
@@ -78,14 +77,19 @@ export const ArticlesPage = ({ data, loading, language }) => {
               handleEndDateChange={setSelectedEndDate}
               language={language}
             />
-            {currentArticles.length === 0 && <NoResults filter language={language} />}
+            {currentArticles.length === 0 && <NoResults filter language={language} year={selectedStartDate} />}
             {currentArticles.map((article) => (
-              <ArticleCard key={article.title} article={article} handleClick={handleClick} language={language} />
+              <ArticleCard
+                key={article.title + Math.random()}
+                article={article}
+                handleClick={handleClick}
+                language={language}
+              />
             ))}
             {/* Pagination */}
             <Grid item xs={12} sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
               <Pagination
-                count={Math.ceil(data.length / articlesPerPage)}
+                count={Math.ceil(filteredData.length / articlesPerPage)}
                 page={page}
                 onChange={(e, val) => setPage(val)}
                 size='large'

@@ -230,7 +230,7 @@ export const articleSchema = [
       ),
     mongooseType: Boolean,
     mongooseRequired: true,
-    yupValidations: bool().required("La priorité de l'article est requise"),
+    yupValidations: bool(),
   },
 ];
 
