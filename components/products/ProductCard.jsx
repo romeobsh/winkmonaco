@@ -41,6 +41,7 @@ export const ProductCard = ({ product, language }) => {
         type: 'UPDATE_QUANTITY',
         payload: {
           id: product._id,
+          size: selectedSize,
           quantity: existingCartItem.quantity + 1, // Increment the quantity
         },
       });
