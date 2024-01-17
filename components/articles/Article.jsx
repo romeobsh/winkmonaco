@@ -36,7 +36,6 @@ const Article = ({ id }) => {
       {isLoading && <ArticleLoading />}
       {!isLoading && (
         <React.Fragment>
-          {console.log(article)}
           <Grid
             item
             xs={12}
@@ -122,7 +121,6 @@ const Article = ({ id }) => {
           )}
           <Grid item xs={12} md={6} sx={{ padding: '1rem' }}>
             <Image
-              unoptimized
               src={article?.imageUrl}
               style={{
                 objectFit: 'contain',
@@ -140,7 +138,6 @@ const Article = ({ id }) => {
           {article?.imageUrl2 && (
             <Grid item xs={12} md={6} sx={{ padding: '1rem' }}>
               <Image
-                unoptimized
                 src={article?.imageUrl2}
                 style={{
                   objectFit: 'contain',
