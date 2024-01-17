@@ -27,7 +27,6 @@ const ContactCard = ({ language, english }) => {
         <React.Fragment>
           {data?.profilePic && (
             <Image
-              unoptimized
               priority
               alt='Photo de profil'
               width={isMobile ? 80 : 120}

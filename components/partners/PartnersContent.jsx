@@ -24,7 +24,6 @@ const PartnersContent = ({ partners, loading, language }) => {
             )}
           </Typography>
           <Image
-            unoptimized
             src={partners?.imageUrl}
             style={{
               objectFit: 'contain',
@@ -43,7 +42,6 @@ const PartnersContent = ({ partners, loading, language }) => {
           />
           {partners?.imageUrl2 && (
             <Image
-              unoptimized
               src={partners?.imageUrl2}
               style={{
                 objectFit: 'contain',
@@ -63,7 +61,6 @@ const PartnersContent = ({ partners, loading, language }) => {
           )}
           {partners?.imageUrl3 && (
             <Image
-              unoptimized
               src={partners?.imageUrl3}
               style={{
                 objectFit: 'contain',
@@ -83,7 +80,6 @@ const PartnersContent = ({ partners, loading, language }) => {
           )}
           {partners?.imageUrl4 && (
             <Image
-              unoptimized
               src={partners?.imageUrl4}
               style={{
                 objectFit: 'contain',

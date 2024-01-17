@@ -33,7 +33,6 @@ const Cart = () => {
                   <Box sx={{ display: 'flex', flexDirection: 'row', padding: '0.5rem 0.5rem 0', alignItems: 'center' }}>
                     <Box>
                       <Image
-                        unoptimized
                         // layout='responsive'
                         src={item.product.imageUrl}
                         style={{

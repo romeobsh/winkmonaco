@@ -28,7 +28,6 @@ const ImageCarousel = ({ pictures }) => {
         {pictures.map((picture, index) => (
           <Box key={index} sx={{ padding: '0 5px' }}>
             <Image
-              unoptimized
               width={270}
               height={318}
               sizes='100vw'

@@ -85,7 +85,6 @@ const VolunteersContent = ({ data, loading, language }) => {
                 }}
               >
                 <Image
-                  unoptimized
                   src={data.imageUrl}
                   style={{ objectFit: 'cover', width: '100%', height: '18rem' }}
                   alt='Box packing'
@@ -102,7 +101,6 @@ const VolunteersContent = ({ data, loading, language }) => {
                 sx={{ overflow: 'hidden', borderRadius: { xs: '0 1rem 0 0', lg: '0 0 0 0' }, padding: '0 0 0 0.25rem' }}
               >
                 <Image
-                  unoptimized
                   src={data.imageUrl2}
                   style={{ objectFit: 'cover', width: '100%', height: '18rem' }}
                   alt='Box packing'
@@ -127,7 +125,6 @@ const VolunteersContent = ({ data, loading, language }) => {
             >
               {' '}
               <Image
-                unoptimized
                 src={data.imageUrl3}
                 style={{ objectFit: 'cover', width: '100%', height: '18rem' }}
                 alt='Box packing'

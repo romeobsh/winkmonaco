@@ -156,7 +156,6 @@ const Article = ({ id }) => {
           {article?.imageUrl3 && (
             <Grid item xs={12} md={6} sx={{ padding: '1rem' }}>
               <Image
-                unoptimized
                 src={article?.imageUrl3}
                 style={{
                   objectFit: 'contain',
@@ -175,7 +174,6 @@ const Article = ({ id }) => {
           {article?.imageUrl4 && (
             <Grid item xs={12} md={6} sx={{ padding: '1rem' }}>
               <Image
-                unoptimized
                 src={article?.imageUrl4}
                 style={{
                   objectFit: 'contain',
