@@ -14,6 +14,7 @@ import {
 import { Forward, Star } from '@mui/icons-material';
 import { translate } from '@/lib/translations/translate';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export const ArticleCard = ({ article, handleClick, language }) => {
   const router = useRouter();
@@ -68,7 +69,19 @@ export const ArticleCard = ({ article, handleClick, language }) => {
             </Typography>
           </CardContent>
           <Box sx={{ height: '14rem', paddingTop: '1rem', position: 'relative' }}>
-            <CardMedia component='img' image={article.imageUrl} alt='Image' sx={{ height: '100%' }} />
+            <Image
+              src={article?.imageUrl}
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                height: '100%',
+              }}
+              alt='Image article'
+              sizes='100vw'
+              width='0'
+              height='0'
+              priority
+            />
             <Button
               sx={{ position: 'absolute', right: '1rem', bottom: '1rem' }}
               component='div'
